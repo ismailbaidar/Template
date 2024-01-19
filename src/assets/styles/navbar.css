@@ -1,5 +1,10 @@
 .nav-links {
   position: relative;
+  padding: 1rem 1.75rem;
+}
+
+.logo-holder {
+  padding: 1.25rem 2rem;
 }
 
 .nav-links::before {
@@ -13,6 +18,8 @@
 
 li {
   z-index: 10;
+  display: grid;
+  place-content: center;
 }
 
 nav {
