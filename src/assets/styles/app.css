@@ -2,11 +2,13 @@ body {
   overflow-x: hidden;
 }
 
-
-::-webkit-scrollbar{
-    width: 7px;
-    
+.app {
+  /* scale: 0.9; */
 }
-::-webkit-scrollbar-thumb{
-    background-color: blue;
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: blue;
 }
