@@ -6,17 +6,79 @@
   align-items: center;
   justify-content: center;
   gap: 5rem;
+  color: white;
+  font-size: 1.5rem;
 }
 
+.event-timer-container:after {
+  content: "";
+  background: url("../../public/mmc.png");
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  filter: brightness(20%);
+  z-index: -100;
+}
+.event-timer-container:before {
+  content: "";
+  background: cyan;
+  opacity: 0.05;
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+}
 .event-timer-container {
+  position: relative;
+  backdrop-filter: blur(10px);
   width: 100vw;
   height: 100%;
 
   /* background: red; */
-  height: calc(100vh - 80px);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 5rem;
+}
+
+.info-part {
+  font-size: 4rem;
+  color: white;
+}
+
+.info-part .subtitle {
+  font-family: "Cedarville Cursive", cursive;
+  text-align: center;
+  font-weight: bold;
+  color: #6167f0;
+}
+
+.event-timer-container .location-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  gap: 2rem;
+  font-size: 1.5rem;
+}
+
+.event-timer-container .location-button .btn {
+  padding: 1em 1.25em;
+  /* background: #6167f0; */
+  border-radius: 50px;
+  z-index: 10000;
+  transition: filter 300ms ease-in-out;
+}
+
+.event-timer-container .location-button .btn:hover {
+  filter: brightness(80%);
+  background-color: red;
+  cursor: pointer;
+}
+.event-timer-container .location-button .location {
+  display: grid;
+}
+.date {
+  background-clip: text;
 }

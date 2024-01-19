@@ -5,12 +5,25 @@
 .nav-links::before {
   position: absolute;
   inset: 0;
-  
-  scale: 3;
+
+  scale: 4.5;
   transform: skew(45deg);
   content: "";
-  
 }
 
+li {
+  z-index: 10;
+}
 
-li{z-index: 10;}
+nav {
+  /* margin: 1rem auto !important; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: -1px 1px 3px white;
+  /* left: 25%; */
+  /* border-radius: 50px; */
+  z-index: 1000;
+  background: white;
+}
