@@ -1,0 +1,16 @@
+.nav-links {
+  position: relative;
+}
+
+.nav-links::before {
+  position: absolute;
+  inset: 0;
+  
+  scale: 3;
+  transform: skew(45deg);
+  content: "";
+  
+}
+
+
+li{z-index: 10;}
