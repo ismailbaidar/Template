@@ -1,0 +1,17 @@
+body {
+    background-color: white;
+}
+
+.container-About {
+    justify-content: center;
+    display: flex;
+    margin: auto;
+}
+
+.img-head  {
+   
+    max-width: 400px; 
+      max-height: 400px;
+      display: block; 
+      margin: auto; 
+}
