@@ -1,87 +1,26 @@
-.section {
-  height: 100vh;
-  width: 100%;
-
-  width: max-content;
-  margin-inline: auto;
-  opacity: 0;
-  scale: 0.8;
-  /* transform: translateX(-100%); */
-  animation: reveal linear 100ms forwards;
-  animation-timeline: view();
-  animation-range: 20% 50%;
-}
-.event {
+.cards {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 2fr;
-  background: red;
-  max-height: 300px;
+  justify-content: center;
+  gap: 1rem;
 }
-.cards-container {
+
+.cards .cards-wrapper {
   display: flex;
+
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
   flex-wrap: wrap;
-  /* justify-content: center; */
-  grid-template-columns: repeat(3, 1fr);
-  /* background-color: blue; */
-  width: 100%;
-}
-.imgSpeaker {
-  /* padding-left: 1rem; */
-  /* padding-right:10px; */
-}
-.spk1 {
-  width: 4rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  text-align: center;
-  position: relative;
-  display: inline-block;
-  margin-right: 1rem;
-  border: 3px solid black;
-}
-.button-container {
-  display: flex;
-}
-.img {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  /* border-radius: 50%; */
-
-  object-fit: cover;
-}
-.section-title {
-  font-size: 1.2rem;
-  color: black;
-}
-.max-content {
-  /* padding: 5px; */
-  /* width: max-content; */
 }
 
-/* w-80  card w-96 shadow-xl flex flex-col */
-.aaa {
-  width: 3rem;
-  height: 3rem;
-  /* justify-content: center;
-    align-content: center; */
-  text-align: center;
-  /* position: absolute; */
-  /* transform: translateY(-3rem); */
-}
-.sec {
-  background-color: blueviolet;
-  width: 100%;
-  height: 50%;
-}
-
-.event-card {
+.cards .show-more-button {
+  padding: 0.75rem 0.5rem;
+  background: pink;
   width: max-content;
 }
-
-.date-preview {
-  transform: translate(50%, -50%);
+@media screen and (width < 700px) {
+  .cards .cards-wrapper {
+    flex-direction: column;
+  }
 }

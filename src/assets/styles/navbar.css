@@ -28,9 +28,19 @@ nav {
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
+
   box-shadow: -1px 1px 3px white;
-  /* left: 25%; */
-  /* border-radius: 50px; */
+
   z-index: 1000;
   background: white;
+}
+
+@media screen and (width < 700px) {
+  .nav-links::before {
+    background: transparent;
+  }
+  .nav-links {
+    color: black;
+  }
 }
