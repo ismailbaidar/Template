@@ -1,18 +1,46 @@
 .stats {
   background: #333;
   color: white;
+  display: flex;
+  gap: 2rem;
+  padding: 10rem 3rem;
+  align-items: center;
+  justify-content: center;
   /* display: none; */
   /* height: 100vh; */
 }
+
+.stat {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: white;
+  color: black;
+  opacity: 0;
+  transform: translateY(-100%);
+  padding: 2rem;
+  border-bottom: 5px solid #3985ed;
+  animation: reveal-bottom linear 300ms forwards;
+  animation-timeline: view(block);
+  animation-range: 10% 30%;
+}
+
 @media screen and (width < 700px) {
   .stats {
     display: grid;
-    /* grid-template-columns: 1fr; */
+    grid-template-columns: 1fr;
+    /* overflow-x: hidden; */
     gap: 0.5rem;
+    max-width: 100%;
   }
   .stats .stat {
     padding: 1.5rem 0.75rem;
+    transform: translate(0%, 100%);
 
+    animation-name: reveal-right;
+    animation-range: 0% 20%;
     display: flex;
     flex-direction: column;
     align-items: center;
