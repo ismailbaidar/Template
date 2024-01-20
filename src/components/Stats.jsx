@@ -39,7 +39,7 @@ export default function Stats() {
   return (
     <div className="stats">
       {true && (
-        <div className="flex gap-3">
+        <>
           <div className="stat">
             <FontAwesomeIcon icon={faHandshake} />
             <CountUp
@@ -68,7 +68,7 @@ export default function Stats() {
               end={data.sponsorsCountData}
             />
           </div>
-          <div className="stat">
+          <div className="stat"> 
             <FontAwesomeIcon icon={faCalendarCheck} />
             <CountUp
               start={0}
@@ -77,7 +77,7 @@ export default function Stats() {
               end={data.visitedCitiesCountData}
             />
           </div>
-        </div>
+        </>
       )}
     </div>
   )
