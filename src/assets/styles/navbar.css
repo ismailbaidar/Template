@@ -11,7 +11,7 @@
   position: absolute;
   inset: 0;
 
-  scale: 4.5;
+  scale: 2.5;
   transform: skew(45deg);
   content: "";
 }

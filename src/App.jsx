@@ -11,6 +11,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/Events" element={<h1>This is the events page</h1>} />
+        <Route path="/About" element={<h1>About Page</h1>} />
       </Routes>
     </div>
   )

@@ -12,3 +12,37 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: blue;
 }
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes reveal-left {
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes reveal-right {
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes reveal-top {
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes reveal-bottom {
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
