@@ -8,6 +8,11 @@ body {
     margin: auto;
 }
 
+.parg{
+    text-align: center;
+}
+
+
 .img-head  {
    
     max-width: 400px; 

@@ -25,6 +25,7 @@
   animation: reveal-bottom linear 300ms forwards;
   animation-timeline: view(block);
   animation-range: 10% 30%;
+
 }
 
 @media screen and (width < 700px) {

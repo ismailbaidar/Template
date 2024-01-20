@@ -10,8 +10,8 @@ function AboutUs() {
 
         </div>
         <div className='head-container'>
-          <div className='parg'>
-            <p>Morocco Microsoft Community</p>
+          <div >
+            <p className='parg'>Morocco Microsoft Community</p>
           </div>
           <div className='img-head '>
             <img src="../public/Images/blue.jpg" alt="" />
