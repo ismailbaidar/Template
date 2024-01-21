@@ -9,11 +9,11 @@ import Event from "./components/Event"
 export default function App() {
   return (
     <div className="app">
-      <Navbar></Navbar>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/Events" element={<Event />} />
-        <Route path="/About" element={<AboutUs/>} />
+        <Route path="/*" element={<MainRoutes />} />
+        {/* the routes below gonna be displayed without the navbar and footer components */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   )
