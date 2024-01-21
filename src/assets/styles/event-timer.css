@@ -13,7 +13,7 @@
 
 .event-timer-container:after {
   content: "";
-  background: url("../../public/mmc.png");
+  background: url("../../mmc.png");
   position: absolute;
   inset: 0;
   background-size: cover;

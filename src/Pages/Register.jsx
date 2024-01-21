@@ -1,28 +1,27 @@
 import { Checkbox, FormControlLabel, TextField } from "@mui/material"
 import "../assets/styles/form.css"
-import SvgLogin from "../components/SvgLogin"
+import Svg from "../components/SvgLogin"
 import { Link } from "react-router-dom"
-export default function Login() {
+import SvgRegister from "../components/SvgRegister"
+export default function Register() {
   return (
     <div className="form-container">
       <div className="background bg-gradient-to-r from-sky-500 to-indigo-500">
-        <SvgLogin />
+        <SvgRegister />
       </div>
       <div className="form-elements">
         <span>
-          <h1>Sign In</h1>
+          <h1>Sign Up</h1>
           <h2>
-            Dont have an account ? <Link to="/register">Sign Up</Link>
+            Already have an account ? <Link to="/login">Sign In</Link>
           </h2>
         </span>
         <TextField label="Email" type="outlined" />
         <TextField label="Password" type="password" />
-        <div className="checkbox">
-          <Checkbox id="remember" />
-          {/* <input type="checkbox" name="" id="" /> */}
-          <label htmlFor="remember">Remember me ?</label>
-        </div>
-        <button>Login</button>
+        <TextField label="Username" type="outlined" />
+        <TextField label="Phone" type="outlined" />
+
+        <button>Sign Up</button>
       </div>
     </div>
   )

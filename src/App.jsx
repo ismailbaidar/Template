@@ -5,16 +5,18 @@ import "./assets/styles/app.css"
 import { Routes, Route } from "react-router-dom"
 import HomePage from "./Pages/HomePage"
 import Footer from "./components/Footer"
+import Login from "./Pages/Login"
+import MainRoutes from "./components/MainRoutes"
+import Register from "./Pages/Register"
 export default function App() {
   return (
     <div className="app">
-      <Navbar></Navbar>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/Events" element={<h1>This is the events page</h1>} />
-        <Route path="/About" element={<h1>About Page</h1>} />
+        <Route path="/*" element={<MainRoutes />} />
+        {/* the routes below gonna be displayed without the navbar and footer components */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
-      <Footer />
     </div>
   )
 }
