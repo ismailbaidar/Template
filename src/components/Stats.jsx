@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useRef } from "react"
 import CountUp from "react-countup"
 import "../assets/styles/stats.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 import {
   faCalendarCheck,
   faCity,
@@ -79,6 +80,7 @@ export default function Stats() {
           </div>
         </>
       )}
+
     </div>
   )
 }

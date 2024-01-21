@@ -4,7 +4,7 @@ import EventTimer from "./components/EventImer"
 import "./assets/styles/app.css"
 import { Routes, Route } from "react-router-dom"
 import HomePage from "./Pages/HomePage"
-import Login from "./Pages/Login"
+import Footer from "./components/Footer"
 export default function App() {
   return (
     <div className="app">
@@ -13,8 +13,8 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/Events" element={<h1>This is the events page</h1>} />
         <Route path="/About" element={<h1>About Page</h1>} />
-        <Route path="/Login" element={<Login />} />
       </Routes>
+      <Footer />
     </div>
   )
 }

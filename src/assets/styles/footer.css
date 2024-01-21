@@ -1,0 +1,45 @@
+.footer {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+
+  padding: 0.75rem 2rem;
+  background-color: white;
+  margin-block-start: 1rem;
+  font-size: 0.8rem;
+}
+
+.parg-footer {
+  align-items: flex-end;
+  text-align: end;
+}
+.icons-info {
+  display: flex;
+
+  color: black;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+.pages-contain {
+  margin: 0;
+
+  /* background-color: blue; */
+
+  display: grid;
+  max-width: 120px;
+  max-height: 120px;
+}
+.footer-nav {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+}
