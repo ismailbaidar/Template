@@ -1,22 +1,40 @@
-body {
-    background-color: white;
-}
-
-.container-About {
-    justify-content: center;
-    display: flex;
+.container {
     margin: auto;
-}
-
-.parg{
+    padding: 8rem;
+  }
+  
+  .card-cont {
+    display: flex;
+    gap: 30px; 
+    box-shadow: 1px 1px 3px gray;
+  }
+  
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .titel {
+    font-weight: bold;
+    padding: 1rem;
     text-align: center;
-}
-
-
-.img-head  {
-   
-    max-width: 400px; 
-      max-height: 400px;
-      display: block; 
-      margin: auto; 
-}
+    font-size: 40px;
+  }
+  
+  .text-Lorem {
+    text-align: justify;
+  }
+  
+  .text-header h4 {
+    color: black;
+  }
+  
+  .text-contain {
+    padding: 1rem;
+  }
+  
+ 
+  .section {
+    margin-bottom: 20px;
+  }
+  
