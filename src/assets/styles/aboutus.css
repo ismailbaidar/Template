@@ -1,6 +1,6 @@
 .container {
     margin: auto;
-    padding: 8rem;
+    padding: 5rem;
   }
   
   .card-cont {
@@ -8,19 +8,38 @@
     gap: 30px; 
     box-shadow: 1px 1px 3px gray;
   }
-  
-  .image-container img {
-    max-width: 100%;
-    height: auto;
+  .text-miss {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; 
   }
   
   .titel {
     font-weight: bold;
-    padding: 1rem;
     text-align: center;
+    padding-bottom: 1rem;
     font-size: 40px;
   }
   
+  .description {
+    padding: 2rem;
+    /* just for centering the p tag i'll use margin and thanks */
+    margin-left:5rem ;
+    max-width: 800px;
+    
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  
+  .description p {
+    text-align: center;
+    color: black;
+    font-size: 16px;
+    font-family: 'Roboto, sans-serif';
+  }
+  
+ 
   .text-Lorem {
     text-align: justify;
   }
@@ -34,7 +53,5 @@
   }
   
  
-  .section {
-    margin-bottom: 20px;
-  }
+ 
   
