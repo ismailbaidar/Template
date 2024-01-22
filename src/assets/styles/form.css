@@ -13,6 +13,7 @@
   font-size: 2rem;
   height: 100vh;
   color: white;
+  background: linear-gradient(45deg, var(--primary-red), var(--primary-yellow));
 }
 
 .form-container .form-elements {
@@ -53,7 +54,7 @@ svg {
   font-size: 1rem;
 }
 .form-container .form-elements span h2 a {
-  color: var(--primary);
+  color: var(--primary-red);
   font-weight: 600;
 }
 
