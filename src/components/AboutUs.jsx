@@ -14,7 +14,7 @@ function AboutUs() {
 
             <div className='image-container'>
 
-              <img src="../Images/Blue.png" alt="" />
+              <img src="../Images/Blue.jpg" alt="" />
 
             </div>
             <div className='text-contain'>
