@@ -1,9 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "../assets/styles/card.css"
 import { Link } from "react-router-dom"
 
 // import { faYoutube } from  "@fortawesome/free-solid-svg-icons"
-import { faYoutube, faFacebook, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 export default function Card() {
   const description =
     "something interesting information about this eventsomething interesting information about this eventsomething interesting information about this eventsomething interesting information about this eventsomething interesting information about this eventsomething interesting information about this eventsomething interesting information about this eventsomething interesting information about this eventsomething interesting information about this eventsomething interesting information about this eventsomething interesting information about this eventsomething interesting information about this event eventeventeventeventeventeventeventeventeventeventevent"

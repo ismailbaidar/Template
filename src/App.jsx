@@ -4,10 +4,8 @@ import EventTimer from "./components/EventImer"
 import "./assets/styles/app.css"
 import { Routes, Route } from "react-router-dom"
 import HomePage from "./Pages/HomePage"
-import Footer from "./components/Footer"
-import Login from "./Pages/Login"
-import MainRoutes from "./components/MainRoutes"
-import Register from "./Pages/Register"
+import AboutUs from "./components/AboutUs"
+import Event from "./components/Event"
 export default function App() {
   return (
     <div className="app">

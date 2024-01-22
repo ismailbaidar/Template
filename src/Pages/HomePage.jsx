@@ -1,3 +1,4 @@
+import  Footer  from "../components/Footer"
 import Cards from "../components/Cards"
 import EventTimer from "../components/EventImer"
 import Stats from "../components/Stats"
@@ -7,7 +8,7 @@ export default function HomePage() {
       <EventTimer time=""></EventTimer>
       <Cards />
       <Stats />
-      
+     <Footer></Footer>
 
     </div>
   )
