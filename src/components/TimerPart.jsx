@@ -5,9 +5,9 @@ export default function TimePart({ title, value }) {
   return (
     <span className="timer-part">
       <span className="count-down">
-        <div className="square bg-gradient-to-r from-sky-500 to-indigo-500 to-indigo-500">
+        <div className="square from-sky-500 to-indigo-500 to-indigo-500">
           <span>
-            <div className="bg-gradient-to-r from-sky-500 to-indigo-500 to-indigo-500 text-transparent">
+            <div className="background-text from-sky-500 to-indigo-500 to-indigo-500 text-transparent">
               {value}
             </div>
           </span>

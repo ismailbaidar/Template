@@ -10,6 +10,7 @@ export default function HomePage() {
       <EventTimer time=""></EventTimer>
       <Cards />
       <Stats />
+     
 
     </div>
   )

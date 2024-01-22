@@ -1,8 +1,12 @@
 :root {
-  --primary: #3985ed;
+  /* --primary: #4a77ee; */
+  --primary-blue: #74b2da;
+  --primary-yellow: #eebc54;
+  --primary-red: #c83a31;
+  --primary-green: #a5ca6d;
 }
 ::-webkit-scrollbar {
-  width: 7px;
+  display: none;
 }
 ::-webkit-scrollbar-thumb {
   background-color: var(--primary);
@@ -22,7 +26,7 @@
 @keyframes reveal-left {
   to {
     opacity: 1;
-    scale: 1;
+    transform: translateX(0);
   }
 }
 

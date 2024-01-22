@@ -7,11 +7,16 @@
   opacity: 0;
   scale: 0.8;
   animation: reveal ease 300ms forwards;
-  animation-timeline: view();    
+  animation-timeline: view();
+  animation-range: 10% 50%;
 }
 
 .card .background-holder {
-  background-color: pink;
+  background: linear-gradient(
+    to bottom,
+    var(--primary-red),
+    var(--primary-blue)
+  );
   padding: 4rem 3rem;
 }
 .card .card-info {
@@ -31,7 +36,9 @@
   max-width: 300px;
 }
 .card .date-square {
-  background: orange;
+  background: var(--primary-red);
+  color: white;
+  font-weight: bold;
   width: max-content;
   display: flex;
   flex-direction: column;
@@ -55,4 +62,4 @@
   align-items: flex-start;
   justify-content: center;
 }
-/* css footer */
+

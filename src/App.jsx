@@ -5,11 +5,14 @@ import "./assets/styles/app.css"
 import { Routes, Route } from "react-router-dom"
 import HomePage from "./Pages/HomePage"
 import AboutUs from "./components/AboutUs"
+import MainRoutes from "./components/MainRoutes"
+import { useSelector, useDispatch } from "react-redux"
 import Event from "./components/Event"
 import Footer from "./components/Footer"
 import Login from "./Pages/Login"
-import MainRoutes from "./components/MainRoutes"
 import Register from "./Pages/Register"
+import { useEffect, useState } from "react"
+import { setCurrentPage } from "./Features/NavigationSlice"
 export default function App() {
   return (
     <div className="app">
