@@ -17,12 +17,12 @@
   position: absolute;
   inset: 0;
   background-size: cover;
-  filter: brightness(20%);
+  filter: brightness(15%);
   z-index: -100;
 }
 .event-timer-container:before {
   content: "";
-  background: cyan;
+  background: var(--primary-red);
   opacity: 0.05;
   position: absolute;
   inset: 0;
@@ -52,7 +52,7 @@
   font-family: "Cedarville Cursive", cursive;
   text-align: center;
   font-weight: bold;
-  color: #6167f0;
+  color: var(--primary-yellow);
 }
 
 .event-timer-container .location-button {
@@ -69,18 +69,20 @@
   /* background: #6167f0; */
   border-radius: 50px;
   z-index: 10000;
+  background: var(--primary-red);
   transition: filter 300ms ease-in-out;
 }
 
 .event-timer-container .location-button .btn:hover {
   filter: brightness(80%);
-  background-color: red;
+
   cursor: pointer;
 }
 .event-timer-container .location-button .location {
   display: grid;
 }
 .date {
+  background: var(--primary-red);
   background-clip: text;
 }
 

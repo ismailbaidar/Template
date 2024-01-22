@@ -1,5 +1,5 @@
 .stats {
-  background: #333;
+  background: #272727;
   color: white;
   display: flex;
   gap: 2rem;
@@ -15,14 +15,23 @@
   justify-content: center;
   flex-direction: column;
   background: white;
-  color: black;
+  color: var(--primary-red);
   opacity: 0;
-  transform: translateY(-100%);
+  gap: 1rem;
+  transform: translateX(-100%);
   padding: 2rem;
-  border-bottom: 5px solid #3985ed;
-  animation: reveal-bottom linear 300ms forwards;
+  border-bottom: 5px solid var(--primary-red);
+  animation: reveal-left linear 300ms forwards;
   animation-timeline: view(block);
   animation-range: 10% 30%;
+  width: 10%;
+  font-weight: bold;
+
+  aspect-ratio: 1;
+  font-family: "Raleway", sans-serif;
+}
+.stat svg {
+  font-size: 3rem;
 }
 
 @media screen and (width < 700px) {

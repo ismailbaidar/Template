@@ -20,6 +20,12 @@ li {
   z-index: 10;
   display: grid;
   place-content: center;
+  border: 3px solid transparent;
+  font-weight: 600;
+}
+
+li[data-current="true"] {
+  border-block-end-color: var(--primary-red);
 }
 
 nav {

@@ -16,13 +16,9 @@ export default function EventTimer({ date }) {
         <TimerPart title="Seconds" value="40"></TimerPart>
       </span>
       <div className="location-button">
-        <button className="btn bg-gradient-to-r from-sky-500 to-indigo-500 font-bold">
-          Reserve You place
-        </button>
+        <button className="btn  font-bold">Reserve You place</button>
         <div className="location grid gap-2">
-          <span className="date text-transparent font-bold bg-gradient-to-r from-sky-500 to-indigo-500">
-            01-JAN-2024
-          </span>
+          <span className="date text-transparent font-bold ">01-JAN-2024</span>
           <span className="flex justify-between gap-[1rem]">
             <FontAwesomeIcon icon={faLocationDot} />
             <span className="text-lg">Somewhere in world ,city</span>
