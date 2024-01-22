@@ -6,10 +6,17 @@ import { Routes, Route } from "react-router-dom"
 import HomePage from "./Pages/HomePage"
 import AboutUs from "./components/AboutUs"
 import Event from "./components/Event"
+import Footer from "./components/Footer"
+import Login from "./Pages/Login"
+import MainRoutes from "./components/MainRoutes"
+import Register from "./Pages/Register"
 export default function App() {
   return (
     <div className="app">
       <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/Events" element={<Event />} />
+        <Route path="/About" element={<AboutUs/>} />
         <Route path="/*" element={<MainRoutes />} />
         {/* the routes below gonna be displayed without the navbar and footer components */}
         <Route path="/login" element={<Login />} />
