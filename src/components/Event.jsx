@@ -1,7 +1,7 @@
 export default function Event(){
     return(
         <>
-        <h1>hello nasibi </h1>
+        <h1>Events </h1>
         </>
     )
 }
