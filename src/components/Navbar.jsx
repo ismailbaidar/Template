@@ -35,11 +35,22 @@ export default function Navbar() {
             Events
           </Link>
         </li>
-        <li data-current={page == "About"}>
+        <li
+          data-current={page == "Speakers"}
+          onClick={() => dispatch(setCurrentPage("Speakers"))}
+        >
           <Link
-            to="/page/about"
-            onClick={() => dispatch(setCurrentPage("About"))}
+            onClick={() => dispatch(setCurrentPage("Events"))}
+            to="/page/speakers"
           >
+            Speakers
+          </Link>
+        </li>
+        <li
+          data-current={page == "About"}
+          onClick={() => dispatch(setCurrentPage("About"))}
+        >
+          <Link onClick={() => dispatch(setCurrentPage("Events"))} to="About">
             About
           </Link>
         </li>

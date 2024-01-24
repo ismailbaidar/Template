@@ -78,6 +78,7 @@
   }
   .about-us-container .container .card-cont:nth-child(even) {
     flex-direction: column-reverse;
+    
   }
   .about-us-container .text-miss {
     display: grid;
