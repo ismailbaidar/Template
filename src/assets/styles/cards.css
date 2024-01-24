@@ -2,6 +2,11 @@
   display: grid;
   justify-content: center;
   gap: 1rem;
+  opacity: 0;
+  scale: 0.8;
+  animation: reveal ease 300ms forwards;
+  animation-timeline: view();
+  animation-range: 10% 50%;
 }
 
 .cards .cards-wrapper {
@@ -23,5 +28,10 @@
 @media screen and (width < 700px) {
   .cards .cards-wrapper {
     flex-direction: column;
+  }
+  .cards {
+    animation: none;
+    opacity: 1;
+    scale: 1;
   }
 }

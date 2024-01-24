@@ -22,6 +22,10 @@ export default function Register() {
         <TextField label="Phone" type="outlined" />
 
         <button>Sign Up</button>
+
+        <Link to="/" className="redirect-home">
+          Back to home
+        </Link>
       </div>
     </div>
   )

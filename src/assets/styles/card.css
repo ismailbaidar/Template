@@ -3,12 +3,8 @@
   background: white;
   display: flex;
   flex-direction: column;
+
   box-shadow: 1px 1px 3px gray;
-  opacity: 0;
-  scale: 0.8;
-  animation: reveal ease 300ms forwards;
-  animation-timeline: view();
-  animation-range: 10% 50%;
 }
 
 .card .background-holder {
@@ -62,4 +58,12 @@
   align-items: flex-start;
   justify-content: center;
 }
-
+@media screen and (width < 700px) {
+  .card {
+    opacity: 0;
+    scale: 0.8;
+    animation: reveal ease 300ms forwards;
+    animation-timeline: view();
+    animation-range: 10% 50%;
+  }
+}
