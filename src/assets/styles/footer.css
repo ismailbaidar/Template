@@ -1,14 +1,14 @@
 footer {
   background-color: #000000;
-
-  padding: 1.5rem 2rem;
+  padding: 1rem;
 }
 
-.container {
+footer .container {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
-
+  padding: 0;
+  padding: 2rem;
   width: 100%;
 }
 .social *:nth-child(2) {
@@ -94,4 +94,19 @@ footer .facebook:hover {
 
 footer .linkedin:hover {
   color: #0a66c2;
+}
+
+@media screen and (width < 700px) {
+  footer .row {
+    grid-template-columns: 1fr;
+  }
+  footer .container {
+    padding: 0.5rem;
+  }
+  .row .social {
+    border: none !important;
+  }
+  .social * {
+    width: 100% !important;
+  }
 }
