@@ -1,0 +1,6 @@
+.admin-sidebar {
+  background: red;
+  height: 100vh;
+  position: fixed;
+  width: 20%;
+}
