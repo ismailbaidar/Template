@@ -1,26 +1,15 @@
 .stats {
-  /* background: #272727; */
+  background: #272727;
   position: relative;
 
-  overflow-y: auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-style: preserve-3d;
-}
-
-.stats .stats-container {
   color: white;
   display: flex;
   gap: 2rem;
   padding: 10rem 3rem;
   align-items: center;
   justify-content: center;
-  background: transparent;
+
   width: 100%;
-  position: absolute;
-  z-index: 10000;
 }
 
 .stat {

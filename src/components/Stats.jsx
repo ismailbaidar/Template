@@ -19,29 +19,10 @@ export default function Stats() {
     visitedCitiesCountData: 111113,
   }
 
-  //   const stats = useRef()
-
-  //   const [isVisible, setIsVisible] = useState(false)
-
-  //   const handleScroll = () => {
-  //     if (stats.current) {
-  //       console.log(
-  //         "hello",
-  //         stats.current.getBoundingClientRect().top,
-  //         window.innerHeight
-  //       )
-  //       const rect = stats.current.getBoundingClientRect()
-  //       const isVisible = rect.top > window.innerHeight
-  //       setIsVisible(isVisible)
-  //       console.log(isVisible)
-  //     }
-  //   }
-
   return (
     <div className="stats">
-      <div className="background"></div>
       {true && (
-        <div className="stats-container">
+        <>
           <div className="stat">
             <FontAwesomeIcon icon={faHandshake} />
             <CountUp
@@ -79,7 +60,7 @@ export default function Stats() {
               end={data.visitedCitiesCountData}
             />
           </div>
-        </div>
+        </>
       )}
     </div>
   )

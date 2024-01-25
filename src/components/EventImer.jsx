@@ -4,51 +4,58 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
 export default function EventTimer({ date }) {
-  const [days, setDays] = useState(0)
-  const [hours, setHours] = useState(0)
-  const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(0)
+  const [days, setDays] = useState("")
+  const [hours, setHours] = useState("")
+  const [minutes, setMinutes] = useState("")
+  const [seconds, setSeconds] = useState("")
+  const currentDate = new Date()
+  const eventDate = new Date(date)
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setDaysFunction()
-      setHoursFunction()
-      setMinutesFunction()
-      setSecondsFunction()
+      if (currentDate.getTime() > eventDate.getTime()) {
+        setDays(0)
+        setMinutes(0)
+        setHours(0)
+        setSeconds(0)
+      } else {
+        setDaysFunction()
+        setHoursFunction()
+        setMinutesFunction()
+        setSecondsFunction()
+      }
     }, 1000)
 
     return () => clearInterval(intervalId)
   }, [date])
 
   function setDaysFunction() {
-    const currentDate = new Date()
-    const eventDate = new Date(date)
-    const diffDate = Math.abs(
+    const diffDate = Math.floor(
       Date.UTC(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        currentDate.getDate()
+        eventDate.getFullYear(),
+        eventDate.getMonth(),
+        eventDate.getDate()
       ) -
         Date.UTC(
-          eventDate.getFullYear(),
-          eventDate.getMonth(),
-          eventDate.getDate()
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          currentDate.getDate()
         )
     )
 
-    setDays(diffDate / (1000 * 60 * 60 * 24))
+    setDays(diffDate / (1000 * 60 * 60 * 24) - 1)
   }
   function setHoursFunction() {
     const currentHours = new Date().getHours()
-    setHours(24 - currentHours)
+    setHours(23 - currentHours)
   }
 
   function setMinutesFunction() {
     const currentMinutes = new Date().getMinutes()
-    setMinutes(60 - currentMinutes)
+    setMinutes(59 - currentMinutes)
   }
   function setSecondsFunction() {
     const currentSeconds = new Date().getSeconds()
-    setSeconds(60 - currentSeconds)
+    setSeconds(59 - currentSeconds)
   }
   return (
     <div className="event-timer-container">
