@@ -45,7 +45,7 @@ const speakersData = [
     social: {
       facebook: "https://www.facebook.com/MohssineRealReal",
       linkedin: "https://www.linkedin.com/in/mohssinemasaaf/",
-      instagram: "https://www.facebook.com/saidwahidmaroc",
+      instagram: "https://www.instagram.com/mohssine_masaaf/",
     },
   },
   {
@@ -63,58 +63,69 @@ const speakersData = [
     social: {
       facebook: "https://www.facebook.com/anas.belabbes",
       linkedin: "https://www.linkedin.com/in/anasbelabbes/",
-      instagram: "https://www.facebook.com/saidwahidmaroc",
     },
   },
 ]
 
-const Speaker = ({ name, role, image, social }) => (
-  <div className="speakers-cards">
-    <div className="tic-tac">
-      <img src={image} width={200} alt={name} />
-    </div>
-    <div className="info-said">
-      <h5>{name}</h5>
-      <p>{role}</p>
-    </div>
-    <div className="nav-Social">
-      {Object.entries(social).map(([platform, link]) => (
-        <div key={platform} className={platform}>
-          <a href={link}>
-            {platform === "email" ? (
-              <FontAwesomeIcon icon={faEnvelope} />
-            ) : platform === "facebook" ? (
-              <FontAwesomeIcon icon={faFacebook} />
-            ) : platform === "linkedin" ? (
-              <FontAwesomeIcon icon={faLinkedin} />
-            ) : platform === "instagram" ? (
-              <FontAwesomeIcon icon={faInstagram} />
-            ) : null}
-          </a>
-        </div>
-      ))}
-    </div>
-  </div>
-)
 
-function speakers() {
+
+
+
+export default function Speakers() {
   return (
     <>
       <section>
         <div className="speakers-container">
           <div className="titel">
-            <h3> Our Speakers</h3>
+            <h3>Our Speakers</h3>
           </div>
 
-          <div className="card-container">
-            {speakersData.map((speaker, index) => (
-              <Speaker key={index} {...speaker} />
-            ))}
+          <div id="card-area">
+            <div className="wrapper">
+              <div className="box-area">
+                {speakersData.map((speakerData, index) => (
+                  <div key={index} className="box">
+                  
+                    <div className="social-icons-container">
+                      <div className="social-icons-info">
+                        {speakerData.social && (
+                          <>
+                            {speakerData.social.facebook && (
+                              <a href={speakerData.social.facebook}>
+                                <FontAwesomeIcon icon={faFacebook} />
+                              </a>
+                            )}
+                            {speakerData.social.linkedin && (
+                              <a href={speakerData.social.linkedin}>
+                                <FontAwesomeIcon icon={faLinkedin} />
+                              </a>
+                            )}
+                            {speakerData.social.instagram && (
+                              <a href={speakerData.social.instagram}>
+                                <FontAwesomeIcon icon={faInstagram} />
+                              </a>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <img alt="" src={speakerData.image} />
+                    <div className="overlay">
+                      <h3>{speakerData.name}</h3>
+                      <h5>{speakerData.role}</h5>
+                      <div className="button">
+                        <button>
+                          <a href="#">Details</a>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
     </>
-  )
+  );
 }
-
-export default speakers
