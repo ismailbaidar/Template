@@ -1,11 +1,15 @@
 .stats {
   background: #272727;
+  position: relative;
+
   color: white;
   display: flex;
   gap: 2rem;
   padding: 10rem 3rem;
   align-items: center;
   justify-content: center;
+
+  width: 100%;
 }
 
 .stat {

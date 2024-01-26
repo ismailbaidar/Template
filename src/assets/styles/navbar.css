@@ -21,6 +21,8 @@ nav li {
 
 nav li[data-current="true"] {
   border-block-end-color: var(--primary-red);
+  color: var(--primary-red);
+  
 }
 
 nav {

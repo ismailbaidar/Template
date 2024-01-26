@@ -14,6 +14,7 @@ import Register from "./Pages/Register"
 import { useEffect, useState } from "react"
 import { setCurrentPage } from "./Features/NavigationSlice"
 import ErrorPage from "./Pages/ErrorPage"
+import AdminRoutes from "./admin/AdminRoutes"
 export default function App() {
   return (
     <div className="app">
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/page/*" element={<MainRoutes />} />
         <Route path="/401" element={<ErrorPage code="401" />} />
+        <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/*" element={<ErrorPage code="404" />} />
       </Routes>
     </div>

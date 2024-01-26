@@ -19,24 +19,6 @@ export default function Stats() {
     visitedCitiesCountData: 111113,
   }
 
-  //   const stats = useRef()
-
-  //   const [isVisible, setIsVisible] = useState(false)
-
-  //   const handleScroll = () => {
-  //     if (stats.current) {
-  //       console.log(
-  //         "hello",
-  //         stats.current.getBoundingClientRect().top,
-  //         window.innerHeight
-  //       )
-  //       const rect = stats.current.getBoundingClientRect()
-  //       const isVisible = rect.top > window.innerHeight
-  //       setIsVisible(isVisible)
-  //       console.log(isVisible)
-  //     }
-  //   }
-
   return (
     <div className="stats">
       {true && (
@@ -69,7 +51,7 @@ export default function Stats() {
               end={data.sponsorsCountData}
             />
           </div>
-          <div className="stat"> 
+          <div className="stat">
             <FontAwesomeIcon icon={faCalendarCheck} />
             <CountUp
               start={0}
@@ -80,7 +62,6 @@ export default function Stats() {
           </div>
         </>
       )}
-
     </div>
   )
 }

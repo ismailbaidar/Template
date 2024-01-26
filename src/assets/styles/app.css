@@ -12,6 +12,11 @@
   background-color: var(--primary);
 }
 
+.app {
+  height: 100vh;
+  overflow-y: auto;
+  perspective: 10px;
+}
 @keyframes reveal {
   to {
     opacity: 1;

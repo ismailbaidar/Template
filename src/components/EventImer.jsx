@@ -2,7 +2,61 @@ import TimerPart from "./TimerPart"
 import "../assets/styles/event-timer.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons"
+import { useEffect, useState } from "react"
 export default function EventTimer({ date }) {
+  const [days, setDays] = useState("")
+  const [hours, setHours] = useState("")
+  const [minutes, setMinutes] = useState("")
+  const [seconds, setSeconds] = useState("")
+  const currentDate = new Date()
+  const eventDate = new Date(date)
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (currentDate.getTime() > eventDate.getTime()) {
+        setDays(0)
+        setMinutes(0)
+        setHours(0)
+        setSeconds(0)
+      } else {
+        setDaysFunction()
+        setHoursFunction()
+        setMinutesFunction()
+        setSecondsFunction()
+      }
+    }, 1000)
+
+    return () => clearInterval(intervalId)
+  }, [date])
+
+  function setDaysFunction() {
+    const diffDate = Math.floor(
+      Date.UTC(
+        eventDate.getFullYear(),
+        eventDate.getMonth(),
+        eventDate.getDate()
+      ) -
+        Date.UTC(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          currentDate.getDate()
+        )
+    )
+
+    setDays(diffDate / (1000 * 60 * 60 * 24) - 1)
+  }
+  function setHoursFunction() {
+    const currentHours = new Date().getHours()
+    setHours(23 - currentHours)
+  }
+
+  function setMinutesFunction() {
+    const currentMinutes = new Date().getMinutes()
+    setMinutes(59 - currentMinutes)
+  }
+  function setSecondsFunction() {
+    const currentSeconds = new Date().getSeconds()
+    setSeconds(59 - currentSeconds)
+  }
   return (
     <div className="event-timer-container">
       <div className="info-part">
@@ -10,10 +64,10 @@ export default function EventTimer({ date }) {
         <h1 className="title">Here The Event's Title</h1>
       </div>
       <span className="event-timer">
-        <TimerPart title="Days" value="12"></TimerPart>
-        <TimerPart title="Hours" value="20"></TimerPart>
-        <TimerPart title="Minutes" value="32"></TimerPart>
-        <TimerPart title="Seconds" value="40"></TimerPart>
+        <TimerPart title="Days" value={`${days}`}></TimerPart>
+        <TimerPart title="Hours" value={`${hours}`}></TimerPart>
+        <TimerPart title="Minutes" value={`${minutes}`}></TimerPart>
+        <TimerPart title="Seconds" value={`${seconds}`}></TimerPart>
       </span>
       <div className="location-button">
         <button className="btn  font-bold">Reserve You place</button>
