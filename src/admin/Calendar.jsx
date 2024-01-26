@@ -7,6 +7,7 @@ import { PickersDay } from "@mui/x-date-pickers/PickersDay"
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar"
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton"
 import "../assets/styles/red-dot.css"
+
 function getRandomNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min)
 }
@@ -81,21 +82,23 @@ export default function Calendar() {
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateCalendar
-        defaultValue={initialValue}
-        loading={isLoading}
-        onMonthChange={handleMonthChange}
-        renderLoading={() => <DayCalendarSkeleton />}
-        slots={{
-          day: ServerDay,
-        }}
-        slotProps={{
-          day: {
-            highlightedDays,
-          },
-        }}
-      />
-    </LocalizationProvider>
+    <div className="calendar">
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateCalendar
+          defaultValue={initialValue}
+          loading={isLoading}
+          onMonthChange={handleMonthChange}
+          renderLoading={() => <DayCalendarSkeleton />}
+          slots={{
+            day: ServerDay,
+          }}
+          slotProps={{
+            day: {
+              highlightedDays,
+            },
+          }}
+        />
+      </LocalizationProvider>
+    </div>
   )
 }
