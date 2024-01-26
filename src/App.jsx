@@ -13,14 +13,18 @@ import Login from "./Pages/Login"
 import Register from "./Pages/Register"
 import { useEffect, useState } from "react"
 import { setCurrentPage } from "./Features/NavigationSlice"
+import ErrorPage from "./Pages/ErrorPage"
 export default function App() {
   return (
     <div className="app">
       <Routes>
-        <Route path="/*" element={<MainRoutes />} />
         {/* the routes below gonna be displayed without the navbar and footer components */}
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/page/*" element={<MainRoutes />} />
+        <Route path="/401" element={<ErrorPage code="401" />} />
+        <Route path="/*" element={<ErrorPage code="404" />} />
       </Routes>
     </div>
   )

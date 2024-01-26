@@ -1,7 +1,13 @@
-import React from "react"
+import React, { useEffect } from "react"
 import "../assets/styles/aboutus.css"
+import { useDispatch } from "react-redux"
+import { setCurrentPage } from "../Features/NavigationSlice"
 
 function AboutUs() {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(setCurrentPage("About"))
+  },[])
   return (
     <section className="about-us-container">
       <div className="titel">

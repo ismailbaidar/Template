@@ -1,13 +1,8 @@
-.nav-links {
+nav .nav-links {
   position: relative;
-  padding: 1rem 1.75rem;
 }
 
-.logo-holder {
-  padding: 1.25rem 2rem;
-}
-
-.nav-links::before {
+nav .nav-links::before {
   position: absolute;
   inset: 0;
 
@@ -16,7 +11,7 @@
   content: "";
 }
 
-li {
+nav li {
   z-index: 10;
   display: grid;
   place-content: center;
@@ -24,7 +19,7 @@ li {
   font-weight: 600;
 }
 
-li[data-current="true"] {
+nav li[data-current="true"] {
   border-block-end-color: var(--primary-red);
 }
 
@@ -35,13 +30,39 @@ nav {
   left: 0;
   right: 0;
   width: 100%;
-
+  padding: 1.25rem 2rem;
   box-shadow: -1px 1px 3px white;
 
   z-index: 1000;
   background: white;
 }
 
+nav .authentication-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: black;
+}
+
+nav .authentication-buttons button {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid black;
+  border: 2px solid transparent;
+}
+
+.nav .authentication-buttons button {
+  border: 1px solid transparent;
+  border-radius: 8px;
+}
+nav .authentication-buttons .sign-in {
+  background-color: var(--primary-red);
+  color: white;
+}
+nav .authentication-buttons .sign-up {
+  border-color: var(--primary-red);
+  color: var(--primary-red);
+}
 @media screen and (width < 700px) {
   .nav-links::before {
     background: transparent;

@@ -23,6 +23,10 @@ export default function Login() {
           <label htmlFor="remember">Remember me ?</label>
         </div>
         <button>Login</button>
+
+          <Link to="/" className="redirect-home">
+          Back to home
+        </Link>
       </div>
     </div>
   )

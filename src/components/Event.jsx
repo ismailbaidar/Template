@@ -1,21 +1,14 @@
+// CardComponent.js
 import React from 'react';
-import '../assets/styles/event.css';
+import '../assets/styles/event.css'; // Import your CSS file
 
 
-function Event() {
-return (
-    <>
-    <div className='section'>
-        <div>
-            <span>Our Event Page (i'll add some design here)</span>
-        </div>
-        <div className='card'>
-
-        </div>
-
-    </div>
-    </>
-)
-}
+const Event = () => {
+  return (
+    <section>
+     
+    </section>
+  );
+};
 
 export default Event;
