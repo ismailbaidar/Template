@@ -1,7 +1,7 @@
 .stats {
   background: #272727;
   position: relative;
-
+  /* overflow: hidden; */
   color: white;
   display: flex;
   gap: 2rem;
@@ -12,7 +12,7 @@
   width: 100%;
 }
 
-.stat {
+.stats .stat {
   font-size: 1.2rem;
   display: flex;
   align-items: center;
@@ -22,7 +22,7 @@
   color: var(--primary-red);
   opacity: 0;
   gap: 1rem;
-  transform: translateX(-100%);
+  transform: translateY(-100%);
   padding: 2rem;
   border-bottom: 5px solid var(--primary-red);
   animation: reveal-left linear 300ms forwards;
@@ -34,7 +34,7 @@
   aspect-ratio: 1;
   font-family: "Raleway", sans-serif;
 }
-.stat svg {
+.stats .stat svg {
   font-size: 3rem;
 }
 
