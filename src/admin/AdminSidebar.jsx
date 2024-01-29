@@ -40,8 +40,8 @@ export default function AdminSidebar() {
           <img
             src={
               isCollapsed
-                ? "../Images/logo-only.png"
-                : "../Images/1702198475838.png"
+                ? "/../Images/logo-only.png"
+                : "/../Images/1702198475838.png"
             }
             width={isCollapsed ? 30 : 100}
             alt=""

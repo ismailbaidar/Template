@@ -8,36 +8,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar"
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton"
 import "../assets/styles/red-dot.css"
 
-function getRandomNumber(min, max) {
-  return Math.round(Math.random() * (max - min) + min)
-}
-
-/**
- * Mimic fetch with abort controller https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
- * ⚠️ No IE11 support
- */
-function fakeFetch(date, { signal }) {
-  return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      const daysInMonth = date.daysInMonth()
-      const daysToHighlight = [1, 2, 3].map(() =>
-        getRandomNumber(1, daysInMonth)
-      )
-
-      resolve({ daysToHighlight })
-    }, 500)
-
-    signal.onabort = () => {
-      clearTimeout(timeout)
-      reject(new DOMException("aborted", "AbortError"))
-    }
-  })
-}
-
 const date = new Date()
-const initialValue = dayjs(
-  `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-)
 
 function ServerDay(props) {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props
@@ -61,24 +32,24 @@ function ServerDay(props) {
 }
 
 export default function Calendar() {
+  const [initialValue, setInitialValue] = React.useState(
+    dayjs(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`)
+  )
+
   const requestAbortController = React.useRef(null)
   const [isLoading, setIsLoading] = React.useState(false)
   const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15])
 
   React.useEffect(() => {
-    // abort request on unmount
     return () => requestAbortController.current?.abort()
   }, [])
 
   const handleMonthChange = (date) => {
-    if (requestAbortController.current) {
-      // make sure that you are aborting useless requests
-      // because it is possible to switch between months pretty quickly
-      requestAbortController.current.abort()
-    }
+    // if (requestAbortController.current) {
+    //   requestAbortController.current.abort()
+    // }
 
-    setIsLoading(true)
-    setHighlightedDays([])
+    setHighlightedDays([1, 2, 4])
   }
 
   return (
@@ -88,7 +59,7 @@ export default function Calendar() {
           defaultValue={initialValue}
           loading={isLoading}
           onMonthChange={handleMonthChange}
-          renderLoading={() => <DayCalendarSkeleton />}
+          // renderLoading={() => <DayCalendarSkeleton />}
           slots={{
             day: ServerDay,
           }}

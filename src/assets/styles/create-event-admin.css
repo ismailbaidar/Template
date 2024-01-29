@@ -1,0 +1,16 @@
+.create-event-admin {
+  display: grid;
+
+  grid-template-columns: 1fr;
+  padding: 2rem 6rem;
+  gap: 1rem;
+}
+
+.create-event-admin .form-title {
+  /* margin-block: 1rem 3rem; */
+  font-size: 2rem;
+}
+
+.create-event-admin li {
+  list-style-type: unset;
+}
