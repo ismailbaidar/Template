@@ -18,7 +18,7 @@ export default function Navbar() {
         to="/"
         onClick={() => dispatch(setCurrentPage("Home"))}
       >
-        <img src="../Images/1702198475838.png" width={100} alt="" />
+        <img src="../Images/white-text-logo2.png" width={100} alt="" />
       </Link>
 
       <ul className=" align-center justify-center  text-black nav-links flex gap-3">

@@ -28,6 +28,8 @@ export default function CreateEventAdmin() {
         <DatePicker label="End Date" />
       </LocalizationProvider>
       <TextEditor />
+      <button className="add-event-button">Add Event</button>
+
     </div>
   )
 }

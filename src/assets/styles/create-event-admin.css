@@ -14,3 +14,11 @@
 .create-event-admin li {
   list-style-type: unset;
 }
+
+.add-event-button {
+  padding: 1rem 1.5rem;
+  background-color: var(--primary-red);
+  color: white;
+  width: 25%;
+  /* margin-left: auto; */
+}

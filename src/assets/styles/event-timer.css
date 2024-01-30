@@ -71,6 +71,8 @@
   z-index: 10000;
   background: var(--primary-red);
   transition: filter 300ms ease-in-out;
+  white-space: nowrap;
+  width: max-content !important;
 }
 
 .event-timer-container .location-button .btn:hover {
