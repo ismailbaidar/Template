@@ -11,6 +11,7 @@ import AdminUsers from "./AdminUsers"
 import CreateUsersAdmin from "./CreateUsersAdmin"
 import EditUsersAdmin from "./EditUsersAdmin"
 
+import EditEventAdmin from "./EditEventAdmin"
 export default function AdminRoutes() {
   const paths = useSelector((state) => state.AdminNavigationReducer.paths)
   console.log(paths[0])
@@ -43,9 +44,9 @@ export default function AdminRoutes() {
         </Routes>
         <Routes>
           <Route path="events/create" element={<CreateEventAdmin />} />
-        </Routes>
-        <Routes>
+
           <Route path="events" element={<AdminEvents />} />
+          <Route path="events/:id" element={<EditEventAdmin />} />
         </Routes>
         <Routes>
           <Route path="users/create" element={<CreateUsersAdmin />} />

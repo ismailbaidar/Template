@@ -12,15 +12,15 @@ import { TextareaAutosize } from "@mui/base"
 import "../assets/styles/create-event-admin.css"
 import TextEditor from "../components/TextEditor"
 import EventSessionPage from "./EventSessionPage"
-export default function CreateEventAdmin() {
+export default function EditEventAdmin() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setAdminCurrentPage("events"))
-    dispatch(setPaths(["Dashboard", "Events", "Create"]))
+    dispatch(setPaths(["Dashboard", "Events", "Edit"]))
   }, [])
   return (
     <div className="create-event-admin">
-      <div className="form-title">Create event</div>
+      <div className="form-title">Edit Event</div>
       <TextField type="outlined" label="Event Name" />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker label="Start Date" />
@@ -32,7 +32,8 @@ export default function CreateEventAdmin() {
       <div className="event-sessions-table">
         <EventSessionPage />
       </div>
-      <button className="add-event-button">Add Event</button>
+
+      <button className="add-event-button">Edit Event</button>
     </div>
   )
 }

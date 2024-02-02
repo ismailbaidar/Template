@@ -2,7 +2,12 @@ export default function EventCard() {
   return (
     <div className="event-card">
       <div className="background-side">
-        <div className="image"></div>
+        <div className="image">
+          <img
+            src="https://images.immediate.co.uk/production/volatile/sites/10/2023/06/2048x1365-Oak-trees-SEO-GettyImages-90590330-b6bfe8b.jpg?quality=90&resize=940,627"
+            alt=""
+          />
+        </div>
       </div>
       <div className="content-side">
         <div className="event-title">Event title</div>
