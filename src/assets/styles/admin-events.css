@@ -5,6 +5,7 @@
   gap: 1rem;
 }
 
+.admin-events input{}
 .admin-events .title-create-new {
   display: flex;
   align-items: center;

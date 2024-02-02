@@ -7,7 +7,7 @@ import { useSelector } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
 import CreateEventAdmin from "./CreateEventAdmin"
-
+import EditEventAdmin from "./EditEventAdmin"
 export default function AdminRoutes() {
   const paths = useSelector((state) => state.AdminNavigationReducer.paths)
   console.log(paths[0])
@@ -40,9 +40,9 @@ export default function AdminRoutes() {
         </Routes>
         <Routes>
           <Route path="events/create" element={<CreateEventAdmin />} />
-        </Routes>
-        <Routes>
+
           <Route path="events" element={<AdminEvents />} />
+          <Route path="events/:id" element={<EditEventAdmin />} />
         </Routes>
       </div>
     </div>

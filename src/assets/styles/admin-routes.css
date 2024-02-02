@@ -21,3 +21,15 @@
 .admin-section .separator {
   font-size: 0.8rem;
 }
+
+.admin-section .MuiOutlinedInput-root input,
+.admin-section .MuiOutlinedInput-root button,
+.MuiOutlinedInput-root {
+  background-color: white !important;
+}
+
+.admin-section li {
+  color: black;
+}
+
+
