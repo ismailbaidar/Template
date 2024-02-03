@@ -47,7 +47,7 @@ svg {
   padding: 0 !important;
 }
 
-.form-container .form-elements span {
+.form-container .form-elements span:not(button span) {
   font-size: 1.2rem;
   padding-block-end: 1rem;
 }
@@ -79,7 +79,7 @@ svg {
     padding: 0 !important; */
   }
 }
-.form-container button,
+.form-container button:not(.google-sign-up-button),
 .form-container .redirect-home {
   background: linear-gradient(
     0.2turn,
@@ -93,4 +93,9 @@ svg {
   border: 2px solid var(--primary-red);
   background: transparent !important;
   color: var(--primary-red) !important;
+}
+
+.google-sign-up-button {
+  background-color: white !important;
+  font-size: 0.8rem !important;
 }

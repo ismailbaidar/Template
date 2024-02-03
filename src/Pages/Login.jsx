@@ -3,9 +3,12 @@ import "../assets/styles/form.css"
 import SvgLogin from "../components/SvgLogin"
 import { Link } from "react-router-dom"
 import { login } from "../Features/AuthSlice"
-import { useReducer, useRef } from "react"
+import { useEffect, useReducer, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { GoogleLogin } from "react-google-login"
 import SimpleLoadingSpinner from "../components/simpleLoadingSpinner"
+import axios from "axios"
+import { gapi } from "gapi-script"
 export default function Login() {
   const dispatch = useDispatch()
   const isLoading = useSelector((state) => state.AuthReducer.isLoading)
@@ -13,10 +16,6 @@ export default function Login() {
   const email = useRef()
   const password = useRef()
   function handleLogin() {
-    // const formData = new FormData()
-    // formData.append("email", email.current.value)
-    // formData.append("password", password.current.value)
-
     console.log(email.current.value, password.current.value)
     dispatch(
       login({
@@ -25,6 +24,24 @@ export default function Login() {
       })
     )
   }
+
+  const clientId =
+    "201912823014-alq12a2d01h9t0a3k9q7vtfir277m9mr.apps.googleusercontent.com"
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId,
+
+        scope: "",
+      })
+    }
+    gapi.load("client:auth2", start)
+  }, [])
+
+  const responseGoogle = async (response) => {
+    console.log(response)
+  }
+
   return (
     <>
       <div className="form-container">
@@ -53,6 +70,14 @@ export default function Login() {
           >
             {isLoading ? <SimpleLoadingSpinner /> : "Login"}
           </button>
+
+          <GoogleLogin
+            className="google-sign-up-button"
+            clientId="201912823014-alq12a2d01h9t0a3k9q7vtfir277m9mr.apps.googleusercontent.com"
+            buttonText="Sign Up with Google"
+            onSuccess={responseGoogle}
+            // onFailure={responseGoogle}
+          />
 
           <Link to="/" className="redirect-home">
             Back to home

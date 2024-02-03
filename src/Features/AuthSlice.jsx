@@ -15,8 +15,14 @@ export const register = createAsyncThunk("auth/login", async () => {
 })
 
 const initialState = {
-  user: null,
+  username:
+    localStorage.getItem("username") == null ||
+    localStorage.getItem("username") == ""
+      ? localStorage.getItem("username")
+      : null,
+  email: null,
   token: null,
+  "X-token": null,
   role: null,
   isLoading: false,
 }
@@ -26,7 +32,6 @@ const AuthSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, { payload }) => {
-      console.log(payload)
       state.isLoading = false
     })
     builder.addCase(login.pending, (state, { payload }) => {

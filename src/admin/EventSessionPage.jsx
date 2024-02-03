@@ -320,7 +320,9 @@ const EventSessionPage = (props) => {
                   >
                     <TableCell padding="checkbox"></TableCell>
                     <TableCell align="left">{row.id}</TableCell>
-                    <TableCell align="left">{row.sessionName}</TableCell>
+                    <TableCell align="left">
+                      <Link to="/">{row.sessionName}</Link>
+                    </TableCell>
                     <TableCell align="left">{row.description}</TableCell>
                     <TableCell align="left">{row.address}</TableCell>
                     <TableCell align="left">{row.numPlaces}</TableCell>
@@ -344,11 +346,7 @@ const EventSessionPage = (props) => {
                 )
               })}
               {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
+                <TableRow>
                   <TableCell colSpan={9} />
                 </TableRow>
               )}
