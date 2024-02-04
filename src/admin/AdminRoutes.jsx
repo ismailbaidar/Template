@@ -15,6 +15,7 @@ import EditEventAdmin from "./EditEventAdmin";
 import AdminSessions from "./AdminSessions";
 import CreateSessionPage from "./CreateSessionPage";
 import AdminCategories from "./AdminCategories";
+import CreateCategoryPage from "./CreateCategoryPage";
 export default function AdminRoutes() {
   const paths = useSelector((state) => state.AdminNavigationReducer.paths);
   console.log(paths[0]);
@@ -56,6 +57,7 @@ export default function AdminRoutes() {
             element={<CreateSessionPage />}
           />
           <Route path="categories" element={<AdminCategories />} />
+          <Route path="categories/create" element={<CreateCategoryPage />} />
         </Routes>
       </div>
     </div>

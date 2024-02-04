@@ -31,11 +31,10 @@ const YourFormComponent = () => {
     supportFiles: [],
   });
 
-
-  const dispatch = useDispatch()
-  useEffect(()=>{
-    dispatch(setPaths(["Dashboard","Sessions","Create"]),[])
-  })
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setPaths(["Dashboard", "Sessions", "Create"]), []);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -143,7 +142,9 @@ const YourFormComponent = () => {
         >
           <MenuItem value="Tech Enthusiasts">Tech Enthusiasts</MenuItem>
           <MenuItem value="Developers">Developers</MenuItem>
-          <MenuItem value="Business Professionals">Business Professionals</MenuItem>
+          <MenuItem value="Business Professionals">
+            Business Professionals
+          </MenuItem>
         </Select>
       </FormControl>
       <FormControl fullWidth margin="normal">
@@ -173,7 +174,6 @@ const YourFormComponent = () => {
         </Select>
       </FormControl>
 
-      
       <div>
         <input
           accept="image/*, application/pdf"
@@ -193,31 +193,29 @@ const YourFormComponent = () => {
           </Button>
         </label>
         {formData.supportFiles.length > 0 && (
-  <div className="file-preview">
-    
-    {formData.supportFiles.map((file, index) => (
-      <div key={index} className="preview-item">
-        {file.type.includes("image/") ? (
-          <img
-            src={URL.createObjectURL(file)}
-            alt={`Preview-${index}`}
-            style={{ maxWidth: "100%", maxHeight: "100px" }}
-          />
-        ) : (
-          <span>{file.name}</span>
+          <div className="file-preview">
+            {formData.supportFiles.map((file, index) => (
+              <div key={index} className="preview-item">
+                {file.type.includes("image/") ? (
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={`Preview-${index}`}
+                    style={{ maxWidth: "100%", maxHeight: "100px" }}
+                  />
+                ) : (
+                  <span>{file.name}</span>
+                )}
+                <IconButton
+                  color="secondary"
+                  className="delete-icon"
+                  onClick={() => handleDeleteFile(index)}
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </IconButton>
+              </div>
+            ))}
+          </div>
         )}
-        <IconButton
-          color="secondary"
-          className="delete-icon"
-          onClick={() => handleDeleteFile(index)}
-        >
-            <FontAwesomeIcon icon={faTrash}/>
-        </IconButton>
-      </div>
-    ))}
-  </div>
-)}
-
       </div>
 
       <Button type="submit" className="submit-form-button">

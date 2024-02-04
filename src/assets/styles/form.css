@@ -51,49 +51,45 @@ svg {
   font-size: 1.2rem;
   padding-block-end: 1rem;
 }
-.file-preview{
+.file-preview {
   display: flex;
-  margin-block: .5rem;
-  gap: .5rem;
+  margin-block: 0.5rem;
+  gap: 0.5rem;
 }
 
-.file-preview .preview-item img{
-
-  object-fit: contain; 
+.file-preview .preview-item img {
+  object-fit: contain;
 }
-.file-preview .preview-item{
+.file-preview .preview-item {
   max-width: 200px;
-  
-  position:relative;
-display: flex;
-flex-wrap: wrap;
-white-space: break-word;
-font-size: .8rem;
-border: 2px solid var(--primary-red);
-overflow: hidden;
-padding: .25rem;
-max-height: 100px;
 
-
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  white-space: break-word;
+  font-size: 0.8rem;
+  border: 3px solid var(--primary-blue);
+  overflow: hidden;
+  padding: 0.25rem;
+  max-height: 100px;
 }
-.file-preview .preview-item .delete-icon{
+.file-preview .preview-item .delete-icon {
   position: absolute;
   inset: 0;
   display: none;
   color: white;
   z-index: 100;
-
 }
-.file-preview .preview-item:hover .delete-icon{
+.file-preview .preview-item:hover .delete-icon {
   display: block;
 }
-.file-preview .preview-item .delete-icon::before{
+.file-preview .preview-item .delete-icon::before {
   z-index: -10;
   content: "";
   background-color: red;
-  opacity: .5;
-  position: absolute;inset: 0;
-  
+  opacity: 0.5;
+  position: absolute;
+  inset: 0;
 }
 .form-container .form-elements span h1 {
   font-size: 1.4rem;
@@ -133,13 +129,12 @@ max-height: 100px;
   font-weight: bold;
 }
 
-.submit-form-button{
-  color: var(--primary-red) !important; 
+.submit-form-button {
+  color: var(--primary-red) !important;
   background-color: white !important;
-  border-radius: 0px !important; 
-  padding: .75rem 1.5rem !important;
+  border-radius: 0px !important;
+  padding: 0.75rem 1.5rem !important;
   border: 1px solid var(--primary-red) !important;
-
 }
 .form-container .redirect-home {
   border: 2px solid var(--primary-red);
