@@ -1,88 +1,39 @@
-import * as React from "react"
-import PropTypes from "prop-types"
-import { alpha } from "@mui/material/styles"
-import Box from "@mui/material/Box"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell from "@mui/material/TableCell"
-import TableContainer from "@mui/material/TableContainer"
-import TableHead from "@mui/material/TableHead"
-import TablePagination from "@mui/material/TablePagination"
-import TableRow from "@mui/material/TableRow"
-import TableSortLabel from "@mui/material/TableSortLabel"
-import Toolbar from "@mui/material/Toolbar"
-import Typography from "@mui/material/Typography"
-import Paper from "@mui/material/Paper"
-import { Link } from "react-router-dom"
-import IconButton from "@mui/material/IconButton"
-import Tooltip from "@mui/material/Tooltip"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Switch from "@mui/material/Switch"
-import DeleteIcon from "@mui/icons-material/Delete"
-import EditIcon from "@mui/icons-material/Edit"
-import { visuallyHidden } from "@mui/utils"
+import * as React from "react";
+import PropTypes from "prop-types";
+import { alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import { Link } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import Checkbox from "@mui/material/Checkbox"; // Import Checkbox
+import { visuallyHidden } from "@mui/utils";
 
-function createData(id, eventName, eventDescription, startDate, endDate) {
-  return {
-    id,
-    eventName,
-    eventDescription,
-    startDate,
-    endDate,
-  };
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
 }
-
-const rows = [
-  createData(
-    1,
-    "Tech Summit",
-    "Annual technology conference",
-    "2024-02-15",
-    "2024-02-17"
-  ),
-  createData(
-    2,
-    "Hackathon",
-    "24-hour coding competition",
-    "2024-03-10",
-    "2024-03-11"
-  ),
-  createData(
-    3,
-    "Webinar: AI Trends",
-    "Exploring the latest in AI",
-    "2024-04-05",
-    "2024-04-05"
-  ),
-  createData(
-    4,
-    "DevOps Workshop",
-    "Hands-on DevOps practices",
-    "2024-05-20",
-    "2024-05-21"
-  ),
-  createData(
-    5,
-    "Cybersecurity Conference",
-    "Addressing cybersecurity challenges",
-    "2024-06-15",
-    "2024-06-16"
-  ),
-  createData(
-    6,
-    "Data Science Symposium",
-    "Showcasing advancements in data science",
-    "2024-07-08",
-    "2024-07-09"
-  ),
-  createData(
-    7,
-    "Mobile App Expo",
-    "Showcasing innovative mobile applications",
-    "2024-08-22",
-    "2024-08-24"
-  ),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -100,17 +51,23 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
+function createData(id, categoryName, parentCategory) {
+  return {
+    id,
+    categoryName,
+    parentCategory,
+  };
 }
+
+const rows = [
+  createData(1, "Electronics", null),
+  createData(2, "Laptops", "Electronics"),
+  createData(3, "Smartphones", "Electronics"),
+  createData(4, "Clothing", null),
+  createData(5, "Men's Clothing", "Clothing"),
+  createData(6, "Women's Clothing", "Clothing"),
+  // Add more categories as needed
+];
 
 const headCells = [
   {
@@ -120,28 +77,16 @@ const headCells = [
     label: "ID",
   },
   {
-    id: "eventName",
+    id: "categoryName",
     numeric: false,
     disablePadding: false,
-    label: "Event Name",
+    label: "Category Name",
   },
   {
-    id: "eventDescription",
+    id: "parentCategory",
     numeric: false,
     disablePadding: false,
-    label: "Event Description",
-  },
-  {
-    id: "startDate",
-    numeric: false,
-    disablePadding: false,
-    label: "Start Date",
-  },
-  {
-    id: "endDate",
-    numeric: false,
-    disablePadding: false,
-    label: "End Date",
+    label: "Parent Category",
   },
   {
     id: "actions",
@@ -153,8 +98,11 @@ const headCells = [
 
 function EnhancedTableHead(props) {
   const {
+    onSelectAllClick,
     order,
     orderBy,
+    numSelected,
+    rowCount,
     onRequestSort,
   } = props;
   const createSortHandler = (property) => (event) => {
@@ -164,6 +112,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
+        <TableCell padding="checkbox"></TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -187,11 +136,11 @@ function EnhancedTableHead(props) {
         ))}
       </TableRow>
     </TableHead>
-  )
+  );
 }
 
 function EnhancedTableToolbar(props) {
-  const { numSelected } = props
+  const { numSelected } = props;
 
   return (
     <Toolbar
@@ -223,7 +172,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          IT Events
+          Categories
         </Typography>
       )}
 
@@ -239,16 +188,16 @@ function EnhancedTableToolbar(props) {
         </Tooltip>
       )}
     </Toolbar>
-  )
+  );
 }
 
 function EnhancedTable(props) {
-  const [order, setOrder] = React.useState("asc")
-  const [orderBy, setOrderBy] = React.useState("calories")
-  const [selected, setSelected] = React.useState([])
-  const [page, setPage] = React.useState(0)
-  const [dense, setDense] = React.useState(false)
-  const [rowsPerPage, setRowsPerPage] = React.useState(5)
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("id");
+  const [selected, setSelected] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [dense, setDense] = React.useState(false);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -309,11 +258,12 @@ function EnhancedTable(props) {
         page * rowsPerPage + rowsPerPage
       ),
     [order, orderBy, page, rowsPerPage]
-  )
+  );
 
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
+        <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -321,9 +271,12 @@ function EnhancedTable(props) {
             size={dense ? "small" : "medium"}
           >
             <EnhancedTableHead
+              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
+              rowCount={rows.length}
             />
             <TableBody>
               {visibleRows.map((row, index) => {
@@ -333,6 +286,7 @@ function EnhancedTable(props) {
                 return (
                   <TableRow
                     hover
+                    // onClick={(event) => handleClick(event, row.id)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
@@ -342,16 +296,16 @@ function EnhancedTable(props) {
                   >
                     <TableCell padding="checkbox"></TableCell>
                     <TableCell align="left">{row.id}</TableCell>
-                    <TableCell align="left">{row.eventName}</TableCell>
-                    <TableCell align="left">{row.eventDescription}</TableCell>
-                    <TableCell align="left">{row.startDate}</TableCell>
-                    <TableCell align="left">{row.endDate}</TableCell>
+                    <TableCell align="left">{row.categoryName}</TableCell>
                     <TableCell align="left">
-                      <IconButton>
-                        <Link to={`/admin/events/${row.id}`}>
+                      {row.parentCategory == null ? "-" : row.parentCategory}
+                    </TableCell>
+                    <TableCell align="left">
+                      <Link to={`/admin/categories/${row.id}`}>
+                        <IconButton>
                           <EditIcon />
-                        </Link>
-                      </IconButton>
+                        </IconButton>
+                      </Link>
                       <IconButton>
                         <DeleteIcon />
                       </IconButton>
@@ -365,7 +319,7 @@ function EnhancedTable(props) {
                     height: (dense ? 33 : 53) * emptyRows,
                   }}
                 >
-                  <TableCell colSpan={7} />
+                  <TableCell colSpan={6} />
                 </TableRow>
               )}
             </TableBody>
@@ -374,23 +328,15 @@ function EnhancedTable(props) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={filteredRows.length}
+          count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </Box>
   );
 }
-
-EnhancedTable.propTypes = {
-  searchQuery: PropTypes.string.isRequired,
-};
 
 export default EnhancedTable;

@@ -14,17 +14,21 @@ import EditUsersAdmin from "./EditUsersAdmin"
 import EditSpeakersAdmin from "./EditSpeakersAdmin"
 import EditEventAdmin from "./EditEventAdmin"
 import AdminSpeakers from "./AdminSpeaker"
+import AdminSessions from "./AdminSessions";
+import CreateSessionPage from "./CreateSessionPage";
+import AdminCategories from "./AdminCategories";
+import CreateCategoryPage from "./CreateCategoryPage";
 export default function AdminRoutes() {
-  const paths = useSelector((state) => state.AdminNavigationReducer.paths)
-  console.log(paths[0])
+  const paths = useSelector((state) => state.AdminNavigationReducer.paths);
+  console.log(paths[0]);
   return (
     <div className="admin-section">
       <AdminSidebar />
       <div className="content">
         <div className="topbar">
           {paths.map((path, index) => {
-            let allPaths = ""
-            console.log(paths, path)
+            let allPaths = "";
+            console.log(paths, path);
 
             return (
               <>
@@ -38,22 +42,15 @@ export default function AdminRoutes() {
                   />
                 )}
               </>
-            )
+            );
           })}
         </div>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-        </Routes>
-        <Routes>
           <Route path="events/create" element={<CreateEventAdmin />} />
-
           <Route path="events" element={<AdminEvents />} />
           <Route path="events/:id" element={<EditEventAdmin />} />
-        </Routes>
-        <Routes>
           <Route path="users/create" element={<CreateUsersAdmin />} />
-        </Routes>
-        <Routes>
           <Route path="users" element={<AdminUsers />} />
         </Routes>
         <Routes>
@@ -68,9 +65,16 @@ export default function AdminRoutes() {
         </Routes>
         <Routes>
           <Route path="users/edit/:id" element={<EditUsersAdmin />} />
+          <Route path="sessions" element={<AdminSessions />} />
+          <Route
+            path="events/:id/sessions/create"
+            element={<CreateSessionPage />}
+          />
+          <Route path="categories" element={<AdminCategories />} />
+          <Route path="categories/create" element={<CreateCategoryPage />} />
         </Routes>
 
       </div>
     </div>
-  )
+  );
 }

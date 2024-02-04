@@ -1,23 +1,28 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState } from "react"
-import "../assets/styles/admin-sidebar.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import "../assets/styles/admin-sidebar.css";
 import {
   faCalendar,
   faChevronLeft,
   faChevronRight,
+  faClock,
+  faList,
   faMicrophone,
   faPersonChalkboard,
   faRightFromBracket,
   faTableColumns,
   faUsers,
-} from "@fortawesome/free-solid-svg-icons"
-import { Link } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { setAdminCurrentPage, setPaths } from "../Features/AdminNavigationSlice"
+} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setAdminCurrentPage,
+  setPaths,
+} from "../Features/AdminNavigationSlice";
 export default function AdminSidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false)
-  const page = useSelector((state) => state.AdminNavigationReducer.currentPage)
-  const dispatch = useDispatch()
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const page = useSelector((state) => state.AdminNavigationReducer.currentPage);
+  const dispatch = useDispatch();
   return (
     <div
       className="admin-sidebar"
@@ -58,7 +63,7 @@ export default function AdminSidebar() {
               {!isCollapsed && <span>Dashboard</span>}
             </li>
           </Link>
-          <Link to="/admin/events" onClick={() => { }}>
+          <Link to="/admin/events" onClick={() => {}}>
             <li
               className="navigation-item"
               data-current-page={"events" == page}
@@ -67,16 +72,13 @@ export default function AdminSidebar() {
               {!isCollapsed && <span>Events</span>}
             </li>
           </Link>
-          <Link to="/admin/speakers" onClick={()=>{}}>
-            <li className="navigation-item" 
-              data-current-page={"speakers"==page}>
-              <FontAwesomeIcon icon={faPersonChalkboard} />{" "}
-              {!isCollapsed && <span>Speakers</span>}
-            </li>
-          </Link>
-          <Link to="/admin/Users" onClick={() => { }}>
+          <li className="navigation-item">
+            <FontAwesomeIcon icon={faPersonChalkboard} />{" "}
+            {!isCollapsed && <span>Speakers</span>}
+          </li>
+          <Link to ="/admin/Users" onClick={() => { }}>
             <li className="navigation-item"
-              data-current-page={"users" == page}
+             data-current-page={"users" == page}
             >
               <FontAwesomeIcon icon={faUsers} />{" "}
               {!isCollapsed && <span>Users</span>}
@@ -93,5 +95,5 @@ export default function AdminSidebar() {
         <span>{!isCollapsed && "Logout"}</span>
       </button>
     </div>
-  )
+  );
 }

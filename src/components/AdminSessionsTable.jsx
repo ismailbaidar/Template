@@ -1,34 +1,38 @@
-import * as React from "react"
-import PropTypes from "prop-types"
-import { alpha } from "@mui/material/styles"
-import Box from "@mui/material/Box"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell from "@mui/material/TableCell"
-import TableContainer from "@mui/material/TableContainer"
-import TableHead from "@mui/material/TableHead"
-import TablePagination from "@mui/material/TablePagination"
-import TableRow from "@mui/material/TableRow"
-import TableSortLabel from "@mui/material/TableSortLabel"
-import Toolbar from "@mui/material/Toolbar"
-import Typography from "@mui/material/Typography"
-import Paper from "@mui/material/Paper"
-import { Link } from "react-router-dom"
-import IconButton from "@mui/material/IconButton"
-import Tooltip from "@mui/material/Tooltip"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Switch from "@mui/material/Switch"
-import DeleteIcon from "@mui/icons-material/Delete"
-import EditIcon from "@mui/icons-material/Edit"
-import { visuallyHidden } from "@mui/utils"
+import * as React from "react";
+import PropTypes from "prop-types";
+import { alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import { Link } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { visuallyHidden } from "@mui/utils";
 
-function createData(id, eventName, eventDescription, startDate, endDate) {
+function createData(id, eventName, sessionName, sessionDescription, numberOfPlaces, eventType, startDate, endDate, eventAddress) {
   return {
     id,
+    sessionName,
     eventName,
-    eventDescription,
+    sessionDescription,
+    numberOfPlaces,
+    eventType,
     startDate,
     endDate,
+    eventAddress,
   };
 }
 
@@ -36,52 +40,37 @@ const rows = [
   createData(
     1,
     "Tech Summit",
-    "Annual technology conference",
+    "Main Session",
+    "Overview of the latest technology trends",
+    500,
+    "Conference",
     "2024-02-15",
-    "2024-02-17"
+    "2024-02-17",
+    "123 Tech Street"
   ),
   createData(
     2,
     "Hackathon",
-    "24-hour coding competition",
+    "Coding Workshop",
+    "24-hour coding competition and workshop",
+    200,
+    "Workshop",
     "2024-03-10",
-    "2024-03-11"
+    "2024-03-11",
+    "456 Code Avenue"
   ),
   createData(
     3,
-    "Webinar: AI Trends",
-    "Exploring the latest in AI",
+    "AI Trends Webinar",
+    "Introduction to AI",
+    "Exploring the latest in Artificial Intelligence",
+    100,
+    "Webinar",
     "2024-04-05",
-    "2024-04-05"
+    "2024-04-05",
+    "789 AI Boulevard"
   ),
-  createData(
-    4,
-    "DevOps Workshop",
-    "Hands-on DevOps practices",
-    "2024-05-20",
-    "2024-05-21"
-  ),
-  createData(
-    5,
-    "Cybersecurity Conference",
-    "Addressing cybersecurity challenges",
-    "2024-06-15",
-    "2024-06-16"
-  ),
-  createData(
-    6,
-    "Data Science Symposium",
-    "Showcasing advancements in data science",
-    "2024-07-08",
-    "2024-07-09"
-  ),
-  createData(
-    7,
-    "Mobile App Expo",
-    "Showcasing innovative mobile applications",
-    "2024-08-22",
-    "2024-08-24"
-  ),
+  // Add more rows as needed
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -120,16 +109,34 @@ const headCells = [
     label: "ID",
   },
   {
+    id: "sessionName",
+    numeric: false,
+    disablePadding: false,
+    label: "Session Name",
+  },
+  {
     id: "eventName",
     numeric: false,
     disablePadding: false,
     label: "Event Name",
   },
   {
-    id: "eventDescription",
+    id: "sessionDescription",
     numeric: false,
     disablePadding: false,
-    label: "Event Description",
+    label: "Session Description",
+  },
+  {
+    id: "numberOfPlaces",
+    numeric: true,
+    disablePadding: false,
+    label: "Number of Places",
+  },
+  {
+    id: "eventType",
+    numeric: false,
+    disablePadding: false,
+    label: "Type",
   },
   {
     id: "startDate",
@@ -144,6 +151,12 @@ const headCells = [
     label: "End Date",
   },
   {
+    id: "eventAddress",
+    numeric: false,
+    disablePadding: false,
+    label: "Address",
+  },
+  {
     id: "actions",
     numeric: false,
     disablePadding: false,
@@ -153,8 +166,11 @@ const headCells = [
 
 function EnhancedTableHead(props) {
   const {
+    onSelectAllClick,
     order,
     orderBy,
+    numSelected,
+    rowCount,
     onRequestSort,
   } = props;
   const createSortHandler = (property) => (event) => {
@@ -164,6 +180,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
+        <TableCell padding="checkbox"></TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -187,11 +204,11 @@ function EnhancedTableHead(props) {
         ))}
       </TableRow>
     </TableHead>
-  )
+  );
 }
 
 function EnhancedTableToolbar(props) {
-  const { numSelected } = props
+  const { numSelected } = props;
 
   return (
     <Toolbar
@@ -239,16 +256,16 @@ function EnhancedTableToolbar(props) {
         </Tooltip>
       )}
     </Toolbar>
-  )
+  );
 }
 
-function EnhancedTable(props) {
-  const [order, setOrder] = React.useState("asc")
-  const [orderBy, setOrderBy] = React.useState("calories")
-  const [selected, setSelected] = React.useState([])
-  const [page, setPage] = React.useState(0)
-  const [dense, setDense] = React.useState(false)
-  const [rowsPerPage, setRowsPerPage] = React.useState(5)
+function AdminSessionsTable(props) {
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("calories");
+  const [selected, setSelected] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [dense, setDense] = React.useState(false);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -309,11 +326,12 @@ function EnhancedTable(props) {
         page * rowsPerPage + rowsPerPage
       ),
     [order, orderBy, page, rowsPerPage]
-  )
+  );
 
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
+        <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -321,9 +339,12 @@ function EnhancedTable(props) {
             size={dense ? "small" : "medium"}
           >
             <EnhancedTableHead
+              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
+              rowCount={rows.length}
             />
             <TableBody>
               {visibleRows.map((row, index) => {
@@ -340,18 +361,24 @@ function EnhancedTable(props) {
                     selected={isItemSelected}
                     sx={{ cursor: "pointer" }}
                   >
-                    <TableCell padding="checkbox"></TableCell>
+                    <TableCell padding="checkbox">
+                 
+                    </TableCell>
                     <TableCell align="left">{row.id}</TableCell>
+                    <TableCell align="left">{row.sessionName}</TableCell>
                     <TableCell align="left">{row.eventName}</TableCell>
-                    <TableCell align="left">{row.eventDescription}</TableCell>
+                    <TableCell align="left">{row.sessionDescription.length>15?row.sessionDescription.substring(0,15)+"...":row.sessionDescription}</TableCell>
+                    <TableCell align="left">{row.numberOfPlaces}</TableCell>
+                    <TableCell align="left">{row.eventType}</TableCell>
                     <TableCell align="left">{row.startDate}</TableCell>
                     <TableCell align="left">{row.endDate}</TableCell>
-                    <TableCell align="left">
-                      <IconButton>
-                        <Link to={`/admin/events/${row.id}`}>
+                    <TableCell align="left">{row.eventAddress}</TableCell>
+                    <TableCell align="left" className="action-cell">
+                      <Link to={`/admin/events/${row.id}/sessions/create`}>
+                        <IconButton>
                           <EditIcon />
-                        </Link>
-                      </IconButton>
+                        </IconButton>
+                      </Link>
                       <IconButton>
                         <DeleteIcon />
                       </IconButton>
@@ -365,7 +392,7 @@ function EnhancedTable(props) {
                     height: (dense ? 33 : 53) * emptyRows,
                   }}
                 >
-                  <TableCell colSpan={7} />
+                  <TableCell colSpan={10} />
                 </TableRow>
               )}
             </TableBody>
@@ -374,23 +401,16 @@ function EnhancedTable(props) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={filteredRows.length}
+          count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
+      
     </Box>
   );
 }
 
-EnhancedTable.propTypes = {
-  searchQuery: PropTypes.string.isRequired,
-};
-
-export default EnhancedTable;
+export default AdminSessionsTable;

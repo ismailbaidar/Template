@@ -1,4 +1,4 @@
-.create-event-admin {
+.create-event-admin ,.create-session-admin{
   display: grid;
 
   grid-template-columns: 1fr;

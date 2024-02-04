@@ -196,9 +196,9 @@ const EnhancedTableToolbar = (props) => {
         >
           <div className="add-session">
             <div>Sessions</div>
-            <button>
+            <Link to="sessions/create">
               <FontAwesomeIcon icon={faPlus} />
-            </button>
+            </Link>
           </div>
         </Typography>
       }
