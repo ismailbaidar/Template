@@ -1,23 +1,23 @@
-.admin-events {
+.admin-events ,.admin-sessions{
   display: grid;
   grid-template-columns: 1fr;
   padding: 1rem 2rem;
   gap: 1rem;
 }
 
-.admin-events input{}
-.admin-events .title-create-new {
+
+:is(.admin-events,.admin-sessions) .title-create-new {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.admin-events .title-create-new .title {
+:is(.admin-events,.admin-sessions) .title-create-new .title {
   font-size: 1.4rem;
   font-weight: bold;
 }
 
-.admin-events .title-create-new .create-new-button {
+:is(.admin-events,.admin-sessions) .title-create-new .create-new-button {
   padding: 0.5rem 0.75rem;
   background: var(--primary-red);
   color: white;
@@ -26,7 +26,7 @@
   padding: 1rem;
 }
 
-.admin-events .search-area {
+:is(.admin-events,.admin-sessions) .search-area {
   background: white;
   padding: 1rem;
   display: grid;
@@ -36,7 +36,7 @@
   box-shadow: 1px 1px 3px lightgrey;
 }
 
-.admin-events .search-area .search-button {
+:is(.admin-events,.admin-sessions) .search-area .search-button {
   padding: 0rem 2rem;
   background-color: var(--primary-yellow);
   /* width: max-content; */

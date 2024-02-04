@@ -5,6 +5,7 @@ import {
   faCalendar,
   faChevronLeft,
   faChevronRight,
+  faClock,
   faMicrophone,
   faPersonChalkboard,
   faRightFromBracket,
@@ -65,6 +66,15 @@ export default function AdminSidebar() {
             >
               <FontAwesomeIcon icon={faMicrophone} />{" "}
               {!isCollapsed && <span>Events</span>}
+            </li>
+          </Link>
+          <Link to="/admin/sessions" onClick={() => { }}>
+            <li
+              className="navigation-item"
+              data-current-page={"session" == page}
+            >
+              <FontAwesomeIcon icon={faClock} />{" "}
+              {!isCollapsed && <span>Sessions</span>}
             </li>
           </Link>
           <li className="navigation-item">

@@ -12,6 +12,8 @@ import CreateUsersAdmin from "./CreateUsersAdmin"
 import EditUsersAdmin from "./EditUsersAdmin"
 
 import EditEventAdmin from "./EditEventAdmin"
+import AdminSessions from "./AdminSessions"
+import CreateSessionPage from "./CreateSessionPage"
 export default function AdminRoutes() {
   const paths = useSelector((state) => state.AdminNavigationReducer.paths)
   console.log(paths[0])
@@ -41,21 +43,14 @@ export default function AdminRoutes() {
         </div>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-        </Routes>
-        <Routes>
           <Route path="events/create" element={<CreateEventAdmin />} />
-
           <Route path="events" element={<AdminEvents />} />
           <Route path="events/:id" element={<EditEventAdmin />} />
-        </Routes>
-        <Routes>
           <Route path="users/create" element={<CreateUsersAdmin />} />
-        </Routes>
-        <Routes>
           <Route path="users" element={<AdminUsers />} />
-        </Routes>
-        <Routes>
           <Route path="users/edit/:id" element={<EditUsersAdmin />} />
+          <Route path="sessions" element={<AdminSessions/>} />
+          <Route path="events/:id/sessions/create" element={<CreateSessionPage/>} />
         </Routes>
        
       </div>
