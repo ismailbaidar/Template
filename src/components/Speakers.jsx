@@ -1,12 +1,16 @@
-import React from "react"
-import "../assets/styles/speakers.css"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import React from "react";
+import "../assets/styles/speakers.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLinkedin,
   faInstagram,
   faFacebook,
-} from "@fortawesome/free-brands-svg-icons"
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons"
+} from "@fortawesome/free-brands-svg-icons";
+import {
+  faEnvelope,
+  faShareNodes,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 const speakersData = [
   {
     name: "Said WAHID",
@@ -65,11 +69,7 @@ const speakersData = [
       linkedin: "https://www.linkedin.com/in/anasbelabbes/",
     },
   },
-]
-
-
-
-
+];
 
 export default function Speakers() {
   return (
@@ -85,28 +85,44 @@ export default function Speakers() {
               <div className="box-area">
                 {speakersData.map((speakerData, index) => (
                   <div key={index} className="box">
-                  
                     <div className="social-icons-container">
-                      <div className="social-icons-info">
-                        {speakerData.social && (
-                          <>
-                            {speakerData.social.facebook && (
-                              <a href={speakerData.social.facebook}>
-                                <FontAwesomeIcon icon={faFacebook} />
-                              </a>
-                            )}
-                            {speakerData.social.linkedin && (
-                              <a href={speakerData.social.linkedin}>
-                                <FontAwesomeIcon icon={faLinkedin} />
-                              </a>
-                            )}
-                            {speakerData.social.instagram && (
-                              <a href={speakerData.social.instagram}>
-                                <FontAwesomeIcon icon={faInstagram} />
-                              </a>
-                            )}
-                          </>
-                        )}
+                      <FontAwesomeIcon
+                        icon={faShareNodes}
+                        className="social-media-icon"
+                      />
+                      <div className="icons-container">
+                        <a
+                          href={speakerData.social.facebook}
+                          style={{ "--i": "1" }}
+                        >
+                          <FontAwesomeIcon icon={faFacebook} />
+                        </a>
+
+                        <a
+                          href={speakerData.social.linkedin}
+                          style={{ "--i": "3" }}
+                        >
+                          <FontAwesomeIcon icon={faLinkedin} />
+                        </a>
+                        <a
+                          href={speakerData.social.linkedin}
+                          style={{ "--i": "2" }}
+                        >
+                          <FontAwesomeIcon icon={faLinkedin} />
+                        </a>
+
+                        <a
+                          href={speakerData.social.instagram}
+                          style={{ "--i": "4" }}
+                        >
+                          <FontAwesomeIcon icon={faInstagram} />
+                        </a>
+                        <a
+                          href={speakerData.social.instagram}
+                          style={{ "--i": "5" }}
+                        >
+                          <FontAwesomeIcon icon={faInstagram} />
+                        </a>
                       </div>
                     </div>
                     <img alt="" src={speakerData.image} />
