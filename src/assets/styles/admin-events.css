@@ -1,23 +1,27 @@
-.admin-events ,.admin-sessions{
+.admin-events,
+.admin-sessions,
+.admin-categories {
   display: grid;
   grid-template-columns: 1fr;
   padding: 1rem 2rem;
   gap: 1rem;
 }
-
-
-:is(.admin-events,.admin-sessions) .title-create-new {
+:is(.admin-events, .admin-sessions, .admin-categories) .title-create-new {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-:is(.admin-events,.admin-sessions) .title-create-new .title {
+:is(.admin-events, .admin-sessions, .admin-categories)
+  .title-create-new
+  .title {
   font-size: 1.4rem;
   font-weight: bold;
 }
 
-:is(.admin-events,.admin-sessions) .title-create-new .create-new-button {
+:is(.admin-events, .admin-sessions, .admin-categories)
+  .title-create-new
+  .create-new-button {
   padding: 0.5rem 0.75rem;
   background: var(--primary-red);
   color: white;
@@ -26,19 +30,24 @@
   padding: 1rem;
 }
 
-:is(.admin-events,.admin-sessions) .search-area {
+:is(.admin-events, .admin-sessions, .admin-categories) .search-area {
   background: white;
   padding: 1rem;
   display: grid;
   justify-content: space-between;
-  grid-template-columns: 1fr 1fr 1fr .5fr;
+  grid-template-columns: 1fr 1fr 1fr 0.5fr;
   gap: 1rem;
   box-shadow: 1px 1px 3px lightgrey;
 }
 
-:is(.admin-events,.admin-sessions) .search-area .search-button {
+:is(.admin-events, .admin-sessions, .admin-categories)
+  .search-area
+  .search-button {
   padding: 0rem 2rem;
   background-color: var(--primary-yellow);
   /* width: max-content; */
-  
+}
+
+.admin-categories .search-area {
+  grid-template-columns: 4fr 1fr;
 }

@@ -20,69 +20,20 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import Checkbox from "@mui/material/Checkbox"; // Import Checkbox
 import { visuallyHidden } from "@mui/utils";
 
-function createData(id, eventName, eventDescription, startDate, endDate) {
-  return {
-    id,
-    eventName,
-    eventDescription,
-    startDate,
-    endDate,
-  };
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
 }
-
-const rows = [
-  createData(
-    1,
-    "Tech Summit",
-    "Annual technology conference",
-    "2024-02-15",
-    "2024-02-17"
-  ),
-  createData(
-    2,
-    "Hackathon",
-    "24-hour coding competition",
-    "2024-03-10",
-    "2024-03-11"
-  ),
-  createData(
-    3,
-    "Webinar: AI Trends",
-    "Exploring the latest in AI",
-    "2024-04-05",
-    "2024-04-05"
-  ),
-  createData(
-    4,
-    "DevOps Workshop",
-    "Hands-on DevOps practices",
-    "2024-05-20",
-    "2024-05-21"
-  ),
-  createData(
-    5,
-    "Cybersecurity Conference",
-    "Addressing cybersecurity challenges",
-    "2024-06-15",
-    "2024-06-16"
-  ),
-  createData(
-    6,
-    "Data Science Symposium",
-    "Showcasing advancements in data science",
-    "2024-07-08",
-    "2024-07-09"
-  ),
-  createData(
-    7,
-    "Mobile App Expo",
-    "Showcasing innovative mobile applications",
-    "2024-08-22",
-    "2024-08-24"
-  ),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -100,17 +51,23 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
+function createData(id, categoryName, parentCategory) {
+  return {
+    id,
+    categoryName,
+    parentCategory,
+  };
 }
+
+const rows = [
+  createData(1, "Electronics", null),
+  createData(2, "Laptops", "Electronics"),
+  createData(3, "Smartphones", "Electronics"),
+  createData(4, "Clothing", null),
+  createData(5, "Men's Clothing", "Clothing"),
+  createData(6, "Women's Clothing", "Clothing"),
+  // Add more categories as needed
+];
 
 const headCells = [
   {
@@ -120,28 +77,16 @@ const headCells = [
     label: "ID",
   },
   {
-    id: "eventName",
+    id: "categoryName",
     numeric: false,
     disablePadding: false,
-    label: "Event Name",
+    label: "Category Name",
   },
   {
-    id: "eventDescription",
+    id: "parentCategory",
     numeric: false,
     disablePadding: false,
-    label: "Event Description",
-  },
-  {
-    id: "startDate",
-    numeric: false,
-    disablePadding: false,
-    label: "Start Date",
-  },
-  {
-    id: "endDate",
-    numeric: false,
-    disablePadding: false,
-    label: "End Date",
+    label: "Parent Category",
   },
   {
     id: "actions",
@@ -171,7 +116,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align="left" // Align cells to the left
+            align="left"
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -227,7 +172,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          IT Events
+          Categories
         </Typography>
       )}
 
@@ -248,7 +193,7 @@ function EnhancedTableToolbar(props) {
 
 function EnhancedTable(props) {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -351,12 +296,12 @@ function EnhancedTable(props) {
                   >
                     <TableCell padding="checkbox"></TableCell>
                     <TableCell align="left">{row.id}</TableCell>
-                    <TableCell align="left">{row.eventName}</TableCell>
-                    <TableCell align="left">{row.eventDescription}</TableCell>
-                    <TableCell align="left">{row.startDate}</TableCell>
-                    <TableCell align="left">{row.endDate}</TableCell>
+                    <TableCell align="left">{row.categoryName}</TableCell>
                     <TableCell align="left">
-                      <Link to={`/admin/events/${row.id}`}>
+                      {row.parentCategory == null ? "-" : row.parentCategory}
+                    </TableCell>
+                    <TableCell align="left">
+                      <Link to={`/admin/categories/${row.id}`}>
                         <IconButton>
                           <EditIcon />
                         </IconButton>
@@ -374,7 +319,7 @@ function EnhancedTable(props) {
                     height: (dense ? 33 : 53) * emptyRows,
                   }}
                 >
-                  <TableCell colSpan={7} />
+                  <TableCell colSpan={6} />
                 </TableRow>
               )}
             </TableBody>
@@ -390,10 +335,6 @@ function EnhancedTable(props) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </Box>
   );
 }
