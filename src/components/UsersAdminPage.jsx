@@ -23,35 +23,33 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { visuallyHidden } from "@mui/utils";
 import EditUsersAdmin from "../admin/EditUsersAdmin";
-function createData(id, fullName, email, password, role) {
+function createData(id, fullName, email, role) {
   return {
     id,
     fullName,
     email,
-    password,
     role
   };
 }
 
 const rows = [
-    createData(1, "John Doe", "john@example.com", "password123", "User"),
-    createData(2, "Jane Smith", "jane@example.com", "password456", "Admin"),
-    createData(3, "Alice Johnson", "alice@example.com", "alicepassword", "User"),
-    createData(4, "Bob Brown", "bob@example.com", "bobpassword", "User"),
-    createData(5, "Charlie Davis", "charlie@example.com", "charliepassword", "Admin"),
-    createData(6, "David Lee", "david@example.com", "davidpassword", "User"),
-    createData(7, "Eve Martinez", "eve@example.com", "evepassword", "Admin"),
-    createData(8, "Frank Wilson", "frank@example.com", "frankpassword", "User"),
-    createData(9, "Grace Taylor", "grace@example.com", "gracepassword", "User"),
-    createData(10, "Henry Moore", "henry@example.com", "henrypassword", "User"),
-    createData(11, "Isabel Clark", "isabel@example.com", "isabelpassword", "Admin"),
+    createData(1, "John Doe", "john@example.com", "User"),
+    createData(2, "Jane Smith", "jane@example.com", "Admin"),
+    createData(3, "Alice Johnson", "alice@example.com", "User"),
+    createData(4, "Bob Brown", "bob@example.com", "User"),
+    createData(5, "Charlie Davis", "charlie@example.com", "Admin"),
+    createData(6, "David Lee", "david@example.com", "User"),
+    createData(7, "Eve Martinez", "eve@example.com", "Admin"),
+    createData(8, "Frank Wilson", "frank@example.com", "User"),
+    createData(9, "Grace Taylor", "grace@example.com", "User"),
+    createData(10, "Henry Moore", "henry@example.com", "User"),
+    createData(11, "Isabel Clark", "isabel@example.com", "Admin"),
   ];
 
 const headCells = [
   { id: "id", numeric: true, disablePadding: true, label: "ID" },
   { id: "fullName", numeric: false, disablePadding: false, label: "Full Name" },
   { id: "email", numeric: false, disablePadding: false, label: "Email" },
-  { id: "password", numeric: false, disablePadding: false, label: "Password" },
   { id: "role", numeric: false, disablePadding: false, label: "Role" },
   { id: "actions", numeric: false, disablePadding: false, label: "Actions" }
 ];
@@ -302,7 +300,6 @@ setFilteredRows(rows.filter((row) => {
                     <TableCell align="left">{row.id}</TableCell>
                     <TableCell align="left">{row.fullName}</TableCell>
                     <TableCell align="left">{row.email}</TableCell>
-                    <TableCell align="left">{row.password}</TableCell>
                     <TableCell align="left">{row.role}</TableCell>
                     <TableCell align="left">
                       <IconButton>

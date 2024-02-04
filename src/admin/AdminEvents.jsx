@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect ,useState} from "react"
 import { useDispatch } from "react-redux"
 import { setAdminCurrentPage, setPaths } from "../Features/AdminNavigationSlice"
 import "../assets/styles/admin-events.css"
@@ -11,12 +11,18 @@ import {
   LocalizationProvider,
 } from "@mui/x-date-pickers"
 import { Link } from "react-router-dom"
+
 export default function AdminEvents() {
+  const [searchQuery, setSearchQuery] = useState("");
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setAdminCurrentPage("events"))
     dispatch(setPaths(["Dashboard", "Events"]))
   }, [])
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
   return (
     <div className="admin-events">
       <div className="title-create-new">
@@ -26,8 +32,13 @@ export default function AdminEvents() {
         </Link>
       </div>
 
-      <div className="search-area">
-        <TextField type="outlined" label="search" />
+      <div className="search-area" >
+        <TextField 
+        type="outlined" 
+        label="Search by Event Name"
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+        />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker label="Start Date" />
         </LocalizationProvider>
@@ -37,7 +48,7 @@ export default function AdminEvents() {
         <button className="search-button">search</button>
       </div>
 
-      <EventsAdminTable />
+      <EventsAdminTable searchQuery={searchQuery} />
     </div>
   )
 }

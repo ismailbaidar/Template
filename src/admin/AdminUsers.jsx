@@ -52,7 +52,6 @@ export default function AdminUsers() {
           <MenuItem onClick={()=>setSelectedRole("User")} value="User">User</MenuItem>
           <MenuItem onClick={()=>setSelectedRole("Admin")} value="Admin">Admin</MenuItem>
         </Select>
-        <button className="search-button">Search</button>
       </div>
       <UsersAdminTable searchQuery={searchQuery} selectedRole={selectedRole} />
 

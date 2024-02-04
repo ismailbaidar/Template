@@ -8,10 +8,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
 import CreateEventAdmin from "./CreateEventAdmin"
 import AdminUsers from "./AdminUsers"
+import CreateSpeakersAdmin from "./CreateSpeakersAdmin"
 import CreateUsersAdmin from "./CreateUsersAdmin"
 import EditUsersAdmin from "./EditUsersAdmin"
-
+import EditSpeakersAdmin from "./EditSpeakersAdmin"
 import EditEventAdmin from "./EditEventAdmin"
+import AdminSpeakers from "./AdminSpeaker"
 export default function AdminRoutes() {
   const paths = useSelector((state) => state.AdminNavigationReducer.paths)
   console.log(paths[0])
@@ -55,9 +57,19 @@ export default function AdminRoutes() {
           <Route path="users" element={<AdminUsers />} />
         </Routes>
         <Routes>
+          <Route path="speakers/create" element={<CreateSpeakersAdmin />} />
+        </Routes>
+        <Routes>
+          <Route path="speakers" element={<AdminSpeakers />} />
+        </Routes>
+        <Routes>
+          <Route path="speakers/edit/:id" element={<EditSpeakersAdmin />} />
+
+        </Routes>
+        <Routes>
           <Route path="users/edit/:id" element={<EditUsersAdmin />} />
         </Routes>
-       
+
       </div>
     </div>
   )
