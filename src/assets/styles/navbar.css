@@ -23,7 +23,34 @@ nav li {
 nav li[data-current="true"] {
   border-block-end-color: white;
 }
-
+nav .username {
+}
+nav .profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+nav .profile ul {
+  position: absolute;
+  z-index: 10000000;
+  width: 100%;
+  display: none;
+  background-color: white;
+  color: black;
+  display: grid;
+  grid-template-columns: 1fr;
+  transform: translateY(70%);
+}
+.profile ul li {
+  color: inherit !important;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+.profile ul li:hover {
+  background-color: var(--primary-red);
+  color: white !important;
+}
 nav {
   /* margin: 1rem auto !important; */
   position: sticky;
