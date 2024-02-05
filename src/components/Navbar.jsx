@@ -1,23 +1,23 @@
-import "../assets/styles/navbar.css"
-import { useSelector, useDispatch } from "react-redux"
-import { Link, NavLink } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { setCurrentPage } from "../Features/NavigationSlice"
-import { Logout } from "@mui/icons-material"
-import { logout } from "../Features/AuthSlice"
+import "../assets/styles/navbar.css";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { setCurrentPage } from "../Features/NavigationSlice";
+import { Logout } from "@mui/icons-material";
+import { logout } from "../Features/AuthSlice";
 export default function Navbar() {
-  const dispatch = useDispatch()
-  const token = useSelector((state) => state.AuthReducer.token)
-  const username = useSelector((state) => state.AuthReducer.username)
-  console.log(username, "username")
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.AuthReducer.token);
+  const username = useSelector((state) => state.AuthReducer.username);
+  console.log(username, "username");
   const page = useSelector((state) => {
-    return state.NavigationReducer.currentPage
-  })
+    return state.NavigationReducer.currentPage;
+  });
 
-  const [navActionToggle, setNavActionToggle] = useState(false)
+  const [navActionToggle, setNavActionToggle] = useState(false);
   useEffect(() => {
-    console.log(page)
-  }, [page])
+    console.log(page);
+  }, [page]);
   return (
     <nav className="shadow-md  flex align-center text-white  justify-between">
       <Link
@@ -82,6 +82,9 @@ export default function Navbar() {
           {navActionToggle && (
             <ul>
               <li className="cursor-pointer">Profile</li>
+              <li className="cursor-pointer">
+                <Link to="/admin">Dashboard</Link>
+              </li>
               <li className="cursor-pointer" onClick={() => dispatch(logout())}>
                 Logout
               </li>
@@ -90,5 +93,5 @@ export default function Navbar() {
         </div>
       )}
     </nav>
-  )
+  );
 }

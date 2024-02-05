@@ -23,8 +23,7 @@ nav li {
 nav li[data-current="true"] {
   border-block-end-color: white;
 }
-nav .username {
-}
+
 nav .profile {
   position: relative;
   display: flex;
@@ -32,6 +31,7 @@ nav .profile {
   justify-content: center;
 }
 nav .profile ul {
+  min-width: 100px;
   position: absolute;
   z-index: 10000000;
   width: 100%;
@@ -40,12 +40,18 @@ nav .profile ul {
   color: black;
   display: grid;
   grid-template-columns: 1fr;
-  transform: translateY(70%);
+  place-content: center;
+  transform: translate(0%, 70%);
 }
 .profile ul li {
   color: inherit !important;
   padding: 0.5rem;
+
   font-size: 0.9rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .profile ul li:hover {
   background-color: var(--primary-red);

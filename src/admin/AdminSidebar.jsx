@@ -19,6 +19,7 @@ import {
   setAdminCurrentPage,
   setPaths,
 } from "../Features/AdminNavigationSlice";
+import { logout } from "../Features/AuthSlice";
 export default function AdminSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const page = useSelector((state) => state.AdminNavigationReducer.currentPage);
@@ -106,7 +107,7 @@ export default function AdminSidebar() {
           </li>
         </ul>
       </div>
-      <button className="logout">
+      <button className="logout" onClick={() => dispatch(logout())}>
         <FontAwesomeIcon icon={faRightFromBracket} />
         <span>{!isCollapsed && "Logout"}</span>
       </button>
