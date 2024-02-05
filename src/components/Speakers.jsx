@@ -18,8 +18,7 @@ const speakersData = [
     image: "../Images/said_wahid.jpg",
     social: {
       facebook: "https://www.facebook.com/saidwahidmaroc",
-      linkedin:
-        "https://www.linkedin.com/in/said-wahid-a0927715/?originalSubdomain=ma",
+      linkedin:  "https://www.linkedin.com/in/said-wahid-a0927715/?originalSubdomain=ma",
       instagram: "https://www.instagram.com/saidwahidmaroc/?hl=en",
     },
   },
@@ -29,8 +28,7 @@ const speakersData = [
     image: "../Images/hassan_fadili.jpg",
     social: {
       facebook: "https://www.facebook.com/hassan.fadili.948",
-      linkedin:
-        "https://www.linkedin.com/in/hassan-fadili-3836422/?originalSubdomain=nl",
+      linkedin: "https://www.linkedin.com/in/hassan-fadili-3836422/?originalSubdomain=nl",
       instagram: "https://www.instagram.com/hassanfad11/?hl=en",
     },
   },
@@ -109,7 +107,7 @@ export default function Speakers() {
                           style={{ "--i": "2" }}
                         >
                           <FontAwesomeIcon icon={faLinkedin} />
-                        </a>
+                        </a>3
 
                         <a
                           href={speakerData.social.instagram}

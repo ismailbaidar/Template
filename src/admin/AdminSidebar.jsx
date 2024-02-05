@@ -72,10 +72,16 @@ export default function AdminSidebar() {
               {!isCollapsed && <span>Events</span>}
             </li>
           </Link>
-          <li className="navigation-item">
+          
+          <Link to ="/admin/speakers" onClick={() => { }}>
+            <li className="navigation-item"
+            data-current-page={"users" == page}
+            
+            >
             <FontAwesomeIcon icon={faPersonChalkboard} />{" "}
             {!isCollapsed && <span>Speakers</span>}
           </li>
+          </Link>
           <Link to ="/admin/Users" onClick={() => { }}>
             <li className="navigation-item"
              data-current-page={"users" == page}
@@ -84,10 +90,6 @@ export default function AdminSidebar() {
               {!isCollapsed && <span>Users</span>}
             </li>
           </Link>
-          <li className="navigation-item">
-            <FontAwesomeIcon icon={faCalendar} />{" "}
-            {!isCollapsed && <span>Calendar</span>}
-          </li>
         </ul>
       </div>
       <button className="logout">
