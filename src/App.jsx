@@ -2,7 +2,7 @@ import Cards from "./components/Cards"
 import Navbar from "./components/Navbar"
 import EventTimer from "./components/EventImer"
 import "./assets/styles/app.css"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, useNavigate } from "react-router-dom"
 import HomePage from "./Pages/HomePage"
 import AboutUs from "./components/AboutUs"
 import MainRoutes from "./components/MainRoutes"
@@ -15,13 +15,31 @@ import { useEffect, useState } from "react"
 import { setCurrentPage } from "./Features/NavigationSlice"
 import ErrorPage from "./Pages/ErrorPage"
 import AdminRoutes from "./admin/AdminRoutes"
+import DirectAccess from "./components/DirectAccess"
 export default function App() {
+  const token = useSelector((state) => state.AuthReducer.token)
+  const role = useSelector((state) => state.AuthReducer.role)
+
+  const navigate = useNavigate()
+  // useEffect(() => {
+  //   if (token != null) {
+  //     navigate("/")
+  //   }
+  // }, [token])
   return (
     <div className="app">
       <Routes>
-        {/* the routes below gonna be displayed without the navbar and footer components */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
+
+        <Route
+          path="/login"
+          element={
+            <DirectAccess type={"login"}>
+              <Login />
+            </DirectAccess>
+          }
+        />
+
         <Route path="/register" element={<Register />} />
         <Route path="/page/*" element={<MainRoutes />} />
         <Route path="/401" element={<ErrorPage code="401" />} />

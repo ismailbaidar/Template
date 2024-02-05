@@ -18,10 +18,7 @@ export default function ErrorPage({ code }) {
       firstTitle: "OOPS,",
 
       secondTitle: ["No", "authorization found"],
-      paragraphs: [
-        "This page is not pulblically availlable",
-        "This page is not pulblically availlable",
-      ],
+      paragraphs: ["This page is not pulblically availlable"],
     },
   }
   const [selectedError, setSelectedError] = useState(messages[code])

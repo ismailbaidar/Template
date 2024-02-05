@@ -1,18 +1,25 @@
 import "../assets/styles/navbar.css"
 import { useSelector, useDispatch } from "react-redux"
 import { Link, NavLink } from "react-router-dom"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { setCurrentPage } from "../Features/NavigationSlice"
+import { Logout } from "@mui/icons-material"
+import { logout } from "../Features/AuthSlice"
 export default function Navbar() {
   const dispatch = useDispatch()
+  const token = useSelector((state) => state.AuthReducer.token)
+  const username = useSelector((state) => state.AuthReducer.username)
+  console.log(username, "username")
   const page = useSelector((state) => {
     return state.NavigationReducer.currentPage
   })
+
+  const [navActionToggle, setNavActionToggle] = useState(false)
   useEffect(() => {
     console.log(page)
   }, [page])
   return (
-    <nav className="shadow-md  flex align-center text-white overflow-hidden justify-between">
+    <nav className="shadow-md  flex align-center text-white  justify-between">
       <Link
         className="text-black logo-holder"
         to="/"
@@ -55,14 +62,33 @@ export default function Navbar() {
           </Link>
         </li>
       </ul>
-      <div className="authentication-buttons">
-        <button className="sign-in">
-          <Link to="/login">Sign in</Link>
-        </button>
-        <button className="sign-up">
-          <Link to="/register">Sign Up</Link>
-        </button>
-      </div>
+      {token == null ? (
+        <div className="authentication-buttons">
+          <button className="sign-in">
+            <Link to="/login">Sign in</Link>
+          </button>
+          <button className="sign-up">
+            <Link to="/register">Sign Up</Link>
+          </button>
+        </div>
+      ) : (
+        <div className="profile">
+          <div
+            className="username cursor-pointer"
+            onClick={() => setNavActionToggle(!navActionToggle)}
+          >
+            {username}
+          </div>
+          {navActionToggle && (
+            <ul>
+              <li className="cursor-pointer">Profile</li>
+              <li className="cursor-pointer" onClick={() => dispatch(logout())}>
+                Logout
+              </li>
+            </ul>
+          )}
+        </div>
+      )}
     </nav>
   )
 }

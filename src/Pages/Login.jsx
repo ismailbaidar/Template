@@ -1,7 +1,7 @@
 import { Checkbox, FormControlLabel, TextField } from "@mui/material"
 import "../assets/styles/form.css"
 import SvgLogin from "../components/SvgLogin"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { login } from "../Features/AuthSlice"
 import { useEffect, useReducer, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -11,8 +11,9 @@ import axios from "axios"
 import { gapi } from "gapi-script"
 export default function Login() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const isLoading = useSelector((state) => state.AuthReducer.isLoading)
-
+  const token = useSelector((state) => state.AuthReducer.token)
   const email = useRef()
   const password = useRef()
   function handleLogin() {
@@ -24,6 +25,11 @@ export default function Login() {
       })
     )
   }
+  useEffect(() => {
+    if (token != null) {
+      navigate("/")
+    }
+  }, [])
 
   const clientId =
     "201912823014-alq12a2d01h9t0a3k9q7vtfir277m9mr.apps.googleusercontent.com"

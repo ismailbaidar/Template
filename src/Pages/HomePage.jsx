@@ -8,7 +8,7 @@ export default function HomePage() {
     <div className="grid ">
       <Navbar></Navbar>
       <div className="grid gap-5">
-        <EventTimer date="2024-02-9"></EventTimer>
+        <EventTimer date="2024-02-6"></EventTimer>
         <Cards />
         <Stats />
       </div>
