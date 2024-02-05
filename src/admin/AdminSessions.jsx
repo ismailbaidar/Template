@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect ,useState} from "react"
 import { useDispatch } from "react-redux"
 import { setAdminCurrentPage, setPaths } from "../Features/AdminNavigationSlice"
 import AdminSessionsTable from "../components/AdminSessionsTable"
@@ -15,12 +15,16 @@ import {
   } from "@mui/x-date-pickers"
 AdapterDayjs
 export default function AdminSessions(){
-    const dispatch = useDispatch()
-
-    useEffect(()=>{
-        dispatch(setAdminCurrentPage('session'))
-        dispatch(setPaths(["Dashboard","Sessions"]))
-    },[])
+  const dispatch = useDispatch()
+  
+  useEffect(()=>{
+    dispatch(setAdminCurrentPage('session'))
+    dispatch(setPaths(["Dashboard","Sessions"]))
+  },[])
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
     return <div className="admin-sessions">
               <div className="title-create-new">
         <span className="title">Sessions</span>
@@ -28,7 +32,10 @@ export default function AdminSessions(){
       </div>
 
       <div className="search-area">
-        <TextField type="outlined" label="search" />
+        <TextField type="outlined" label="search"
+         value={searchQuery}
+         onChange={handleSearchInputChange}
+        />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker label="Start Date" />
         </LocalizationProvider>
@@ -37,6 +44,6 @@ export default function AdminSessions(){
         </LocalizationProvider>
         <button className="search-button">search</button>
       </div>
-        <AdminSessionsTable/>
+        <AdminSessionsTable searchQuery={searchQuery}/>
     </div>
 }

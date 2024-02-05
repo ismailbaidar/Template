@@ -1,26 +1,27 @@
-import * as React from "react"
-import PropTypes from "prop-types"
-import { alpha } from "@mui/material/styles"
-import Box from "@mui/material/Box"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell from "@mui/material/TableCell"
-import TableContainer from "@mui/material/TableContainer"
-import TableHead from "@mui/material/TableHead"
-import TablePagination from "@mui/material/TablePagination"
-import TableRow from "@mui/material/TableRow"
-import TableSortLabel from "@mui/material/TableSortLabel"
-import Toolbar from "@mui/material/Toolbar"
-import Typography from "@mui/material/Typography"
-import Paper from "@mui/material/Paper"
-import { Link } from "react-router-dom"
-import IconButton from "@mui/material/IconButton"
-import Tooltip from "@mui/material/Tooltip"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Switch from "@mui/material/Switch"
-import DeleteIcon from "@mui/icons-material/Delete"
-import EditIcon from "@mui/icons-material/Edit"
-import { visuallyHidden } from "@mui/utils"
+import * as React from "react";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import { Link } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { visuallyHidden } from "@mui/utils";
 
 function createData(id, eventName, eventDescription, startDate, endDate) {
   return {
@@ -152,11 +153,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const {
-    order,
-    orderBy,
-    onRequestSort,
-  } = props;
+  const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -187,11 +184,11 @@ function EnhancedTableHead(props) {
         ))}
       </TableRow>
     </TableHead>
-  )
+  );
 }
 
 function EnhancedTableToolbar(props) {
-  const { numSelected } = props
+  const { numSelected } = props;
 
   return (
     <Toolbar
@@ -239,17 +236,24 @@ function EnhancedTableToolbar(props) {
         </Tooltip>
       )}
     </Toolbar>
-  )
+  );
 }
 
-function EnhancedTable(props) {
-  const [order, setOrder] = React.useState("asc")
-  const [orderBy, setOrderBy] = React.useState("calories")
-  const [selected, setSelected] = React.useState([])
-  const [page, setPage] = React.useState(0)
-  const [dense, setDense] = React.useState(false)
-  const [rowsPerPage, setRowsPerPage] = React.useState(5)
+function EnhancedTable({ searchQuery }) {
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("calories");
+  const [selected, setSelected] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [dense, setDense] = React.useState(false);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [filteredRows, setFilteredRows] = useState(rows);
 
+
+  useEffect(() => {
+    const filtered = rows.filter(row => row.eventName.toLowerCase().includes(searchQuery.toLowerCase()));
+    setFilteredRows(filtered);
+    setPage(0);
+  }, [searchQuery]);
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -300,7 +304,7 @@ function EnhancedTable(props) {
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredRows.length) : 0;
 
   const visibleRows = React.useMemo(
     () =>
@@ -309,7 +313,7 @@ function EnhancedTable(props) {
         page * rowsPerPage + rowsPerPage
       ),
     [order, orderBy, page, rowsPerPage]
-  )
+  );
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -326,7 +330,7 @@ function EnhancedTable(props) {
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-              {visibleRows.map((row, index) => {
+              {filteredRows.map((row, index) => {
                 const isItemSelected = isSelected(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -340,7 +344,7 @@ function EnhancedTable(props) {
                     selected={isItemSelected}
                     sx={{ cursor: "pointer" }}
                   >
-                    <TableCell padding="checkbox"></TableCell>
+                    {/* <TableCell padding="checkbox"></TableCell> */}
                     <TableCell align="left">{row.id}</TableCell>
                     <TableCell align="left">{row.eventName}</TableCell>
                     <TableCell align="left">{row.eventDescription}</TableCell>
@@ -374,7 +378,7 @@ function EnhancedTable(props) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={filteredRows.length}
+          // count={filteredRows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

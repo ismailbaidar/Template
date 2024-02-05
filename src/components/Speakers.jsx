@@ -107,7 +107,7 @@ export default function Speakers() {
                           style={{ "--i": "2" }}
                         >
                           <FontAwesomeIcon icon={faLinkedin} />
-                        </a>3
+                        </a>
 
                         <a
                           href={speakerData.social.instagram}
@@ -128,9 +128,7 @@ export default function Speakers() {
                       <h3>{speakerData.name}</h3>
                       <h5>{speakerData.role}</h5>
                       <div className="button">
-                        <button>
-                          <a href="#">Details</a>
-                        </button>
+                       
                       </div>
                     </div>
                   </div>

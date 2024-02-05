@@ -83,9 +83,14 @@
   transform: scale(1.1);
 }
 
-.box:hover .overlay {
-  height: 45%;
+.box:hover .overlay  {
+  height: 30%;
+  
+  
+ 
+  
 }
+
 .button {
   display: inline-block;
 }
@@ -135,7 +140,6 @@
 .social-icons-container {
   width: 30px;
   height: 30px;
-
   position: absolute;
   /* overflow: hidden; */
   top: 2rem;
@@ -211,7 +215,14 @@
 .social-icons-container:hover .social-icons-info {
   display: flex;
 }
+.social-icons-container{
+  display :none;
+}
+.box:hover  .social-icons-container{
+  display :flex;
+  
 
+}
 @media screen and (max-width: 767px) {
   .social-icons {
     top: 5px;

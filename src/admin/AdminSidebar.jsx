@@ -75,17 +75,34 @@ export default function AdminSidebar() {
           
           <Link to ="/admin/speakers" onClick={() => { }}>
             <li className="navigation-item"
-            data-current-page={"users" == page}
+            data-current-page={"speakers" == page}
             
             >
             <FontAwesomeIcon icon={faPersonChalkboard} />{" "}
             {!isCollapsed && <span>Speakers</span>}
           </li>
           </Link>
-          <Link to ="/admin/Users" onClick={() => { }}>
-            <li className="navigation-item"
-             data-current-page={"users" == page}
+          
+          <Link to="/admin/sessions" onClick={() => {}}>
+            <li
+              className="navigation-item"
+              data-current-page={"session" == page}
             >
+              <FontAwesomeIcon icon={faClock} />{" "}
+              {!isCollapsed && <span>Sessions</span>}
+            </li>
+          </Link>
+          <Link to="/admin/categories" onClick={() => {}}>
+            <li
+              className="navigation-item"
+              data-current-page={"category" == page}
+            >
+              <FontAwesomeIcon icon={faList} />{" "}
+              {!isCollapsed && <span>Categories</span>}
+            </li>
+          </Link>
+          <Link to="/admin/Users" onClick={() => {}}>
+            <li className="navigation-item" data-current-page={"users" == page}>
               <FontAwesomeIcon icon={faUsers} />{" "}
               {!isCollapsed && <span>Users</span>}
             </li>

@@ -144,7 +144,8 @@ function SpeakersTable({ searchQuery }) {
                     </TableCell>
                     <TableCell align="left">{row.mct ? "Yes" : "No"}</TableCell>
                     <TableCell align="left">{row.mvp ? "Yes" : "No"}</TableCell>
-                    <TableCell align="left">{row.biograph}</TableCell>
+                    <TableCell align="left">{row.biograph.length>15?row.biograph.substring(0,15)+"...":row.biograph}</TableCell>
+
                     <TableCell align="left">
                       <IconButton>
                         <Link to={`edit/${row.id}`}>
