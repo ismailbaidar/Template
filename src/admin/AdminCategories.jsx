@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   setAdminCurrentPage,
@@ -14,7 +14,10 @@ export default function AdminCategories() {
     dispatch(setPaths(["Dashboard", "Categories"]));
     dispatch(setAdminCurrentPage("category"));
   }, []);
-
+      const [searchQuery, setSearchQuery]= useState("");
+      const handleSearchInputChange = (event) => {
+        setSearchQuery(event.target.value);
+      };
   return (
     <>
       <div className="admin-categories">
@@ -25,11 +28,14 @@ export default function AdminCategories() {
           </Link>
         </div>
         <div className="search-area">
-          <TextField type="outlined" label="search" />
+          <TextField type="outlined" label="search" 
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+          />
 
           <button className="search-button">search</button>
         </div>
-        <CategoryTable />
+        <CategoryTable  searchQuery={searchQuery}/>
       </div>
     </>
   );

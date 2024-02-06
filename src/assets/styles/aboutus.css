@@ -13,8 +13,9 @@
   height: 100%;
 }
 .about-us-container .card-cont {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
+  display: flex;
   opacity: 0;
   /* scale: 0; */
   animation: reveal 300ms forwards linear;
@@ -63,11 +64,16 @@
 .about-us-container .text-header h4 {
   color: black;
 }
-
+.about-us-container :is(.text-contain,.image-container){
+  width: 50%;
+}
 .about-us-container .text-contain {
   padding: 1em;
 }
-
+.about-us-container .container .card-cont:nth-child(even) {
+  flex-direction: row-reverse !important;
+  
+}
 @media screen and (width < 700px) {
   .about-us-container {
     font-size: 0.8rem;
@@ -77,7 +83,7 @@
     flex-direction: column;
   }
   .about-us-container .container .card-cont:nth-child(even) {
-    flex-direction: column-reverse;
+    flex-direction: column-reverse !important;
     
   }
   .about-us-container .text-miss {

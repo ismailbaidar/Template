@@ -2,6 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import {useEffect, useState} from 'react';
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -172,17 +173,13 @@ function EnhancedTableToolbar(props) {
   );
 }
 
-function CategoryTable(props) {
+function EnhancedTable(props) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const rows = useSelector((state) => state.CategoryReducer.categories);
-  const subCategories = useSelector(
-    (state) => state.CategoryReducer.subCategories
-  );
 
   console.log(rows, "ze");
   const handleRequestSort = (event, property) => {
@@ -240,7 +237,7 @@ function CategoryTable(props) {
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredRows.length) : 0;
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -261,7 +258,7 @@ function CategoryTable(props) {
               rowCount={rows.length}
             />
             <TableBody>
-              {subCategories.map((row, index) => {
+              {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -313,7 +310,7 @@ function CategoryTable(props) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={filteredRows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

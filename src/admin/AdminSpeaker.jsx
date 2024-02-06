@@ -30,6 +30,7 @@ export default function AdminSpeakers() {
 
       <div className="search-area">
         <TextField
+        className="searchIcon"
           type="outlined"
           label="Search"
           value={searchQuery}

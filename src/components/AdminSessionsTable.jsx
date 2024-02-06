@@ -1,6 +1,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -259,14 +260,20 @@ function EnhancedTableToolbar(props) {
   );
 }
 
-function AdminSessionsTable(props) {
+function AdminSessionsTable({searchQuery}) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [filteredRows, setFilteredRows] = useState(rows);
 
+  useEffect(() => {
+    const filtered = rows.filter(row => row.sessionName.toLowerCase().includes(searchQuery.toLowerCase()));
+    setFilteredRows(filtered);
+    setPage(0);
+  }, [searchQuery]);
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -317,7 +324,7 @@ function AdminSessionsTable(props) {
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredRows.length) : 0;
 
   const visibleRows = React.useMemo(
     () =>
@@ -347,7 +354,7 @@ function AdminSessionsTable(props) {
               rowCount={rows.length}
             />
             <TableBody>
-              {visibleRows.map((row, index) => {
+              {filteredRows.map((row, index) => {
                 const isItemSelected = isSelected(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -401,7 +408,7 @@ function AdminSessionsTable(props) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={filteredRows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -412,5 +419,7 @@ function AdminSessionsTable(props) {
     </Box>
   );
 }
-
+AdminSessionsTable.propTypes = {
+  searchQuery: PropTypes.string.isRequired,
+};
 export default AdminSessionsTable;
