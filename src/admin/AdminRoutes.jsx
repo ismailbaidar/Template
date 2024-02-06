@@ -1,35 +1,37 @@
-import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
-import Dashboard from "./Dashboard";
-import AdminSidebar from "./AdminSidebar";
-import "../assets/styles/admin-routes.css";
-import AdminEvents from "./AdminEvents";
-import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import CreateEventAdmin from "./CreateEventAdmin";
-import AdminUsers from "./AdminUsers";
-import CreateSpeakersAdmin from "./CreateSpeakersAdmin";
-import CreateUsersAdmin from "./CreateUsersAdmin";
-import EditUsersAdmin from "./EditUsersAdmin";
-import EditSpeakersAdmin from "./EditSpeakersAdmin";
-import EditEventAdmin from "./EditEventAdmin";
-import AdminSpeakers from "./AdminSpeaker";
-import AdminSessions from "./AdminSessions";
-import CreateSessionPage from "./CreateSessionPage";
-import AdminCategories from "./AdminCategories";
-import CreateCategoryPage from "./CreateCategoryPage";
-import { useEffect } from "react";
-import AdminTargetAudience from "./AdminTargetAudience";
-import CreateTargetAudience from "./CreateTargetAudience";
-import EditTargetAudience from "./EditTargetAudience";
+import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom"
+import Dashboard from "./Dashboard"
+import AdminSidebar from "./AdminSidebar"
+import "../assets/styles/admin-routes.css"
+import AdminEvents from "./AdminEvents"
+import { useSelector } from "react-redux"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
+import CreateEventAdmin from "./CreateEventAdmin"
+import AdminUsers from "./AdminUsers"
+import CreateSpeakersAdmin from "./CreateSpeakersAdmin"
+import CreateUsersAdmin from "./CreateUsersAdmin"
+import EditUsersAdmin from "./EditUsersAdmin"
+import EditSpeakersAdmin from "./EditSpeakersAdmin"
+import EditEventAdmin from "./EditEventAdmin"
+import AdminSpeakers from "./AdminSpeaker"
+import AdminSessions from "./AdminSessions"
+import CreateSessionPage from "./CreateSessionPage"
+import AdminCategories from "./AdminCategories"
+import CreateCategoryPage from "./CreateCategoryPage"
+import { useEffect } from "react"
+import AdminTargetAudience from "./AdminTargetAudience"
+import CreateTargetAudience from "./CreateTargetAudience"
+import EditTargetAudience from "./EditTargetAudience"
+import EditcategoryPage from "./EditCategory"
+import EditEvent from "./EditEvent"
 export default function AdminRoutes() {
-  const paths = useSelector((state) => state.AdminNavigationReducer.paths);
-  const token = useSelector((state) => state.AuthReducer.role);
-  const navigate = useNavigate();
-  const role = useSelector((state) => state.AuthReducer.role);
-  const fromLogout = useSelector((state) => state.AuthReducer.fromLogout);
+  const paths = useSelector((state) => state.AdminNavigationReducer.paths)
+  const token = useSelector((state) => state.AuthReducer.role)
+  const navigate = useNavigate()
+  const role = useSelector((state) => state.AuthReducer.role)
+  const fromLogout = useSelector((state) => state.AuthReducer.fromLogout)
 
-  console.log(paths[0]);
+  console.log(paths[0])
   return (
     <>
       {role == "Admin" ? (
@@ -38,8 +40,8 @@ export default function AdminRoutes() {
           <div className="content">
             <div className="topbar">
               {paths.map((path, index) => {
-                let allPaths = "";
-                console.log(paths, path);
+                let allPaths = ""
+                console.log(paths, path)
 
                 return (
                   <>
@@ -53,7 +55,7 @@ export default function AdminRoutes() {
                       />
                     )}
                   </>
-                );
+                )
               })}
             </div>
             <Routes>
@@ -77,7 +79,7 @@ export default function AdminRoutes() {
               <Route path="users/edit/:id" element={<EditUsersAdmin />} />
               <Route path="sessions" element={<AdminSessions />} />
               <Route
-                path="events/:id/sessions/create"
+                path="events/update/:id/sessions/create"
                 element={<CreateSessionPage />}
               />
               <Route path="categories" element={<AdminCategories />} />
@@ -94,6 +96,11 @@ export default function AdminRoutes() {
                 path="targetAudience/edit/:id"
                 element={<EditTargetAudience />}
               />
+              <Route
+                path="category/update/:id"
+                element={<EditcategoryPage />}
+              />
+              <Route path="events/update/:id" element={<EditEvent />} />
             </Routes>
           </div>
         </div>
@@ -103,5 +110,5 @@ export default function AdminRoutes() {
         <Navigate to="/401" />
       )}
     </>
-  );
+  )
 }

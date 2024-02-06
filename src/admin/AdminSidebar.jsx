@@ -26,7 +26,7 @@ export default function AdminSidebar() {
     <div
       className="admin-sidebar"
       style={{
-        width: isCollapsed ? "5%" : "20%",
+        width: isCollapsed ? "90px" : "300px",
       }}
     >
       <button
@@ -74,7 +74,6 @@ export default function AdminSidebar() {
               {!isCollapsed && <span>Events</span>}
             </li>
           </Link>
-
           <Link to="/admin/sessions" onClick={() => {}}>
             <li
               className="navigation-item"
@@ -110,7 +109,7 @@ export default function AdminSidebar() {
               <FontAwesomeIcon icon={faPersonChalkboard} />{" "}
               {!isCollapsed && <span>Speakers</span>}
             </li>
-          </Link>
+          </Link>{" "}
           <Link to="/admin/Users" onClick={() => {}}>
             <li className="navigation-item" data-current-page={"users" == page}>
               <FontAwesomeIcon icon={faUsers} />{" "}

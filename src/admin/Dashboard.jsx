@@ -12,9 +12,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import DashboardEventEvent from "../components/DashboardEventTable"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { setAdminCurrentPage, setPaths } from "../Features/AdminNavigationSlice"
-  export default function Dashboard() {
+import { getAllEvents } from "../Features/EventSlice"
+export default function Dashboard() {
+  const events = useSelector((state) => state.EventReducer.events)
+  useEffect(() => {
+    dispatch(getAllEvents())
+  }, [])
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -26,7 +31,7 @@ import { setAdminCurrentPage, setPaths } from "../Features/AdminNavigationSlice"
       <div className="dashboard-wrapper">
         <div className="cards">
           <DashboardEventCard
-            stat={1000}
+            stat={events.length}
             name="Total Event"
             icon={<FontAwesomeIcon icon={faCalendar} />}
           />

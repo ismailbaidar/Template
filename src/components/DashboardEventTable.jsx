@@ -21,28 +21,18 @@ import Switch from "@mui/material/Switch"
 import DeleteIcon from "@mui/icons-material/Delete"
 import FilterListIcon from "@mui/icons-material/FilterList"
 import { visuallyHidden } from "@mui/utils"
+import { useSelect } from "@mui/base"
+import { useDispatch, useSelector } from "react-redux"
+import { getAllEvents } from "../Features/EventSlice"
+import { useEffect } from "react"
 
-function createData(id, event_name, event_date, total_attendance) {
+function createData(id, event_name, event_date) {
   return {
     id,
     event_name,
     event_date,
-    total_attendance,
   }
 }
-
-const rows = [
-  createData(1, "Tech Summit 2024", "2024-09-15", 500),
-  createData(2, "Web Development Workshop", "2024-09-22", 150),
-  createData(3, "Cybersecurity Conference", "2024-10-05", 300),
-  createData(4, "AI and Machine Learning Expo", "2024-10-12", 200),
-  createData(5, "Blockchain Symposium", "2024-11-02", 250),
-  createData(6, "DevOps Meetup", "2024-11-15", 100),
-  createData(7, "Cloud Computing Forum", "2024-12-01", 350),
-  createData(8, "IT Leadership Summit", "2024-12-10", 120),
-  createData(9, "Data Science Bootcamp", "2025-01-08", 180),
-  createData(10, "Mobile App Development Seminar", "2025-01-20", 80),
-]
 
 function descendingComparator(a, b, orderBy) {
   if (orderBy === "event_date") {
@@ -103,12 +93,6 @@ const headCells = [
     numeric: false,
     disablePadding: false,
     label: "Event Date",
-  },
-  {
-    id: "total_attendance",
-    numeric: true,
-    disablePadding: false,
-    label: "Total Attendance",
   },
 ]
 
@@ -214,6 +198,12 @@ export default function DashboardEventTable() {
   const [page, setPage] = React.useState(0)
   const [dense, setDense] = React.useState(false)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
+  const rows = useSelector((state) => state.EventReducer.events)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getAllEvents())
+    console.log("hello")
+  }, [])
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc"
@@ -291,9 +281,10 @@ export default function DashboardEventTable() {
               rowCount={rows.length}
             />
             <TableBody>
-              {visibleRows.map((row, index) => {
+              {rows.map((row, index) => {
                 const isItemSelected = isSelected(row.id)
                 const labelId = `enhanced-table-checkbox-${index}`
+                console.log(row)
 
                 return (
                   <TableRow
@@ -306,10 +297,10 @@ export default function DashboardEventTable() {
                     selected={isItemSelected}
                     sx={{ cursor: "pointer" }}
                   >
-                    <TableCell align="left">{row.id}</TableCell>
-                    <TableCell align="left">{row.event_name}</TableCell>
-                    <TableCell align="left">{row.event_date}</TableCell>
-                    <TableCell align="left">{row.total_attendance}</TableCell>
+                    <TableCell align="left">{index + 1}</TableCell>
+                    <TableCell align="left">{row.name}</TableCell>
+                    <TableCell align="left">{row.dateEnd}</TableCell>
+                    <TableCell align="left">{}</TableCell>
                   </TableRow>
                 )
               })}

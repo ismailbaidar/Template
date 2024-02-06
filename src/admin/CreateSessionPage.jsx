@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react"
 import {
   TextField,
   Button,
@@ -8,221 +8,261 @@ import {
   InputLabel,
   Typography,
   IconButton,
-} from "@mui/material";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { GridDeleteIcon } from "@mui/x-data-grid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
-import { setPaths } from "../Features/AdminNavigationSlice";
+} from "@mui/material"
+import CloudUploadIcon from "@mui/icons-material/CloudUpload"
+import { GridDeleteIcon } from "@mui/x-data-grid"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
+import { useDispatch, useSelector } from "react-redux"
+import { setPaths } from "../Features/AdminNavigationSlice"
+import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { useParams } from "react-router-dom"
+import { addSession } from "../Features/SessionSlice"
+import { getSubCategories } from "../Features/CategorySlice"
+import Loading from "../components/Loading"
 
-const YourFormComponent = () => {
+const CreateSessionPage = () => {
   const [formData, setFormData] = useState({
-    eventName: "",
-    eventDescription: "",
-    startDate: "",
-    endDate: "",
-    numberOfPlaces: "",
-    eventType: "",
-    eventAddress: "",
-    targetAudience: "",
-    category: "",
-    sponsor: "",
     supportFiles: [],
-  });
+  })
 
-  const dispatch = useDispatch();
+  const subcategories = useSelector(
+    (state) => state.CategoryReducer.subCategories
+  )
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    dispatch(setPaths(["Dashboard", "Sessions", "Create"]), []);
-  }, []);
+    dispatch(getSubCategories())
+  }, [])
+
+  useEffect(() => {
+    dispatch(setPaths(["Dashboard", "Sessions", "Create"]), [])
+  }, [])
+
+  const sessionNameRef = useRef()
+  const sessionStartDate = useRef()
+  const sessionEndDate = useRef()
+  const sessionSponsor = useRef()
+  const sessionDescription = useRef()
+  const sessionTargetAudience = useRef()
+  const sessionNbrPlaces = useRef()
+  const sessionType = useRef()
+  const sessionAddress = useRef()
+
+  const loading = useSelector((state) => state.SessionReducer.loading)
 
   const handleChange = (e) => {
+    console.log(e.target)
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
 
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
+    const files = Array.from(e.target.files)
     setFormData({
       ...formData,
       supportFiles: formData.supportFiles.concat(files),
-    });
-  };
+    })
+  }
 
   const handleDeleteFile = (fileIndex) => {
-    const updatedFiles = [...formData.supportFiles];
-    updatedFiles.splice(fileIndex, 1);
+    const updatedFiles = [...formData.supportFiles]
+    updatedFiles.splice(fileIndex, 1)
     setFormData({
       ...formData,
       supportFiles: updatedFiles,
-    });
-  };
+    })
+  }
+  const { id } = useParams()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
+    e.preventDefault()
+    console.log({
+      adress: sessionAddress.current.value,
+      dateEnd: sessionEndDate.current.value,
+      dateStart: sessionStartDate.current.value,
+      description: "  ",
+      nbrplace: parseInt(sessionNbrPlaces.current.value),
+      type: sessionType.current.value,
+      // id: "<uuid>",
+      eventId: id,
+      // targetAudienceId: sessionTargetAudience.current.value,
+    })
+
+    dispatch(
+      addSession({
+        adress: sessionAddress.current.value,
+        dateEnd: sessionEndDate.current.value,
+        dateStart: sessionStartDate.current.value,
+        description: "  ",
+        nbrplace: sessionNbrPlaces.current.value,
+        type: sessionType.current.value,
+        id: "<uuid>",
+        eventId: id,
+      })
+    )
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="create-session-admin">
-      <TextField
-        label="Event Name"
-        name="eventName"
-        value={formData.eventName}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Event Description"
-        name="eventDescription"
-        value={formData.eventDescription}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Start Date"
-        name="startDate"
-        type="date"
-        value={formData.startDate}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <TextField
-        label="End Date"
-        name="endDate"
-        type="date"
-        value={formData.endDate}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <TextField
-        label="Number of Places"
-        name="numberOfPlaces"
-        type="number"
-        value={formData.numberOfPlaces}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Type"
-        name="eventType"
-        value={formData.eventType}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Address"
-        name="eventAddress"
-        value={formData.eventAddress}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-      />
-      <FormControl fullWidth margin="normal">
-        <InputLabel id="targetAudienceLabel">Target Audience</InputLabel>
-        <Select
-          labelId="targetAudienceLabel"
-          name="targetAudience"
-          value={formData.targetAudience}
-          onChange={handleChange}
-        >
-          <MenuItem value="Tech Enthusiasts">Tech Enthusiasts</MenuItem>
-          <MenuItem value="Developers">Developers</MenuItem>
-          <MenuItem value="Business Professionals">
-            Business Professionals
-          </MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl fullWidth margin="normal">
-        <InputLabel id="sponsorLabel">Sponsor</InputLabel>
-        <Select
-          labelId="sponsorLabel"
-          name="sponsor"
-          value={formData.sponsor}
-          onChange={handleChange}
-        >
-          <MenuItem value="Sponsor A">Sponsor A</MenuItem>
-          <MenuItem value="Sponsor B">Sponsor B</MenuItem>
-          <MenuItem value="Sponsor C">Sponsor C</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl fullWidth margin="normal">
-        <InputLabel id="categoryLabel">Category</InputLabel>
-        <Select
-          labelId="categoryLabel"
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-        >
-          <MenuItem value="Category X">Category X</MenuItem>
-          <MenuItem value="Category Y">Category Y</MenuItem>
-          <MenuItem value="Category Z">Category Z</MenuItem>
-        </Select>
-      </FormControl>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <form onSubmit={handleSubmit} className="create-session-admin">
+          <TextField
+            label="Event Name"
+            name="eventName"
+            fullWidth
+            inputRef={sessionNameRef}
+            margin="normal"
+          />
 
-      <div>
-        <input
-          accept="image/*, application/pdf"
-          id="file-upload"
-          type="file"
-          multiple
-          style={{ display: "none" }}
-          onChange={handleFileChange}
-        />
-        <label htmlFor="file-upload">
-          <Button
-            variant="contained"
-            component="span"
-            startIcon={<CloudUploadIcon />}
-          >
-            Add Support
-          </Button>
-        </label>
-        {formData.supportFiles.length > 0 && (
-          <div className="file-preview">
-            {formData.supportFiles.map((file, index) => (
-              <div key={index} className="preview-item">
-                {file.type.includes("image/") ? (
-                  <img
-                    src={URL.createObjectURL(file)}
-                    alt={`Preview-${index}`}
-                    style={{ maxWidth: "100%", maxHeight: "100px" }}
-                  />
-                ) : (
-                  <span>{file.name}</span>
-                )}
-                <IconButton
-                  color="secondary"
-                  className="delete-icon"
-                  onClick={() => handleDeleteFile(index)}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </IconButton>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateTimePicker
+              label="Start Date"
+              name="startDate"
+              type="date"
+              fullWidth
+              margin="normal"
+              inputRef={sessionStartDate}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateTimePicker
+              label="End Date"
+              name="endDate"
+              type="date"
+              inputRef={sessionEndDate}
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </LocalizationProvider>
+
+          <TextField
+            label="Number of Places"
+            name="numberOfPlaces"
+            inputRef={sessionNbrPlaces}
+            type="number"
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Type"
+            name="eventType"
+            fullWidth
+            inputRef={sessionType}
+            margin="normal"
+          />
+          <TextField
+            label="Address"
+            name="eventAddress"
+            inputRef={sessionAddress}
+            fullWidth
+            margin="normal"
+          />
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="targetAudienceLabel">Target Audience</InputLabel>
+            <Select
+              inputRef={sessionTargetAudience}
+              labelId="targetAudienceLabel"
+              name="targetAudience"
+            >
+              <MenuItem value="Tech Enthusiasts">Tech Enthusiasts</MenuItem>
+              <MenuItem value="Developers">Developers</MenuItem>
+              <MenuItem value="Business Professionals">
+                Business Professionals
+              </MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="sponsorLabel">Sponsor</InputLabel>
+            <Select
+              labelId="sponsorLabel"
+              name="sponsor"
+              inputRef={sessionSponsor}
+            >
+              <MenuItem value="Sponsor A">Sponsor A</MenuItem>
+              <MenuItem value="Sponsor B">Sponsor B</MenuItem>
+              <MenuItem value="Sponsor C">Sponsor C</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="categoryLabel">Category</InputLabel>
+            <Select
+              labelId="categoryLabel"
+              // inputRef={sessionCa}
+              name="category"
+            >
+              {subcategories.map((sc) => {
+                return (
+                  <MenuItem value={sc.subCategoryId}>
+                    {sc.nameSubCategory}
+                  </MenuItem>
+                )
+              })}
+            </Select>
+          </FormControl>
+
+          <div>
+            <input
+              accept="image/*, application/pdf"
+              id="file-upload"
+              type="file"
+              multiple
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+            <label htmlFor="file-upload">
+              <Button
+                variant="contained"
+                component="span"
+                startIcon={<CloudUploadIcon />}
+              >
+                Add Support
+              </Button>
+            </label>
+            {formData.supportFiles.length > 0 && (
+              <div className="file-preview">
+                {formData.supportFiles.map((file, index) => (
+                  <div key={index} className="preview-item">
+                    {file.type.includes("image/") ? (
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt={`Preview-${index}`}
+                        style={{ maxWidth: "100%", maxHeight: "100px" }}
+                      />
+                    ) : (
+                      <span>{file.name}</span>
+                    )}
+                    <IconButton
+                      color="secondary"
+                      className="delete-icon"
+                      onClick={() => handleDeleteFile(index)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </IconButton>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        )}
-      </div>
 
-      <Button type="submit" className="submit-form-button">
-        Submit
-      </Button>
-    </form>
-  );
-};
+          <Button type="submit" className="submit-form-button">
+            Submit
+          </Button>
+        </form>
+      )}
+    </>
+  )
+}
 
-export default YourFormComponent;
+export default CreateSessionPage

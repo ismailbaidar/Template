@@ -22,68 +22,18 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { visuallyHidden } from "@mui/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteEvent, getAllEvents } from "../Features/EventSlice";
 
-function createData(id, eventName, eventDescription, startDate, endDate) {
+function createData(id, name, dateStart, dateEnd) {
   return {
     id,
-    eventName,
-    eventDescription,
-    startDate,
-    endDate,
+    name,
+
+    dateStart,
+    dateEnd,
   };
 }
-
-const rows = [
-  createData(
-    1,
-    "Tech Summit",
-    "Annual technology conference",
-    "2024-02-15",
-    "2024-02-17"
-  ),
-  createData(
-    2,
-    "Hackathon",
-    "24-hour coding competition",
-    "2024-03-10",
-    "2024-03-11"
-  ),
-  createData(
-    3,
-    "Webinar: AI Trends",
-    "Exploring the latest in AI",
-    "2024-04-05",
-    "2024-04-05"
-  ),
-  createData(
-    4,
-    "DevOps Workshop",
-    "Hands-on DevOps practices",
-    "2024-05-20",
-    "2024-05-21"
-  ),
-  createData(
-    5,
-    "Cybersecurity Conference",
-    "Addressing cybersecurity challenges",
-    "2024-06-15",
-    "2024-06-16"
-  ),
-  createData(
-    6,
-    "Data Science Symposium",
-    "Showcasing advancements in data science",
-    "2024-07-08",
-    "2024-07-09"
-  ),
-  createData(
-    7,
-    "Mobile App Expo",
-    "Showcasing innovative mobile applications",
-    "2024-08-22",
-    "2024-08-24"
-  ),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -101,17 +51,17 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
+// function stableSort(array, comparator) {
+//   const stabilizedThis = array.map((el, index) => [el, index]);
+//   stabilizedThis.sort((a, b) => {
+//     const order = comparator(a[0], b[0]);
+//     if (order !== 0) {
+//       return order;
+//     }
+//     return a[1] - b[1];
+//   });
+//   return stabilizedThis.map((el) => el[0]);
+// }
 
 const headCells = [
   {
@@ -121,25 +71,20 @@ const headCells = [
     label: "ID",
   },
   {
-    id: "eventName",
+    id: "name",
     numeric: false,
     disablePadding: false,
     label: "Event Name",
   },
+
   {
-    id: "eventDescription",
-    numeric: false,
-    disablePadding: false,
-    label: "Event Description",
-  },
-  {
-    id: "startDate",
+    id: "dateStart",
     numeric: false,
     disablePadding: false,
     label: "Start Date",
   },
   {
-    id: "endDate",
+    id: "dateEnd",
     numeric: false,
     disablePadding: false,
     label: "End Date",
@@ -239,18 +184,23 @@ function EnhancedTableToolbar(props) {
   );
 }
 
-function EnhancedTable({ searchQuery }) {
+function EventsAdminTable({ searchQuery }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const rows = useSelector((state) => state.EventReducer.events);
   const [filteredRows, setFilteredRows] = useState(rows);
-
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    const filtered = rows.filter(row => row.eventName.toLowerCase().includes(searchQuery.toLowerCase()));
+    dispatch(getAllEvents());
+  }, []);
+  useEffect(() => {
+    const filtered = rows.filter((row) =>
+      row.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     setFilteredRows(filtered);
     setPage(0);
   }, [searchQuery]);
@@ -260,14 +210,14 @@ function EnhancedTable({ searchQuery }) {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
+  // const handleSelectAllClick = (event) => {
+  //   if (event.target.checked) {
+  //     const newSelected = rows.map((n) => n.id);
+  //     setSelected(newSelected);
+  //     return;
+  //   }
+  //   setSelected([]);
+  // };
 
   const handleClick = (event, id) => {
     const selectedIndex = selected.indexOf(id);
@@ -306,15 +256,6 @@ function EnhancedTable({ searchQuery }) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredRows.length) : 0;
 
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(rows, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
-      ),
-    [order, orderBy, page, rowsPerPage]
-  );
-
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -330,7 +271,7 @@ function EnhancedTable({ searchQuery }) {
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-              {filteredRows.map((row, index) => {
+              {rows.map((row, index) => {
                 const isItemSelected = isSelected(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -345,18 +286,24 @@ function EnhancedTable({ searchQuery }) {
                     sx={{ cursor: "pointer" }}
                   >
                     {/* <TableCell padding="checkbox"></TableCell> */}
-                    <TableCell align="left">{row.id}</TableCell>
-                    <TableCell align="left">{row.eventName}</TableCell>
-                    <TableCell align="left">{row.eventDescription}</TableCell>
-                    <TableCell align="left">{row.startDate}</TableCell>
-                    <TableCell align="left">{row.endDate}</TableCell>
+                    <TableCell align="left">{index + 1}</TableCell>
+                    <TableCell align="left">{row.name}</TableCell>
+
+                    <TableCell align="left">{row.dateStart}</TableCell>
+                    <TableCell align="left">{row.dateEnd}</TableCell>
                     <TableCell align="left">
                       <IconButton>
-                        <Link to={`/admin/events/${row.id}`}>
+                        <Link to={`/admin/events/update/${row.id}`}>
                           <EditIcon />
                         </Link>
                       </IconButton>
-                      <IconButton>
+                      <IconButton
+                        onClick={() => {
+                          dispatch(deleteEvent(row.id)).then(() =>
+                            dispatch(getAllEvents())
+                          );
+                        }}
+                      >
                         <DeleteIcon />
                       </IconButton>
                     </TableCell>
@@ -393,8 +340,8 @@ function EnhancedTable({ searchQuery }) {
   );
 }
 
-EnhancedTable.propTypes = {
+EventsAdminTable.propTypes = {
   searchQuery: PropTypes.string.isRequired,
 };
 
-export default EnhancedTable;
+export default EventsAdminTable;

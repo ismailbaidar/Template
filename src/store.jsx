@@ -5,6 +5,8 @@ import AdminNavigationReducer from "./Features/AdminNavigationSlice";
 import AuthReducer from "./Features/AuthSlice";
 import TargetAudienceReducer from "./Features/TargetAudienceSlice";
 import CategoryReducer from "./Features/CategorySlice";
+import EventReducer from "./Features/EventSlice";
+import SessionReducer from "./Features/SessionSlice";
 const store = configureStore({
   reducer: {
     NavigationReducer,
@@ -12,6 +14,8 @@ const store = configureStore({
     AuthReducer,
     TargetAudienceReducer,
     CategoryReducer,
+    EventReducer,
+    SessionReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

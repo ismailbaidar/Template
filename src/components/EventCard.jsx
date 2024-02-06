@@ -1,23 +1,32 @@
-export default function EventCard() {
+import { useEffect } from "react"
+
+export default function EventCard({ event }) {
+  useEffect(() => {
+    console.log(event)
+  })
   return (
     <div className="event-card">
       <div className="background-side">
         <div className="image">
           <img
-            src="https://images.immediate.co.uk/production/volatile/sites/10/2023/06/2048x1365-Oak-trees-SEO-GettyImages-90590330-b6bfe8b.jpg?quality=90&resize=940,627"
+            style={{ background: "white", objectFit: "contain" }}
+            src={event.url}
             alt=""
           />
         </div>
       </div>
       <div className="content-side">
-        <div className="event-title">Event title</div>
-        <p className="event-description">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem
-          voluptatibus accusamus quis provident deserunt facilis vel, vitae quod
-          quo aspernatur.
-        </p>
+        <div className="event-title">{event.name}</div>
+        <p
+          className="event-description"
+          dangerouslySetInnerHTML={{ __html: event.description }}
+        ></p>
         <div className="location-date">
-          <span>Rabat </span>
+          <span>
+            {Math.floor(Math.random() * (100 - 1 + 1) + 1) % 2
+              ? "Rabat"
+              : "Casa"}
+          </span>
           <span>01-JAN-2024</span>
         </div>
         <button className="reserve-button">Reserve your place</button>

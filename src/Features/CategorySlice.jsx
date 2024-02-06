@@ -28,6 +28,18 @@ export const getSubCategories = createAsyncThunk(
   }
 );
 
+export const updateSubCategory = createAsyncThunk(
+  "categories/updateSubCategory",
+  async (data) => {
+    return axios
+      .put(
+        "https://mmc-parametrage-session.azurewebsites.net/api/SubCategory/UpdateSubCategory",
+        data
+      )
+      .then((res) => res.data);
+  }
+);
+
 export const addCategory = createAsyncThunk(
   "categories/addCategory",
   async (data) => {
@@ -47,6 +59,20 @@ export const addSubCategory = createAsyncThunk(
     return axios
       .post(
         "https://mmc-parametrage-session.azurewebsites.net/api/SubCategory/CreateSubCategory",
+        data
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  }
+);
+
+export const deleteSubCategory = createAsyncThunk(
+  "categories/deleteSubCategory",
+  async (data) => {
+    return axios
+      .delete(
+        "https://mmc-parametrage-session.azurewebsites.net/api/SubCategory/DeleteSubCategory/" +
+          data,
         data
       )
       .then((res) => console.log(res.data))
