@@ -22,6 +22,7 @@ import { useEffect } from "react";
 import AdminTargetAudience from "./AdminTargetAudience";
 import CreateTargetAudience from "./CreateTargetAudience";
 import EditTargetAudience from "./EditTargetAudience";
+import EditcategoryPage from "./EditCategory";
 export default function AdminRoutes() {
   const paths = useSelector((state) => state.AdminNavigationReducer.paths);
   const token = useSelector((state) => state.AuthReducer.role);
@@ -93,6 +94,10 @@ export default function AdminRoutes() {
               <Route
                 path="targetAudience/edit/:id"
                 element={<EditTargetAudience />}
+              />
+              <Route
+                path="category/update/:id"
+                element={<EditcategoryPage />}
               />
             </Routes>
           </div>

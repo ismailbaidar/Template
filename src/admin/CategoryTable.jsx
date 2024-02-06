@@ -2,7 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -24,8 +24,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import Checkbox from "@mui/material/Checkbox"; // Import Checkbox
 import { visuallyHidden } from "@mui/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getCategories, getSubCategories } from "../Features/CategorySlice";
+
+import {
+  deleteSubCategory,
+  getCategories,
+  getSubCategories,
+} from "../Features/CategorySlice";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -173,14 +177,19 @@ function EnhancedTableToolbar(props) {
   );
 }
 
-function EnhancedTable(props) {
+function CategoryTable(props) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const rows = useSelector((state) => state.CategoryReducer.categories);
 
+  const subCategories = useSelector(
+    (state) => state.CategoryReducer.subCategories
+  );
+  const [filteredRows, setFilteredRows] = useState(subCategories);
   console.log(rows, "ze");
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -237,7 +246,14 @@ function EnhancedTable(props) {
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredRows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+  function handleDelete(id) {
+    dispatch(deleteSubCategory(id)).then(() => {
+      dispatch(getSubCategories());
+      dispatch(getCategories());
+    });
+  }
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -258,7 +274,7 @@ function EnhancedTable(props) {
               rowCount={rows.length}
             />
             <TableBody>
-              {visibleRows.map((row, index) => {
+              {subCategories.map((row, index) => {
                 const isItemSelected = isSelected(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -283,12 +299,14 @@ function EnhancedTable(props) {
                       }
                     </TableCell>
                     <TableCell align="left">
-                      <Link to={`/admin/categories/`}>
+                      <Link to={`/admin/category/update/${row.subCategoryId}`}>
                         <IconButton>
                           <EditIcon />
                         </IconButton>
                       </Link>
-                      <IconButton>
+                      <IconButton
+                        onClick={() => handleDelete(row.subCategoryId)}
+                      >
                         <DeleteIcon />
                       </IconButton>
                     </TableCell>
@@ -311,7 +329,7 @@ function EnhancedTable(props) {
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={filteredRows.length}
-          rowsPerPage={rowsPerPage}
+          rowsPerPage={100}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
