@@ -1,3 +1,5 @@
+import React from "react"
+import {Link} from "react-router-dom"
 export default function EventCard() {
   return (
     <div className="event-card">
@@ -20,7 +22,9 @@ export default function EventCard() {
           <span>Rabat </span>
           <span>01-JAN-2024</span>
         </div>
-        <button className="reserve-button">Reserve your place</button>
+
+        <Link to="single-event" className="reserve-button">Details</Link>
+
       </div>
     </div>
   )

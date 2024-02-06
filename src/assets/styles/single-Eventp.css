@@ -1,0 +1,189 @@
+.container-single {
+    position: relative; 
+    width: 100%; 
+    overflow: hidden; 
+    padding: 2rem 2rem;
+  }
+  .space{
+    padding: 1rem;
+  }
+  .event-place {
+    padding: 0 0 0 1.5rem;
+    display: flex;
+    height: max-content;
+  
+  } 
+  .event-place svg{
+    font-size: 14px;
+    color: white;
+
+  }
+  .session-container {
+    padding: 2rem;
+    width: 100%;
+
+  }
+  .session-container Table{
+        box-shadow: none !important;
+
+  }
+  .btn-register{
+    margin-top: 8px;
+    text-align: center;
+    color: white;
+    
+    border-radius: 10px;
+    background-color: #c83a31;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+      color: white;
+  }
+  .time-event h2{
+    font-weight: bold;
+    font-size: 20px;
+    color: #411512;
+    padding: 1rem;
+    
+
+  }
+  .time-container svg{
+    font-size: 18px;
+    color: black;
+
+  }
+  .time-container{
+    display: flex;
+    /* align-items: center; */
+    padding: 5px 30px;
+    margin-right: 1rem;
+    width: 50%;
+    border-radius: 9px;
+    gap: 0.6rem;
+  
+  }
+  .local-container{
+    display: flex;
+    /* align-items: center; */
+    padding: 5px 30px;
+    margin-right: 1rem;
+    width: 80%;
+    border-radius: 9px;
+    gap: 0.6rem;
+  }
+  .time-event p{
+    
+    font-size: 15px;
+    color: #411512;
+   
+
+  }
+  .time-event{
+    display: grid;
+    margin-right: 1rem;
+
+  }
+  .btn-register:hover{
+  
+ 
+  
+    background-color: #a9281e;
+    
+  }
+  
+  .back-grouned-place{
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    border: 0;
+    border-radius: 9px;
+    gap: 0.6rem;
+    background-color: #c83a31;
+  }
+  .event-place h4{
+    color: white;
+    height: max-content;
+    font-size: 14px;
+    margin-block: auto;/*this is for centering the text in the div*/
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  }
+
+  .event-content {
+    /* clear: both; */
+    width: 70%; 
+   
+    padding-block-end: 0;
+  }
+  
+  .event-content h2 {
+    color: #411512;
+    font-weight: bold;
+    font-size: 24px;
+  }
+  .img-Contain-sides img{
+    max-width: 70%;
+    margin: auto;
+    padding: 1rem;
+  }
+  .event-content h3 {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: bold;
+    color: #c83a31;
+    margin-bottom: 1rem;
+  }
+  
+  .event-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #000000;
+    margin-bottom: 1rem;
+  }
+  .container-single .details-container-header{
+    display: flex;
+    
+  }
+ .btn-register-now{
+    margin-top: 8px;
+    text-align: center;
+    color: white;
+    
+    border-radius: 10px;
+    background-color: #c83a31;
+    padding: 0.5rem 3rem;
+      color: white;
+ }
+  .container-single .event-info-side{
+    right:0;
+    padding:1.5rem 2rem ;
+    width: 25%;
+    background-color: #ffffff;
+
+  }
+  .detail-container-body{
+    display: grid;
+    
+    margin-right: 1rem;
+  }
+  .detail-container-body h1{
+    font-weight: bold;
+    font-size: 25px;
+    color: #411512;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 1rem;
+    
+
+  }
+
+ .local-container p{
+    color: black;
+    font-size: 18px;
+ }
+ .time-container h4{
+    color: black;
+ }
+ .sidebar-content{
+    border: 1px solid rgb(224, 222, 222);
+    border-radius: 10px;
+    padding: 1rem 0;
+    text-align: center;
+ }
