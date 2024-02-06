@@ -26,6 +26,7 @@ const initialState = {
   "X-token": null,
   role: localStorage.getItem("role") ? localStorage.getItem("role") : null,
   isLoading: false,
+  fromLogout: false,
 };
 
 const AuthSlice = createSlice({
@@ -39,6 +40,10 @@ const AuthSlice = createSlice({
       state.role = null;
       localStorage.clear();
       console.log("logged out");
+      state.fromLogout = true;
+    },
+    setFromLogout: (state, { payload }) => {
+      state.setFromLogout = payload;
     },
   },
   extraReducers: (builder) => {
@@ -75,4 +80,4 @@ const AuthSlice = createSlice({
 });
 
 export default AuthSlice.reducer;
-export const { logout } = AuthSlice.actions;
+export const { logout, setFromLogout } = AuthSlice.actions;

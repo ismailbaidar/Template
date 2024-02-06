@@ -12,6 +12,7 @@ import {
   faRightFromBracket,
   faTableColumns,
   faUsers,
+  faUsersViewfinder,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,15 +44,18 @@ export default function AdminSidebar() {
       </button>
       <div className="upper-part">
         <div className="logo-part" data-collaped={isCollapsed}>
-          <img
-            src={
-              isCollapsed
-                ? "/../Images/logo-only.png"
-                : "/../Images/1702198475838.png"
-            }
-            width={isCollapsed ? 30 : 100}
-            alt=""
-          />
+          <Link to="/">
+            {" "}
+            <img
+              src={
+                isCollapsed
+                  ? "/../Images/logo-only.png"
+                  : "/../Images/1702198475838.png"
+              }
+              width={isCollapsed ? 30 : 100}
+              alt=""
+            />
+          </Link>
         </div>
         <ul className="navigation-part">
           <Link to="">
@@ -89,6 +93,15 @@ export default function AdminSidebar() {
             >
               <FontAwesomeIcon icon={faList} />{" "}
               {!isCollapsed && <span>Categories</span>}
+            </li>
+          </Link>
+          <Link to="/admin/targetAudience" onClick={() => {}}>
+            <li
+              className="navigation-item"
+              data-current-page={"target audience" == page}
+            >
+              <FontAwesomeIcon icon={faUsersViewfinder} />{" "}
+              {!isCollapsed && <span>Target audience</span>}
             </li>
           </Link>
           <li className="navigation-item">
