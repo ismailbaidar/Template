@@ -8,7 +8,7 @@ const Event = () => {
     date: "2024-05-15",
     location: "Ensa Beni Mellal, Beni Mellal",
     description: "Join us for the biggest tech conference of the year.",
-    image: "Blue.jpg",
+    image: "../Images/Blue.jpg",
   }
 
   const { title, date, location, description, image } = eventData
@@ -20,11 +20,12 @@ const Event = () => {
         <h1 className="title">Tike Your Ticket Now And Enjoy</h1>
       </div>
       <div className="cardO-container">
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
+        <EventCard title={title} date={date} location={location} description={description} image={image} />
+        <EventCard title={title} date={date} location={location} description={description} image={image} />
+        <EventCard title={title} date={date} location={location} description={description} image={image} />
+        <EventCard title={title} date={date} location={location} description={description} image={image} />
+        <EventCard title={title} date={date} location={location} description={description} image={image} />
+      
       </div>
     </section>
   )
