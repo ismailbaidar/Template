@@ -92,13 +92,16 @@ export default function Speakers() {
                         className="social-media-icon"
                       />
                       <div className="icons-container">
-                        {speakerData.social && Object.keys(speakerData.social).map((socialMedia, i) => (
+                        {['facebook', 'linkedin', 'twitter', 'instagram', 'youtube'].map((socialMedia, i) => (
                           <a
                             key={i}
-                            href={speakerData.social[socialMedia]}
+                            href={speakerData.social && speakerData.social[socialMedia]}
                             style={{ "--i": i + 1 }}
                           >
-                            <FontAwesomeIcon icon={getSocialIcon(socialMedia)} style={{ color: speakerData.social[socialMedia] ? 'inherit' : 'red' }} />
+                            <FontAwesomeIcon
+                              icon={getSocialIcon(socialMedia)}
+                              style={{ color: speakerData.social && speakerData.social[socialMedia] ? 'inherit' : 'red' }}
+                            />
                           </a>
                         ))}
                       </div>
