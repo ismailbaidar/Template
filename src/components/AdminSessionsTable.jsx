@@ -332,19 +332,19 @@ function AdminSessionsTable({ searchQuery }) {
                     sx={{ cursor: "pointer" }}
                   >
                     <TableCell padding="checkbox"></TableCell>
-                    <TableCell align="left">{row.id}</TableCell>
-                    <TableCell align="left">{row.sessionName}</TableCell>
-                    <TableCell align="left">{row.eventName}</TableCell>
+                    {/* <TableCell align="left">{row.id}</TableCell> */}
+                    {/* <TableCell align="left">{row.sessionName}</TableCell> */}
+                    {/* <TableCell align="left">{row.eventName}</TableCell> */}
                     <TableCell align="left">
-                      {row.sessionDescription.length > 15
-                        ? row.sessionDescription.substring(0, 15) + "..."
-                        : row.sessionDescription}
+                      {row.description.length > 15
+                        ? row.description.substring(0, 15) + "..."
+                        : row.description}
                     </TableCell>
-                    <TableCell align="left">{row.numberOfPlaces}</TableCell>
-                    <TableCell align="left">{row.eventType}</TableCell>
-                    <TableCell align="left">{row.startDate}</TableCell>
-                    <TableCell align="left">{row.endDate}</TableCell>
-                    <TableCell align="left">{row.eventAddress}</TableCell>
+                    <TableCell align="left">{row.nbrplace}</TableCell>
+                    <TableCell align="left">{row.type}</TableCell>
+                    <TableCell align="left">{row.dateStart}</TableCell>
+                    <TableCell align="left">{row.dateEnd}</TableCell>
+                    <TableCell align="left">{row.adress}</TableCell>
                     <TableCell align="left" className="action-cell">
                       <Link to={`/admin/events/${row.id}/sessions/create`}>
                         <IconButton>
