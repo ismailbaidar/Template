@@ -12,6 +12,7 @@ import {
   faRightFromBracket,
   faTableColumns,
   faUsers,
+  faHandshakeAngle,
   faUsersViewfinder,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -124,7 +125,7 @@ export default function AdminSidebar() {
               className="navigation-item"
               data-current-page={"sponsor" == page}
             >
-              <FontAwesomeIcon icon={faList} />{" "}
+              <FontAwesomeIcon icon={faHandshakeAngle} />{" "}
               {!isCollapsed && <span>Sponsor</span>}
             </li>
           </Link>
