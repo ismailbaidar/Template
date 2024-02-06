@@ -20,8 +20,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { addEvent, updateEvent } from "../Features/EventSlice";
+import { useParams } from "react-router-dom";
 
-export default function CreateEventAdmin() {
+export default function EditEvent() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setAdminCurrentPage("events"));
@@ -53,6 +54,7 @@ export default function CreateEventAdmin() {
     });
   };
 
+  const { id } = useParams();
   function handleSubmit() {
     const formData = new FormData();
     formData.append("DateEnd", endDate.current.value);
@@ -60,7 +62,7 @@ export default function CreateEventAdmin() {
     formData.append("Description", description);
     formData.append("file", file.current.files[0]);
     formData.append("Name", name.current.value);
-    dispatch(updateEvent(formData));
+    dispatch(updateEvent({ formData, id }));
     console.log(
       startDate.current.value,
       description,
@@ -72,7 +74,7 @@ export default function CreateEventAdmin() {
 
   return (
     <div className="create-event-admin">
-      <div className="form-title">Edit event</div>
+      <div className="form-title">Create event</div>
       <TextField type="outlined" label="Event Name" inputRef={name} />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateTimePicker label="Start Date" inputRef={startDate} />

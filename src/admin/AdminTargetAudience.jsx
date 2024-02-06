@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setAdminCurrentPage,
   setPaths,
@@ -14,24 +14,23 @@ import {
   LocalizationProvider,
 } from "@mui/x-date-pickers";
 import { Link } from "react-router-dom";
-import { useSelect } from "@mui/base";
+import TargetAudienceTable from "../components/DashboardTargetAudienceTable";
 
-export default function AdminEvents() {
+export default function AdminTargetAudience() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setAdminCurrentPage("events"));
-    dispatch(setPaths(["Dashboard", "Events"]));
+    dispatch(setAdminCurrentPage("target audience"));
+    dispatch(setPaths(["Dashboard", "TargetAudience"]));
   }, []);
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
-
   return (
-    <div className="admin-events">
+    <div className="admin-target-audience">
       <div className="title-create-new">
-        <span className="title">Events</span>
+        <span className="title">Target Audience</span>
         <Link to="create" className="create-new-button">
           Create New
         </Link>
@@ -44,16 +43,10 @@ export default function AdminEvents() {
           value={searchQuery}
           onChange={handleSearchInputChange}
         />
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker label="Start Date" />
-        </LocalizationProvider>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker label="End Date" />
-        </LocalizationProvider>
+
         <button className="search-button">search</button>
       </div>
-
-      <EventsAdminTable searchQuery={searchQuery} />
+      <TargetAudienceTable />
     </div>
   );
 }

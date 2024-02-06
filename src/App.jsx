@@ -1,31 +1,31 @@
-import Cards from "./components/Cards"
-import Navbar from "./components/Navbar"
-import EventTimer from "./components/EventImer"
-import "./assets/styles/app.css"
-import { Routes, Route, useNavigate } from "react-router-dom"
-import HomePage from "./Pages/HomePage"
-import AboutUs from "./components/AboutUs"
-import MainRoutes from "./components/MainRoutes"
-import { useSelector, useDispatch } from "react-redux"
-import Event from "./components/Event"
-import Footer from "./components/Footer"
-import Login from "./Pages/Login"
-import Register from "./Pages/Register"
-import { useEffect, useState } from "react"
-import { setCurrentPage } from "./Features/NavigationSlice"
-import ErrorPage from "./Pages/ErrorPage"
-import AdminRoutes from "./admin/AdminRoutes"
-import DirectAccess from "./components/DirectAccess"
+import Cards from "./components/Cards";
+import Navbar from "./components/Navbar";
+import EventTimer from "./components/EventImer";
+import "./assets/styles/app.css";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import HomePage from "./Pages/HomePage";
+import AboutUs from "./components/AboutUs";
+import MainRoutes from "./components/MainRoutes";
+import { useSelector, useDispatch } from "react-redux";
+import Event from "./components/Event";
+import Footer from "./components/Footer";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import { useEffect, useState } from "react";
+import { setCurrentPage } from "./Features/NavigationSlice";
+import ErrorPage from "./Pages/ErrorPage";
+import AdminRoutes from "./admin/AdminRoutes";
+import DirectAccess from "./components/DirectAccess";
+import axios from "axios";
 export default function App() {
-  const token = useSelector((state) => state.AuthReducer.token)
-  const role = useSelector((state) => state.AuthReducer.role)
+  const token = useSelector((state) => state.AuthReducer.token);
+  const role = useSelector((state) => state.AuthReducer.role);
 
-  const navigate = useNavigate()
-  // useEffect(() => {
-  //   if (token != null) {
-  //     navigate("/")
-  //   }
-  // }, [token])
+  axios.interceptors.request.use(function (config) {
+    config.headers.Authorization = `Bearer ${token}`;
+
+    return config;
+  });
   return (
     <div className="app">
       <Routes>
@@ -48,5 +48,5 @@ export default function App() {
         
       </Routes>
     </div>
-  )
+  );
 }

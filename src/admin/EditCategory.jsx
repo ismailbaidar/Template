@@ -15,9 +15,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { setPaths } from "../Features/AdminNavigationSlice";
-import { addCategory, addSubCategory } from "../Features/CategorySlice";
+import {
+  addCategory,
+  addSubCategory,
+  updateSubCategory,
+} from "../Features/CategorySlice";
+import { useParams } from "react-router-dom";
 
-const CreateCategoryPage = () => {
+const EditcategoryPage = () => {
   const [categoryData, setCategoryData] = useState({
     categoryName: "",
     parentCategory: "",
@@ -39,13 +44,15 @@ const CreateCategoryPage = () => {
     });
   };
 
+  const { id } = useParams();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (parentCategoryId.current.value == "") {
       dispatch(addCategory({ nameCategory: categoryName.current.value }));
     } else {
       dispatch(
-        addSubCategory({
+        updateSubCategory({
+          subCategoryId: id,
           categoryId: parentCategoryId.current.value,
           nameSubCategory: categoryName.current.value,
         })
@@ -88,10 +95,10 @@ const CreateCategoryPage = () => {
         className="submit-form-button"
         onClick={handleSubmit}
       >
-        Submit
+        Update
       </Button>
     </form>
   );
 };
 
-export default CreateCategoryPage;
+export default EditcategoryPage;

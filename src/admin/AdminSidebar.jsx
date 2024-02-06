@@ -12,6 +12,7 @@ import {
   faRightFromBracket,
   faTableColumns,
   faUsers,
+  faUsersViewfinder,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +20,7 @@ import {
   setAdminCurrentPage,
   setPaths,
 } from "../Features/AdminNavigationSlice";
+import { logout } from "../Features/AuthSlice";
 export default function AdminSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const page = useSelector((state) => state.AdminNavigationReducer.currentPage);
@@ -42,15 +44,18 @@ export default function AdminSidebar() {
       </button>
       <div className="upper-part">
         <div className="logo-part" data-collaped={isCollapsed}>
-          <img
-            src={
-              isCollapsed
-                ? "/../Images/logo-only.png"
-                : "/../Images/1702198475838.png"
-            }
-            width={isCollapsed ? 30 : 100}
-            alt=""
-          />
+          <Link to="/">
+            {" "}
+            <img
+              src={
+                isCollapsed
+                  ? "/../Images/logo-only.png"
+                  : "/../Images/1702198475838.png"
+              }
+              width={isCollapsed ? 30 : 100}
+              alt=""
+            />
+          </Link>
         </div>
         <ul className="navigation-part">
           <Link to="">
@@ -72,17 +77,6 @@ export default function AdminSidebar() {
               {!isCollapsed && <span>Events</span>}
             </li>
           </Link>
-          
-          <Link to ="/admin/speakers" onClick={() => { }}>
-            <li className="navigation-item"
-            data-current-page={"speakers" == page}
-            
-            >
-            <FontAwesomeIcon icon={faPersonChalkboard} />{" "}
-            {!isCollapsed && <span>Speakers</span>}
-          </li>
-          </Link>
-          
           <Link to="/admin/sessions" onClick={() => {}}>
             <li
               className="navigation-item"
@@ -101,6 +95,24 @@ export default function AdminSidebar() {
               {!isCollapsed && <span>Categories</span>}
             </li>
           </Link>
+          <Link to="/admin/targetAudience" onClick={() => {}}>
+            <li
+              className="navigation-item"
+              data-current-page={"target audience" == page}
+            >
+              <FontAwesomeIcon icon={faUsersViewfinder} />{" "}
+              {!isCollapsed && <span>Target audience</span>}
+            </li>
+          </Link>
+          <Link to="/admin/speakers" onClick={() => {}}>
+            <li
+              className="navigation-item"
+              data-current-page={"speakers" == page}
+            >
+              <FontAwesomeIcon icon={faPersonChalkboard} />{" "}
+              {!isCollapsed && <span>Speakers</span>}
+            </li>
+          </Link>{" "}
           <Link to="/admin/Users" onClick={() => {}}>
             <li className="navigation-item" data-current-page={"users" == page}>
               <FontAwesomeIcon icon={faUsers} />{" "}
@@ -109,7 +121,7 @@ export default function AdminSidebar() {
           </Link>
         </ul>
       </div>
-      <button className="logout">
+      <button className="logout" onClick={() => dispatch(logout())}>
         <FontAwesomeIcon icon={faRightFromBracket} />
         <span>{!isCollapsed && "Logout"}</span>
       </button>
