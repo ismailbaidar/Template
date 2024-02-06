@@ -15,6 +15,7 @@ import EditSpeakersAdmin from "./EditSpeakersAdmin";
 import EditEventAdmin from "./EditEventAdmin";
 import AdminSpeakers from "./AdminSpeaker";
 import AdminSessions from "./AdminSessions";
+import EditSponsorAdmin from "./EditSponsorAdmin" 
 import CreateSessionPage from "./CreateSessionPage";
 import AdminCategories from "./AdminCategories";
 import CreateCategoryPage from "./CreateCategoryPage";
@@ -24,6 +25,8 @@ import CreateTargetAudience from "./CreateTargetAudience";
 import EditTargetAudience from "./EditTargetAudience";
 import EditcategoryPage from "./EditCategory";
 import EditEvent from "./EditEvent";
+import AdminSponsor from "./AdminSponsor";
+import CreateSponsorAdmin from "./CreateSponsorAdmin";
 export default function AdminRoutes() {
   const paths = useSelector((state) => state.AdminNavigationReducer.paths);
   const token = useSelector((state) => state.AuthReducer.role);
@@ -67,10 +70,20 @@ export default function AdminRoutes() {
               <Route path="users" element={<AdminUsers />} />
             </Routes>
             <Routes>
+                <Route path="sponsor" element={<AdminSponsor />}/>
+            </Routes>
+            <Routes>
               <Route path="speakers/create" element={<CreateSpeakersAdmin />} />
             </Routes>
             <Routes>
               <Route path="speakers" element={<AdminSpeakers />} />
+            </Routes>
+            
+            <Routes>
+              <Route path="sponsor/edit/:id" element={<EditSponsorAdmin />} />
+            </Routes>
+            <Routes>
+              <Route path="sponsor/Create" element={<CreateSponsorAdmin />} />
             </Routes>
             <Routes>
               <Route path="speakers/edit/:id" element={<EditSpeakersAdmin />} />

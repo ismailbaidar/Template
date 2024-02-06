@@ -119,6 +119,15 @@ export default function AdminSidebar() {
               {!isCollapsed && <span>Users</span>}
             </li>
           </Link>
+          <Link to="/admin/sponsor" onClick={() => {}}>
+            <li
+              className="navigation-item"
+              data-current-page={"sponsor" == page}
+            >
+              <FontAwesomeIcon icon={faList} />{" "}
+              {!isCollapsed && <span>Sponsor</span>}
+            </li>
+          </Link>
         </ul>
       </div>
       <button className="logout" onClick={() => dispatch(logout())}>
