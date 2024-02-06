@@ -23,7 +23,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { visuallyHidden } from "@mui/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEvents } from "../Features/EventSlice";
+import { deleteEvent, getAllEvents } from "../Features/EventSlice";
 
 function createData(id, name, dateStart, dateEnd) {
   return {
@@ -256,15 +256,6 @@ function EventsAdminTable({ searchQuery }) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredRows.length) : 0;
 
-  // const visibleRows = React.useMemo(
-  //   () =>
-  //     stableSort(rows, getComparator(order, orderBy)).slice(
-  //       page * rowsPerPage,
-  //       page * rowsPerPage + rowsPerPage
-  //     ),
-  //   [order, orderBy, page, rowsPerPage]
-  // );
-
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -302,11 +293,17 @@ function EventsAdminTable({ searchQuery }) {
                     <TableCell align="left">{row.dateEnd}</TableCell>
                     <TableCell align="left">
                       <IconButton>
-                        <Link to={`/admin/events/${row.id}`}>
+                        <Link to={`/admin/events/update/${row.id}`}>
                           <EditIcon />
                         </Link>
                       </IconButton>
-                      <IconButton>
+                      <IconButton
+                        onClick={() => {
+                          dispatch(deleteEvent(row.id)).then(() =>
+                            dispatch(getAllEvents())
+                          );
+                        }}
+                      >
                         <DeleteIcon />
                       </IconButton>
                     </TableCell>

@@ -25,6 +25,33 @@ export const addEvent = createAsyncThunk("events/addEvent", async (data) => {
     .catch((err) => console.log(err));
 });
 
+export const deleteEvent = createAsyncThunk(
+  "events/deleteEvent",
+  async (data) => {
+    return axios
+      .delete(
+        "https://mmc-event-session.azurewebsites.net/api/v1/Event/Romove/" +
+          data,
+        data
+      )
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
+);
+
+export const updateEvent = createAsyncThunk(
+  "events/updateEvent",
+  async ({ id, formData }) => {
+    return axios
+      .put(
+        "https://mmc-event-session.azurewebsites.net/api/v1/Event/Update/" + id,
+        formData
+      )
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
+);
+
 const EventSlice = createSlice({
   name: "event",
   initialState,

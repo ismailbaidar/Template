@@ -23,6 +23,7 @@ import AdminTargetAudience from "./AdminTargetAudience";
 import CreateTargetAudience from "./CreateTargetAudience";
 import EditTargetAudience from "./EditTargetAudience";
 import EditcategoryPage from "./EditCategory";
+import EditEvent from "./EditEvent";
 export default function AdminRoutes() {
   const paths = useSelector((state) => state.AdminNavigationReducer.paths);
   const token = useSelector((state) => state.AuthReducer.role);
@@ -99,6 +100,7 @@ export default function AdminRoutes() {
                 path="category/update/:id"
                 element={<EditcategoryPage />}
               />
+              <Route path="events/update/:id" element={<EditEvent />} />
             </Routes>
           </div>
         </div>

@@ -22,8 +22,21 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { visuallyHidden } from "@mui/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllSession } from "../Features/SessionSlice";
+import { useSelect } from "@mui/base";
 
-function createData(id, eventName, sessionName, sessionDescription, numberOfPlaces, eventType, startDate, endDate, eventAddress) {
+function createData(
+  id,
+  eventName,
+  sessionName,
+  sessionDescription,
+  numberOfPlaces,
+  eventType,
+  startDate,
+  endDate,
+  eventAddress
+) {
   return {
     id,
     sessionName,
@@ -36,43 +49,6 @@ function createData(id, eventName, sessionName, sessionDescription, numberOfPlac
     eventAddress,
   };
 }
-
-const rows = [
-  createData(
-    1,
-    "Tech Summit",
-    "Main Session",
-    "Overview of the latest technology trends",
-    500,
-    "Conference",
-    "2024-02-15",
-    "2024-02-17",
-    "123 Tech Street"
-  ),
-  createData(
-    2,
-    "Hackathon",
-    "Coding Workshop",
-    "24-hour coding competition and workshop",
-    200,
-    "Workshop",
-    "2024-03-10",
-    "2024-03-11",
-    "456 Code Avenue"
-  ),
-  createData(
-    3,
-    "AI Trends Webinar",
-    "Introduction to AI",
-    "Exploring the latest in Artificial Intelligence",
-    100,
-    "Webinar",
-    "2024-04-05",
-    "2024-04-05",
-    "789 AI Boulevard"
-  ),
-  // Add more rows as needed
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -88,18 +64,6 @@ function getComparator(order, orderBy) {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
 }
 
 const headCells = [
@@ -260,17 +224,25 @@ function EnhancedTableToolbar(props) {
   );
 }
 
-function AdminSessionsTable({searchQuery}) {
+function AdminSessionsTable({ searchQuery }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const rows = useSelector((state) => state.SessionReducer.sessions);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(rows);
+    dispatch(getAllSession());
+  }, []);
   const [filteredRows, setFilteredRows] = useState(rows);
 
   useEffect(() => {
-    const filtered = rows.filter(row => row.sessionName.toLowerCase().includes(searchQuery.toLowerCase()));
+    const filtered = rows.filter((row) =>
+      row.sessionName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     setFilteredRows(filtered);
     setPage(0);
   }, [searchQuery]);
@@ -326,15 +298,6 @@ function AdminSessionsTable({searchQuery}) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredRows.length) : 0;
 
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(rows, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
-      ),
-    [order, orderBy, page, rowsPerPage]
-  );
-
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -354,7 +317,7 @@ function AdminSessionsTable({searchQuery}) {
               rowCount={rows.length}
             />
             <TableBody>
-              {filteredRows.map((row, index) => {
+              {rows.map((row, index) => {
                 const isItemSelected = isSelected(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -368,13 +331,15 @@ function AdminSessionsTable({searchQuery}) {
                     selected={isItemSelected}
                     sx={{ cursor: "pointer" }}
                   >
-                    <TableCell padding="checkbox">
-                 
-                    </TableCell>
+                    <TableCell padding="checkbox"></TableCell>
                     <TableCell align="left">{row.id}</TableCell>
                     <TableCell align="left">{row.sessionName}</TableCell>
                     <TableCell align="left">{row.eventName}</TableCell>
-                    <TableCell align="left">{row.sessionDescription.length>15?row.sessionDescription.substring(0,15)+"...":row.sessionDescription}</TableCell>
+                    <TableCell align="left">
+                      {row.sessionDescription.length > 15
+                        ? row.sessionDescription.substring(0, 15) + "..."
+                        : row.sessionDescription}
+                    </TableCell>
                     <TableCell align="left">{row.numberOfPlaces}</TableCell>
                     <TableCell align="left">{row.eventType}</TableCell>
                     <TableCell align="left">{row.startDate}</TableCell>
@@ -415,7 +380,6 @@ function AdminSessionsTable({searchQuery}) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      
     </Box>
   );
 }
