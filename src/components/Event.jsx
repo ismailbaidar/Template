@@ -20,7 +20,7 @@ const Event = () => {
     date: "2024-05-15",
     location: "Ensa Beni Mellal, Beni Mellal",
     description: "Join us for the biggest tech conference of the year.",
-    image: "Blue.jpg",
+    image: "../Images/Blue.jpg",
   }
 
   const { title, date, location, description, image } = eventData

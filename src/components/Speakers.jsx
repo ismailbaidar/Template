@@ -5,12 +5,15 @@ import {
   faLinkedin,
   faInstagram,
   faFacebook,
+  faYoutube,
+  faXTwitter
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faEnvelope,
   faShareNodes,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+
 const speakersData = [
   {
     name: "Said WAHID",
@@ -89,47 +92,25 @@ export default function Speakers() {
                         className="social-media-icon"
                       />
                       <div className="icons-container">
-                        <a
-                          href={speakerData.social.facebook}
-                          style={{ "--i": "1" }}
-                        >
-                          <FontAwesomeIcon icon={faFacebook} />
-                        </a>
-
-                        <a
-                          href={speakerData.social.linkedin}
-                          style={{ "--i": "3" }}
-                        >
-                          <FontAwesomeIcon icon={faLinkedin} />
-                        </a>
-                        <a
-                          href={speakerData.social.linkedin}
-                          style={{ "--i": "2" }}
-                        >
-                          <FontAwesomeIcon icon={faLinkedin} />
-                        </a>
-
-                        <a
-                          href={speakerData.social.instagram}
-                          style={{ "--i": "4" }}
-                        >
-                          <FontAwesomeIcon icon={faInstagram} />
-                        </a>
-                        <a
-                          href={speakerData.social.instagram}
-                          style={{ "--i": "5" }}
-                        >
-                          <FontAwesomeIcon icon={faInstagram} />
-                        </a>
+                        {['facebook', 'linkedin', 'twitter', 'instagram', 'youtube'].map((socialMedia, i) => (
+                          <a
+                            key={i}
+                            href={speakerData.social && speakerData.social[socialMedia]}
+                            style={{ "--i": i + 1 }}
+                          >
+                            <FontAwesomeIcon
+                              icon={getSocialIcon(socialMedia)}
+                              style={{ color: speakerData.social && speakerData.social[socialMedia] ? 'inherit' : 'red' }}
+                            />
+                          </a>
+                        ))}
                       </div>
                     </div>
                     <img alt="" src={speakerData.image} />
                     <div className="overlay">
                       <h3>{speakerData.name}</h3>
                       <h5>{speakerData.role}</h5>
-                      <div className="button">
-                       
-                      </div>
+                      <div className="button"></div>
                     </div>
                   </div>
                 ))}
@@ -140,4 +121,21 @@ export default function Speakers() {
       </section>
     </>
   );
+}
+
+function getSocialIcon(socialMedia) {
+  switch (socialMedia) {
+    case 'facebook':
+      return faFacebook;
+    case 'linkedin':
+      return faLinkedin;
+    case 'instagram':
+      return faInstagram;
+    case 'twitter':
+      return faXTwitter;
+    case 'youtube':
+      return faYoutube;
+    default:
+      return null;
+  }
 }
