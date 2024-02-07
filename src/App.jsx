@@ -45,6 +45,7 @@ export default function App() {
         <Route path="/401" element={<ErrorPage code="401" />} />
         <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/*" element={<ErrorPage code="404" />} />
+        
       </Routes>
     </div>
   );

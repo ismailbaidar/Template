@@ -110,12 +110,12 @@ export default function AdminSidebar() {
               {!isCollapsed && <span>Speakers</span>}
             </li>
           </Link>{" "}
-          <Link to="/admin/Users" onClick={() => {}}>
+          {/* <Link to="/admin/Users" onClick={() => {}}>
             <li className="navigation-item" data-current-page={"users" == page}>
               <FontAwesomeIcon icon={faUsers} />{" "}
               {!isCollapsed && <span>Users</span>}
             </li>
-          </Link>
+          </Link> */}
         </ul>
       </div>
       <button className="logout" onClick={() => dispatch(logout())}>

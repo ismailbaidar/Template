@@ -1,9 +1,6 @@
-import { useEffect } from "react"
-
+import React from "react"
+import { Link } from "react-router-dom"
 export default function EventCard({ event }) {
-  useEffect(() => {
-    console.log(event)
-  })
   return (
     <div className="event-card">
       <div className="background-side">
@@ -19,17 +16,18 @@ export default function EventCard({ event }) {
         <div className="event-title">{event.name}</div>
         <p
           className="event-description"
-          dangerouslySetInnerHTML={{ __html: event.description }}
+          dangerouslySetInnerHTML={{
+            __html: event.description.substring(0, 15) + "...",
+          }}
         ></p>
         <div className="location-date">
-          <span>
-            {Math.floor(Math.random() * (100 - 1 + 1) + 1) % 2
-              ? "Rabat"
-              : "Casa"}
-          </span>
+          <span>{event.adress}</span>
           <span>01-JAN-2024</span>
         </div>
-        <button className="reserve-button">Reserve your place</button>
+
+        <Link to={"single-event/" + event.id} className="reserve-button">
+          Details
+        </Link>
       </div>
     </div>
   )

@@ -88,16 +88,16 @@
 .event-card {
   display: grid;
   grid-template-columns: 1fr 4fr;
-  background-color: red;
+
   width: 100%;
-  /* padding: 1rem 1.5rem; */
+  padding: 0.5rem 1.5rem;
 
   position: relative;
 }
 
 .event-card .background-side {
   background-color: var(--primary-red);
-  /* padding: 1rem 0; */
+  padding: 1rem 0;
   display: flex;
   align-items: center;
   /* width: 30%; */
@@ -148,15 +148,20 @@
 .action-cell {
   display: flex !important;
 }
-.event-card button {
+.event-card a {
   padding: 1rem 1rem;
   /* position: absolute; */
-  bottom: 10px;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.8rem;
   color: var(--primary-red);
   border: 2px solid var(--primary-red);
+  position: relative;
 }
-.event-card button:hover {
+
+.event-card a:hover {
   background-color: var(--primary-red);
   color: white;
 }

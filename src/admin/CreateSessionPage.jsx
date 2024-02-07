@@ -94,10 +94,11 @@ const CreateSessionPage = () => {
 
     dispatch(
       addSession({
+        name: sessionNameRef.current.value,
         adress: sessionAddress.current.value,
         dateEnd: sessionEndDate.current.value,
         dateStart: sessionStartDate.current.value,
-        description: "  ",
+        description: "something",
         nbrplace: sessionNbrPlaces.current.value,
         type: sessionType.current.value,
         id: "<uuid>",
@@ -127,6 +128,7 @@ const CreateSessionPage = () => {
               type="date"
               fullWidth
               margin="normal"
+              format="YYYY-MM-DDThh:mm:ss"
               inputRef={sessionStartDate}
               InputLabelProps={{
                 shrink: true,
@@ -140,6 +142,7 @@ const CreateSessionPage = () => {
               type="date"
               inputRef={sessionEndDate}
               fullWidth
+              format="YYYY-MM-DDThh:mm:ss"
               margin="normal"
               InputLabelProps={{
                 shrink: true,

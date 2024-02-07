@@ -25,6 +25,7 @@ import { visuallyHidden } from "@mui/utils"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllSession } from "../Features/SessionSlice"
 import { useSelect } from "@mui/base"
+import Loading from "./Loading"
 
 function createData(
   id,
@@ -216,11 +217,18 @@ function AdminSessionsTable({ searchQuery }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
   const rows = useSelector((state) => state.SessionReducer.sessions)
   const dispatch = useDispatch()
+  const loading = useSelector((state) => state.SessionReducer.loading)
   useEffect(() => {
-    dispatch(getAllSession())
+    dispatch(getAllSession()).then(() => console.log(rows))
+    console.log("hello from the table session ")
+    console.log(rows)
   }, [])
   const [filteredRows, setFilteredRows] = useState(rows)
 
+  useEffect(() => {
+    setFilteredRows(rows)
+    console.log(rows)
+  }, [rows])
   useEffect(() => {
     const filtered = rows?.filter((row) =>
       row.type.toLowerCase().includes(searchQuery.toLowerCase())
@@ -284,78 +292,83 @@ function AdminSessionsTable({ searchQuery }) {
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {rows.map((row, index) => {
-                const isItemSelected = isSelected(row.id)
-                const labelId = `enhanced-table-checkbox-${index}`
 
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.id}
-                    selected={isItemSelected}
-                    sx={{ cursor: "pointer" }}
-                  >
-                    <TableCell padding="checkbox"></TableCell>
-                    {/* <TableCell align="left">{row.id}</TableCell> */}
-                    {/* <TableCell align="left">{row.sessionName}</TableCell> */}
-                    {/* <TableCell align="left">{row.eventName}</TableCell> */}
-                    <TableCell align="left">
-                      {row.description.length > 15
-                        ? row.description.substring(0, 15) + "..."
-                        : row.description}
-                    </TableCell>
-                    <TableCell align="left">{row.nbrplace}</TableCell>
-                    <TableCell align="left">{row.type}</TableCell>
-                    <TableCell align="left">{row.dateStart}</TableCell>
-                    <TableCell align="left">{row.dateEnd}</TableCell>
-                    <TableCell align="left">{row.adress}</TableCell>
-                    <TableCell align="left" className="action-cell">
-                      <Link to={`/admin/events/${row.id}/sessions/create`}>
+        {loading ? (
+          <Loading scale=".5" />
+        ) : (
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={rows?.length}
+              />
+              <TableBody>
+                {rows?.map((row, index) => {
+                  const isItemSelected = isSelected(row.id)
+                  const labelId = `enhanced-table-checkbox-${index}`
+
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row.id}
+                      selected={isItemSelected}
+                      sx={{ cursor: "pointer" }}
+                    >
+                      <TableCell padding="checkbox"></TableCell>
+                      {/* <TableCell align="left">{row.id}</TableCell> */}
+                      {/* <TableCell align="left">{row.sessionName}</TableCell> */}
+                      {/* <TableCell align="left">{row.eventName}</TableCell> */}
+                      <TableCell align="left">
+                        {row.description.length > 15
+                          ? row.description.substring(0, 15) + "..."
+                          : row.description}
+                      </TableCell>
+                      <TableCell align="left">{row.nbrplace}</TableCell>
+                      <TableCell align="left">{row.type}</TableCell>
+                      <TableCell align="left">{row.dateStart}</TableCell>
+                      <TableCell align="left">{row.dateEnd}</TableCell>
+                      <TableCell align="left">{row.adress}</TableCell>
+                      <TableCell align="left" className="action-cell">
+                        <Link to={`/admin/events/${row.id}/sessions/create`}>
+                          <IconButton>
+                            <EditIcon />
+                          </IconButton>
+                        </Link>
                         <IconButton>
-                          <EditIcon />
+                          <DeleteIcon />
                         </IconButton>
-                      </Link>
-                      <IconButton>
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={10} />
                   </TableRow>
-                )
-              })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={10} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={filteredRows.length}
+          count={rows?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

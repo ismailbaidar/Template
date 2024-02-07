@@ -3,7 +3,7 @@ import "../assets/styles/event-timer.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
-export default function EventTimer({ date }) {
+export default function EventTimer({ date, event }) {
   const [days, setDays] = useState("")
   const [hours, setHours] = useState("")
   const [minutes, setMinutes] = useState("")
@@ -61,7 +61,7 @@ export default function EventTimer({ date }) {
     <div className="event-timer-container">
       <div className="info-part">
         <h1 className="subtitle">Event</h1>
-        <h1 className="title">Here The Event's Title</h1>
+        <h1 className="title">{event?.name}</h1>
       </div>
       <span className="event-timer">
         <TimerPart title="Days" value={`${days}`}></TimerPart>
@@ -70,12 +70,12 @@ export default function EventTimer({ date }) {
         <TimerPart title="Seconds" value={`${seconds}`}></TimerPart>
       </span>
       <div className="location-button">
-        <button className="btn  font-bold">Reserve You place</button>
+        <button className="btn  font-bold">Show Details</button>
         <div className="location grid gap-2">
-          <span className="date text-transparent font-bold ">01-JAN-2024</span>
+          <span className="date text-transparent font-bold ">{date}</span>
           <span className="flex justify-between gap-[1rem]">
             <FontAwesomeIcon icon={faLocationDot} />
-            <span className="text-lg">Somewhere in world ,city</span>
+            <span className="text-lg">{event?.adress}</span>
           </span>
         </div>
       </div>

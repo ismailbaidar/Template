@@ -1,73 +1,72 @@
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  setAdminCurrentPage,
-  setPaths,
-} from "../Features/AdminNavigationSlice";
-import { Button, IconButton, TextField } from "@mui/material";
+import { useEffect, useRef, useState } from "react"
+import { useDispatch } from "react-redux"
+import { setAdminCurrentPage, setPaths } from "../Features/AdminNavigationSlice"
+import { Button, IconButton, TextField } from "@mui/material"
 import {
   DateField,
   DatePicker,
   DateTimePicker,
   LocalizationProvider,
-} from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { TextareaAutosize } from "@mui/base";
-import "../assets/styles/create-event-admin.css";
-import TextEditor from "../components/TextEditor";
-import EventSessionPage from "./EventSessionPage";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { addEvent } from "../Features/EventSlice";
+} from "@mui/x-date-pickers"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { TextareaAutosize } from "@mui/base"
+import "../assets/styles/create-event-admin.css"
+import TextEditor from "../components/TextEditor"
+import EventSessionPage from "./EventSessionPage"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
+import CloudUploadIcon from "@mui/icons-material/CloudUpload"
+import { addEvent } from "../Features/EventSlice"
 
 export default function CreateEventAdmin() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(setAdminCurrentPage("events"));
-    dispatch(setPaths(["Dashboard", "Events", "Create"]));
-  }, []);
+    dispatch(setAdminCurrentPage("events"))
+    dispatch(setPaths(["Dashboard", "Events", "Create"]))
+  }, [])
 
-  const startDate = useRef();
-  const endDate = useRef();
-  const file = useRef();
-  const [description, setDescription] = useState("");
-  const name = useRef();
+  const startDate = useRef()
+  const endDate = useRef()
+  const file = useRef()
+  const [description, setDescription] = useState("")
+  const name = useRef()
+  const adress = useRef()
 
   const [formData, setFormData] = useState({
     supportFiles: [],
-  });
+  })
   const handleDeleteFile = (fileIndex) => {
-    const updatedFiles = [...formData.supportFiles];
-    updatedFiles.splice(fileIndex, 1);
+    const updatedFiles = [...formData.supportFiles]
+    updatedFiles.splice(fileIndex, 1)
     setFormData({
       ...formData,
       supportFiles: updatedFiles,
-    });
-  };
+    })
+  }
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
+    const files = Array.from(e.target.files)
     setFormData({
       ...formData,
       supportFiles: files,
-    });
-  };
+    })
+  }
 
   function handleSubmit() {
-    const formData = new FormData();
-    formData.append("DateEnd", endDate.current.value);
-    formData.append("DateStart", startDate.current.value);
-    formData.append("Description", description);
-    formData.append("file", file.current.files[0]);
-    formData.append("Name", name.current.value);
-    dispatch(addEvent(formData));
+    const formData = new FormData()
+    formData.append("DateEnd", endDate.current.value)
+    formData.append("DateStart", startDate.current.value)
+    formData.append("Description", description)
+    formData.append("file", file.current.files[0])
+    formData.append("Name", name.current.value)
+    formData.append("adress", adress.current.value)
+    dispatch(addEvent(formData))
     console.log(
       startDate.current.value,
       description,
       endDate.current.value,
       file.current.files[0],
       name.current.value
-    );
+    )
   }
 
   return (
@@ -75,11 +74,23 @@ export default function CreateEventAdmin() {
       <div className="form-title">Create event</div>
       <TextField type="outlined" label="Event Name" inputRef={name} />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateTimePicker label="Start Date" inputRef={startDate} />
+        <DateTimePicker
+          label="Start Date"
+          inputRef={startDate}
+          format="YYYY-MM-DDThh:mm:ss"
+          ampm={false}
+        />
       </LocalizationProvider>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateTimePicker label="End Date" inputRef={endDate} />
+        <DateTimePicker
+          label="End Date"
+          inputRef={endDate}
+          format="YYYY-MM-DDThh:mm:ss"
+          ampm={false}
+        />
       </LocalizationProvider>
+      <TextField type="outlined" label="Event address" inputRef={adress} />
+
       <div>
         <input
           accept="image/*, application/pdf"
@@ -132,5 +143,5 @@ export default function CreateEventAdmin() {
         Add Event
       </button>
     </div>
-  );
+  )
 }

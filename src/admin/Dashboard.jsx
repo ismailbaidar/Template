@@ -31,7 +31,7 @@ export default function Dashboard() {
       <div className="dashboard-wrapper">
         <div className="cards">
           <DashboardEventCard
-            stat={events.length}
+            stat={events?.length}
             name="Total Event"
             icon={<FontAwesomeIcon icon={faCalendar} />}
           />
