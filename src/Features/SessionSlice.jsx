@@ -44,11 +44,12 @@ export const updateSession = createAsyncThunk(
 )
 
 export const deleteSession = createAsyncThunk(
-  "session/getAllSessions",
-  async () => {
+  "session/deleteSession",
+  async (id) => {
     return axios
-      .get(
-        "https://mmc-event-session.azurewebsites.net/api/v1/Session/GetSessions"
+      .delete(
+        "https://mmc-event-session.azurewebsites.net/api/v1/Session/Romove/" +
+          id
       )
       .then((res) => res.data)
       .catch((err) => console.log(err))

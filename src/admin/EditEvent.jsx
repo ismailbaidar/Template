@@ -16,7 +16,7 @@ import EventSessionPage from "./EventSessionPage"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import CloudUploadIcon from "@mui/icons-material/CloudUpload"
-import { addEvent, updateEvent } from "../Features/EventSlice"
+import { addEvent, getAllEvents, updateEvent } from "../Features/EventSlice"
 import { useParams } from "react-router-dom"
 
 export default function EditEvent() {
@@ -44,6 +44,9 @@ export default function EditEvent() {
       supportFiles: updatedFiles,
     })
   }
+  useEffect(() => {
+    dispatch(getAllEvents())
+  }, [])
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files)
     setFormData({
@@ -126,7 +129,9 @@ export default function EditEvent() {
       </div>
       <TextEditor setDescription={setDescription} />
       <div className="event-sessions-table">
-        <EventSessionPage sessions={events?.find((e) => e.id == id).sessions} />
+        <EventSessionPage
+          sessions={events?.find((e) => e.id == id)?.sessions}
+        />
       </div>
       <button className="add-event-button" onClick={handleSubmit}>
         Add Event

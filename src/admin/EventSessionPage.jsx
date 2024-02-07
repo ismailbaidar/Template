@@ -19,10 +19,12 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import Switch from "@mui/material/Switch"
 import FormControlLabel from "@mui/material/FormControlLabel"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { visuallyHidden } from "@mui/utils"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { useDispatch } from "react-redux"
+import { deleteSession } from "../Features/SessionSlice"
 
 function createData(
   id,
@@ -30,7 +32,7 @@ function createData(
   description,
   address,
   numPlaces,
-  category,
+
   startDate,
   endDate
 ) {
@@ -40,7 +42,7 @@ function createData(
     description,
     address,
     numPlaces,
-    category,
+
     startDate,
     endDate,
   }
@@ -67,7 +69,7 @@ const headCells = [
     disablePadding: false,
     label: "Number of Places",
   },
-  { id: "category", numeric: false, disablePadding: false, label: "Category" },
+
   {
     id: "startDate",
     numeric: false,
@@ -215,9 +217,12 @@ const EventSessionPage = (props) => {
     }
     setSelected(newSelected)
   }
-
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const handleDelete = (id) => {
-    // Handle delete logic here
+    dispatch(deleteSession(id)).then(() =>
+      navigate("/admin/events/update/" + id)
+    )
     console.log(`Deleting item with ID: ${id}`)
   }
 
@@ -277,18 +282,17 @@ const EventSessionPage = (props) => {
                     sx={{ cursor: "pointer" }}
                   >
                     <TableCell padding="checkbox"></TableCell>
-                    <TableCell align="left">{row.id}</TableCell>
+                    <TableCell align="left">{index + 1}</TableCell>
                     <TableCell align="left">
-                      <Link to="/">{row.sessionName}</Link>
+                      <Link to="/">{row.name}</Link>
                     </TableCell>
                     <TableCell align="left">{row.description}</TableCell>
-                    <TableCell align="left">{row.address}</TableCell>
-                    <TableCell align="left">{row.numPlaces}</TableCell>
-                    <TableCell align="left">{row.category}</TableCell>
-                    <TableCell align="left">{row.startDate}</TableCell>
-                    <TableCell align="left">{row.endDate}</TableCell>
+                    <TableCell align="left">{row.adress}</TableCell>
+                    <TableCell align="left">{row.nbrplace}</TableCell>
+                    <TableCell align="left">{row.dateStart}</TableCell>
+                    <TableCell align="left">{row.dateEnd}</TableCell>
                     <TableCell align="left" className="action-cell">
-                      <Link to={`/sessions/${row.id}`}>
+                      <Link to={`sessions/${row.id}`}>
                         <IconButton aria-label="edit">
                           <EditIcon />
                         </IconButton>

@@ -17,16 +17,19 @@ import { useDispatch, useSelector } from "react-redux"
 import { setPaths } from "../Features/AdminNavigationSlice"
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { addSession } from "../Features/SessionSlice"
 import { getSubCategories } from "../Features/CategorySlice"
 import Loading from "../components/Loading"
+import { getTargetAudiences } from "../Features/TargetAudienceSlice"
 
 const CreateSessionPage = () => {
   const [formData, setFormData] = useState({
     supportFiles: [],
   })
-
+  const targetAudience = useSelector(
+    (state) => state.TargetAudienceReducer.targetAudiences
+  )
   const subcategories = useSelector(
     (state) => state.CategoryReducer.subCategories
   )
@@ -34,6 +37,7 @@ const CreateSessionPage = () => {
 
   useEffect(() => {
     dispatch(getSubCategories())
+    dispatch(getTargetAudiences())
   }, [])
 
   useEffect(() => {
@@ -77,6 +81,7 @@ const CreateSessionPage = () => {
     })
   }
   const { id } = useParams()
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -89,7 +94,7 @@ const CreateSessionPage = () => {
       type: sessionType.current.value,
       // id: "<uuid>",
       eventId: id,
-      // targetAudienceId: sessionTargetAudience.current.value,
+      targetAudienceId: sessionTargetAudience.current.value,
     })
 
     dispatch(
@@ -101,10 +106,10 @@ const CreateSessionPage = () => {
         description: "something",
         nbrplace: sessionNbrPlaces.current.value,
         type: sessionType.current.value,
-        id: "<uuid>",
+        targetAudienceId: sessionTargetAudience.current.value,
         eventId: id,
       })
-    )
+    ).then(() => navigate("/admin/events/update/" + id))
   }
 
   return (
@@ -114,7 +119,7 @@ const CreateSessionPage = () => {
       ) : (
         <form onSubmit={handleSubmit} className="create-session-admin">
           <TextField
-            label="Event Name"
+            label="session Name"
             name="eventName"
             fullWidth
             inputRef={sessionNameRef}
@@ -179,11 +184,13 @@ const CreateSessionPage = () => {
               labelId="targetAudienceLabel"
               name="targetAudience"
             >
-              <MenuItem value="Tech Enthusiasts">Tech Enthusiasts</MenuItem>
-              <MenuItem value="Developers">Developers</MenuItem>
-              <MenuItem value="Business Professionals">
-                Business Professionals
-              </MenuItem>
+              {targetAudience?.map((ta) => {
+                return (
+                  <MenuItem value={`${ta.targetAudienceId}`}>
+                    {ta.nameTargetAudience}
+                  </MenuItem>
+                )
+              })}
             </Select>
           </FormControl>
           <FormControl fullWidth margin="normal">

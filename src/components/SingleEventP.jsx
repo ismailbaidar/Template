@@ -24,6 +24,8 @@ import { useEffect } from "react"
 import { getAllEvents, getEventById } from "../Features/EventSlice"
 import { useParams } from "react-router-dom"
 import { useState } from "react"
+import { addParticipant, getIdByEmail } from "../Features/AuthSlice"
+import MessageCard from "./MessageCard"
 
 function SingleEventP() {
   const eventData = useSelector((state) => state.EventReducer.events)
@@ -32,6 +34,7 @@ function SingleEventP() {
   const { id } = useParams()
   useEffect(() => {
     dispatch(getAllEvents())
+    dispatch(getIdByEmail(localStorage.getItem("email")))
     console.log("hello from single page")
   }, [])
 
@@ -94,8 +97,22 @@ function SingleEventP() {
     setSeconds(59 - currentSeconds)
   }
 
+  const email = useSelector((state) => state.AuthReducer.email)
+  const UserId = useSelector((state) => state.AuthReducer.id)
+
+  function handleReservation(sessionId) {
+    console.log(UserId)
+    dispatch(
+      addParticipant({
+        idUser: UserId,
+        idSession: sessionId,
+      })
+    )
+  }
+
   return (
     <div className="container-single">
+      
       <div className="event-image-container">
         <div className="event-content">
           <h2>{event?.title}</h2>
@@ -136,7 +153,10 @@ function SingleEventP() {
                       <td>{session.dateStart}</td>
                       <td>{session.dateEnd}</td>
                       <td>
-                        <button className="btn-register">
+                        <button
+                          className="btn-register"
+                          onClick={() => handleReservation(session.id)}
+                        >
                           Reserve your page
                         </button>
                       </td>
@@ -189,20 +209,22 @@ function SingleEventP() {
             </div>
             <div className="info">
               <span>
-                <span className="flex gap-2 align-items-center">
+                <span className="mini-title flex gap-2 align-items-center">
                   <FontAwesomeIcon icon={faClock} />
                   When
                 </span>
-                <div>{event?.dateStart}</div>
-                <span>TO</span>
-                <div>{event?.dateEnd}</div>
+                <div className="from-to">
+                  <div>{event?.dateStart}</div>
+                  <span>TO</span>
+                  <div>{event?.dateEnd}</div>
+                </div>
               </span>
               <span>
-                <span className="flex gap-2 align-items-center">
+                <span className=" mini-title flex gap-2 align-items-center">
                   <FontAwesomeIcon icon={faLocationDot} />
                   Where
                 </span>
-                <span>{event?.adress}</span>
+                <span className="from-to">{event?.adress}</span>
               </span>
             </div>
           </div>

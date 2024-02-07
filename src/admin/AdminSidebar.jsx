@@ -116,10 +116,7 @@ export default function AdminSidebar() {
               <FontAwesomeIcon icon={faUsers} />{" "}
               {!isCollapsed && <span>Users</span>}
             </li>
-<<<<<<< HEAD
           </Link> */}
-=======
-          </Link>
           <Link to="/admin/sponsor" onClick={() => {}}>
             <li
               className="navigation-item"
@@ -129,7 +126,6 @@ export default function AdminSidebar() {
               {!isCollapsed && <span>Sponsor</span>}
             </li>
           </Link>
->>>>>>> 33624a97698e6833221ab1bb9b97ef5f20896513
         </ul>
       </div>
       <button className="logout" onClick={() => dispatch(logout())}>

@@ -1,0 +1,11 @@
+.card-msg {
+  padding: 1rem;
+  position: absolute;
+  top: 1rem;
+  z-index: 10000;
+}
+.card-msg svg {
+  font-size: 2rem;
+  color: white;
+  background: rgb(76, 175, 76);
+}

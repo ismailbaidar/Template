@@ -1,21 +1,26 @@
 import { Checkbox, FormControlLabel, TextField } from "@mui/material"
 import "../assets/styles/form.css"
 import Svg from "../components/SvgLogin"
-import { Link, Navigate } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import SvgRegister from "../components/SvgRegister"
 import { useRef, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import GoogleLogin from "react-google-login"
-import { register } from "../Features/AuthSlice"
+import {
+  loginByGoogle,
+  register,
+  registerByGoogle,
+} from "../Features/AuthSlice"
 export default function Register() {
   const dispatch = useDispatch()
   const isLoading = useSelector((state) => state.AuthReducer.isLoading)
+  const token = useSelector((state) => state.AuthReducer.token)
 
   const fullNameRef = useRef()
   const usernameRef = useRef()
   const emailRef = useRef()
   const passwordRef = useRef()
-
+  const navigate = useNavigate()
   const clientId =
     "201912823014-alq12a2d01h9t0a3k9q7vtfir277m9mr.apps.googleusercontent.com"
   useEffect(() => {
@@ -29,8 +34,26 @@ export default function Register() {
     gapi.load("client:auth2", start)
   }, [])
 
+  useEffect(() => {
+    if (token != null) {
+      navigate("/")
+    }
+  }, [token])
   const responseGoogle = async (response) => {
-    console.log(response)
+    // console.log(response)
+    dispatch(
+      registerByGoogle({
+        fullname: response.wt.Ad,
+        username: response.wt.rV,
+        email: response.profileObj.email,
+      })
+    )
+
+    console.log({
+      fullname: response.wt.Ad,
+      username: response.wt.rV,
+      email: response.profileObj.email,
+    })
   }
 
   function registerHandler() {

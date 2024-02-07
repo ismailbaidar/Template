@@ -18,12 +18,14 @@ import AdminSessions from "./AdminSessions"
 import CreateSessionPage from "./CreateSessionPage"
 import AdminCategories from "./AdminCategories"
 import CreateCategoryPage from "./CreateCategoryPage"
-import { useEffect } from "react"
+import EditSponsorAdmin from "./EditSponsorAdmin"
 import AdminTargetAudience from "./AdminTargetAudience"
 import CreateTargetAudience from "./CreateTargetAudience"
 import EditTargetAudience from "./EditTargetAudience"
+import CreateSponsorAdmin from "./CreateSponsorAdmin"
 import EditcategoryPage from "./EditCategory"
 import EditEvent from "./EditEvent"
+import AdminSponsor from "./AdminSponsor"
 export default function AdminRoutes() {
   const paths = useSelector((state) => state.AdminNavigationReducer.paths)
   const token = useSelector((state) => state.AuthReducer.role)
@@ -65,31 +67,27 @@ export default function AdminRoutes() {
               <Route path="events/:id" element={<EditEventAdmin />} />
               <Route path="users/create" element={<CreateUsersAdmin />} />
               <Route path="users" element={<AdminUsers />} />
-            </Routes>
-            <Routes>
-              <Route path="sponsor" element={<AdminSponsor />} />
-            </Routes>
-            <Routes>
-              <Route path="speakers/create" element={<CreateSpeakersAdmin />} />
-            </Routes>
-            <Routes>
-              <Route path="speakers" element={<AdminSpeakers />} />
-            </Routes>
 
-            <Routes>
+              <Route path="sponsor" element={<AdminSponsor />} />
+
+              <Route path="speakers/create" element={<CreateSpeakersAdmin />} />
+
+              <Route path="speakers" element={<AdminSpeakers />} />
+
               <Route path="sponsor/edit/:id" element={<EditSponsorAdmin />} />
-            </Routes>
-            <Routes>
+
               <Route path="sponsor/Create" element={<CreateSponsorAdmin />} />
-            </Routes>
-            <Routes>
+
               <Route path="speakers/edit/:id" element={<EditSpeakersAdmin />} />
-            </Routes>
-            <Routes>
+
               <Route path="users/edit/:id" element={<EditUsersAdmin />} />
               <Route path="sessions" element={<AdminSessions />} />
               <Route
                 path="events/update/:id/sessions/create"
+                element={<CreateSessionPage />}
+              />
+              <Route
+                path="events/update/:id/sessions/"
                 element={<CreateSessionPage />}
               />
               <Route path="categories" element={<AdminCategories />} />

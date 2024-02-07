@@ -2,7 +2,7 @@ import { Checkbox, FormControlLabel, TextField } from "@mui/material"
 import "../assets/styles/form.css"
 import SvgLogin from "../components/SvgLogin"
 import { Link, useNavigate } from "react-router-dom"
-import { login } from "../Features/AuthSlice"
+import { login, loginByGoogle } from "../Features/AuthSlice"
 import { useEffect, useReducer, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { GoogleLogin } from "react-google-login"
@@ -45,7 +45,12 @@ export default function Login() {
   }, [])
 
   const responseGoogle = async (response) => {
-    console.log(response)
+    dispatch(
+      loginByGoogle({
+        email: response.profileObj.email,
+        loginProvider: "Google",
+      })
+    )
   }
 
   return (

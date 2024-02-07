@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import CloudUploadIcon from "@mui/icons-material/CloudUpload"
 import { addEvent } from "../Features/EventSlice"
+import { useNavigate } from "react-router-dom"
 
 export default function CreateEventAdmin() {
   const dispatch = useDispatch()
@@ -25,6 +26,7 @@ export default function CreateEventAdmin() {
     dispatch(setPaths(["Dashboard", "Events", "Create"]))
   }, [])
 
+  const navigate = useNavigate()
   const startDate = useRef()
   const endDate = useRef()
   const file = useRef()
@@ -59,7 +61,7 @@ export default function CreateEventAdmin() {
     formData.append("file", file.current.files[0])
     formData.append("Name", name.current.value)
     formData.append("adress", adress.current.value)
-    dispatch(addEvent(formData))
+    dispatch(addEvent(formData)).then(() => navigate("/admin/events"))
     console.log(
       startDate.current.value,
       description,
@@ -136,9 +138,7 @@ export default function CreateEventAdmin() {
         )}
       </div>
       <TextEditor setDescription={setDescription} />
-      <div className="event-sessions-table">
-        <EventSessionPage />
-      </div>
+
       <button className="add-event-button" onClick={handleSubmit}>
         Add Event
       </button>
