@@ -78,7 +78,11 @@ export default function Navbar() {
             className="username cursor-pointer"
             onClick={() => setNavActionToggle(!navActionToggle)}
           >
-            {username}
+            <div className="profile-circle">
+              <span className="profile-letter">
+                {username[0].toUpperCase()}
+              </span>
+            </div>
           </div>
           {navActionToggle && (
             <ul>

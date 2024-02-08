@@ -17,40 +17,15 @@ import Paper from "@mui/material/Paper"
 import { Link } from "react-router-dom"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Switch from "@mui/material/Switch"
+
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import { visuallyHidden } from "@mui/utils"
 import { useDispatch, useSelector } from "react-redux"
-import { getAllSession } from "../Features/SessionSlice"
-import { useSelect } from "@mui/base"
+import { deleteSession, getAllSession } from "../Features/SessionSlice"
+
 import Loading from "./Loading"
-
-function createData(
-  id,
-  eventName,
-  sessionName,
-  sessionDescription,
-
-  numberOfPlaces,
-  eventType,
-  startDate,
-  endDate,
-  eventAddress
-) {
-  return {
-    id,
-    sessionName,
-    eventName,
-    sessionDescription,
-    numberOfPlaces,
-    eventType,
-    startDate,
-    endDate,
-    eventAddress,
-  }
-}
+import { getAllEvents } from "../Features/EventSlice"
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -62,13 +37,13 @@ function descendingComparator(a, b, orderBy) {
   return 0
 }
 
-function getComparator(order, orderBy) {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy)
-}
-
 const headCells = [
+  {
+    id: "eventName",
+    numeric: false,
+    disablePadding: false,
+    label: "Event Name",
+  },
   {
     id: "sessionDescription",
     numeric: false,
@@ -215,11 +190,12 @@ function AdminSessionsTable({ searchQuery }) {
   const [page, setPage] = React.useState(0)
   const [dense, setDense] = React.useState(false)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
-  const rows = useSelector((state) => state.SessionReducer.sessions)
+  const rows = useSelector((state) => state.EventReducer.events)
+
   const dispatch = useDispatch()
   const loading = useSelector((state) => state.SessionReducer.loading)
   useEffect(() => {
-    dispatch(getAllSession()).then(() => console.log(rows))
+    dispatch(getAllEvents()).then(() => console.log(rows))
     console.log("hello from the table session ")
     console.log(rows)
   }, [])
@@ -231,7 +207,7 @@ function AdminSessionsTable({ searchQuery }) {
   }, [rows])
   useEffect(() => {
     const filtered = rows?.filter((row) =>
-      row.type.toLowerCase().includes(searchQuery.toLowerCase())
+      row.type?.toLowerCase().includes(searchQuery.toLowerCase())
     )
     setFilteredRows(filtered)
     setPage(0)
@@ -289,93 +265,124 @@ function AdminSessionsTable({ searchQuery }) {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredRows.length) : 0
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+    <>
+      {loading && (
+        <div className="loading-wrapper">
+          <Loading />
+        </div>
+      )}
+      <Box sx={{ width: "100%" }}>
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          <EnhancedTableToolbar numSelected={selected.length} />
 
-        {loading ? (
-          <Loading scale=".5" />
-        ) : (
-          <TableContainer>
-            <Table
-              sx={{ minWidth: 750 }}
-              aria-labelledby="tableTitle"
-              size={dense ? "small" : "medium"}
-            >
-              <EnhancedTableHead
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
-                rowCount={rows?.length}
-              />
-              <TableBody>
-                {rows?.map((row, index) => {
-                  const isItemSelected = isSelected(row.id)
-                  const labelId = `enhanced-table-checkbox-${index}`
+          {loading ? (
+            <Loading scale=".5" />
+          ) : (
+            <TableContainer>
+              <Table
+                sx={{ minWidth: 750 }}
+                aria-labelledby="tableTitle"
+                size={dense ? "small" : "medium"}
+              >
+                <EnhancedTableHead
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onSelectAllClick={handleSelectAllClick}
+                  onRequestSort={handleRequestSort}
+                  rowCount={rows?.length}
+                />
+                <TableBody>
+                  {rows?.map((event, index) => {
+                    const color = `${Math.floor(
+                      Math.random() * 10
+                    )}${Math.floor(Math.random() * 10)}${Math.floor(
+                      Math.random() * 10
+                    )}${Math.floor(Math.random() * 10)}${Math.floor(
+                      Math.random() * 10
+                    )}${Math.floor(Math.random() * 10)}`
 
-                  return (
+                    return event.sessions.map((row) => {
+                      const isItemSelected = isSelected(row.id)
+                      const labelId = `enhanced-table-checkbox-${index}`
+                      console.log(row)
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          aria-checked={isItemSelected}
+                          tabIndex={-1}
+                          key={row.id}
+                          selected={isItemSelected}
+                          sx={{ cursor: "pointer" }}
+                        >
+                          <TableCell padding="checkbox"></TableCell>
+                          {/* <TableCell align="left">{row.id}</TableCell> */}
+                          {/* <TableCell align="left">{row.sessionName}</TableCell> */}
+                          <TableCell align="left">
+                            <span
+                              className={`bg-[#${color}] p-3 rounded-[5000px] text-white text-[.7rem]`}
+                            >
+                              {event.name}
+                            </span>
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.description.length > 15
+                              ? row.description.substring(0, 15) + "..."
+                              : row.description}
+                          </TableCell>
+                          <TableCell align="left">{row.nbrplace}</TableCell>
+                          <TableCell align="left">{row.type}</TableCell>
+                          <TableCell align="left">{row.dateStart}</TableCell>
+                          <TableCell align="left">{row.dateEnd}</TableCell>
+                          <TableCell align="left">{row.adress}</TableCell>
+                          <TableCell align="left" className="action-cell">
+                            <Link
+                              to={`/admin/events/${row.id}/sessions/create`}
+                            >
+                              <IconButton>
+                                <EditIcon />
+                              </IconButton>
+                            </Link>
+                            <IconButton
+                              onClick={() =>
+                                dispatch(deleteSession(row.id)).then(() =>
+                                  dispatch(getAllEvents())
+                                )
+                              }
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })
+                  })}
+                  {emptyRows > 0 && (
                     <TableRow
-                      hover
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.id}
-                      selected={isItemSelected}
-                      sx={{ cursor: "pointer" }}
+                      style={{
+                        height: (dense ? 33 : 53) * emptyRows,
+                      }}
                     >
-                      <TableCell padding="checkbox"></TableCell>
-                      {/* <TableCell align="left">{row.id}</TableCell> */}
-                      {/* <TableCell align="left">{row.sessionName}</TableCell> */}
-                      {/* <TableCell align="left">{row.eventName}</TableCell> */}
-                      <TableCell align="left">
-                        {row.description.length > 15
-                          ? row.description.substring(0, 15) + "..."
-                          : row.description}
-                      </TableCell>
-                      <TableCell align="left">{row.nbrplace}</TableCell>
-                      <TableCell align="left">{row.type}</TableCell>
-                      <TableCell align="left">{row.dateStart}</TableCell>
-                      <TableCell align="left">{row.dateEnd}</TableCell>
-                      <TableCell align="left">{row.adress}</TableCell>
-                      <TableCell align="left" className="action-cell">
-                        <Link to={`/admin/events/${row.id}/sessions/create`}>
-                          <IconButton>
-                            <EditIcon />
-                          </IconButton>
-                        </Link>
-                        <IconButton>
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
+                      <TableCell colSpan={10} />
                     </TableRow>
-                  )
-                })}
-                {emptyRows > 0 && (
-                  <TableRow
-                    style={{
-                      height: (dense ? 33 : 53) * emptyRows,
-                    }}
-                  >
-                    <TableCell colSpan={10} />
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows?.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </Box>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows?.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </Box>
+    </>
   )
 }
 AdminSessionsTable.propTypes = {

@@ -78,6 +78,8 @@ const initialState = {
   "X-token": null,
   role: localStorage.getItem("role") ? localStorage.getItem("role") : null,
   isLoading: false,
+  success: false,
+  error: false,
   fromLogout: false,
   id: null,
 }
@@ -91,6 +93,7 @@ const AuthSlice = createSlice({
       state.username = null
       state.email = null
       state.role = null
+      state.id = null
       localStorage.clear()
       console.log("logged out")
       state.fromLogout = true
@@ -98,13 +101,33 @@ const AuthSlice = createSlice({
     setFromLogout: (state, { payload }) => {
       state.setFromLogout = payload
     },
+    setSuccess: (state) => {
+      state.success = false
+      state.error = false
+      console.log("called")
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(addParticipant.fulfilled, (state, { payload }) => {
-      // state.id = payload
+      if (payload?.response?.status == 401) {
+        state.error = true
+      } else {
+        state.success = true
+      }
+      state.isLoading = false
+      console.log(state.token, state.id, "token")
     })
+    builder.addCase(addParticipant.pending, (state, { payload }) => {
+      state.isLoading = true
+    })
+    builder.addCase(addParticipant.rejected, (state, { payload }) => {
+      state.isLoading = false
+      console.log(payload)
+    })
+
     builder.addCase(getIdByEmail.fulfilled, (state, { payload }) => {
       state.id = payload
+      console.log("id", payload)
       localStorage.setItem("id", payload)
     })
     builder.addCase(login.fulfilled, (state, { payload }) => {
@@ -184,4 +207,4 @@ const AuthSlice = createSlice({
 })
 
 export default AuthSlice.reducer
-export const { logout, setFromLogout } = AuthSlice.actions
+export const { logout, setFromLogout, setSuccess } = AuthSlice.actions

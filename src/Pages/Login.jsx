@@ -2,7 +2,7 @@ import { Checkbox, FormControlLabel, TextField } from "@mui/material"
 import "../assets/styles/form.css"
 import SvgLogin from "../components/SvgLogin"
 import { Link, useNavigate } from "react-router-dom"
-import { login, loginByGoogle } from "../Features/AuthSlice"
+import { getIdByEmail, login, loginByGoogle } from "../Features/AuthSlice"
 import { useEffect, useReducer, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { GoogleLogin } from "react-google-login"
@@ -23,7 +23,7 @@ export default function Login() {
         email: email.current.value,
         password: password.current.value,
       })
-    )
+    ).then(() => dispatch(getIdByEmail(localStorage.getItem("email"))))
   }
   useEffect(() => {
     if (token != null) {
@@ -50,7 +50,7 @@ export default function Login() {
         email: response.profileObj.email,
         loginProvider: "Google",
       })
-    )
+    ).then(() => dispatch(getIdByEmail(localStorage.getItem("email"))))
   }
 
   return (

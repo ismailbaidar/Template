@@ -1,9 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap");
 
 .container-single {
-  position: relative;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 2rem 2rem;
 }
 .space {
@@ -13,6 +12,14 @@
   padding-block: 1rem;
   display: flex;
   height: max-content;
+}
+.loading-wrapper {
+  position: sticky;
+  width: 100vw;
+  height: 100vh;
+  inset: 0;
+  background-color: white;
+  opacity: 0.8;
 }
 .event-place svg {
   font-size: 14px;

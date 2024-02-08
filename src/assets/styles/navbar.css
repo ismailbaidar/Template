@@ -51,7 +51,30 @@ nav .profile ul {
   text-align: center;
   display: flex;
   align-items: center;
+  box-shadow: 1px 1px 3px lightgray;
   justify-content: center;
+}
+.profile ul li:not(:last-child) {
+  border-bottom: 2px solid var(--primary-red);
+}
+.profile .profile-circle {
+  width: 40px;
+  padding: 0.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid white;
+  background-color: white;
+  color: var(--primary-red);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.profile .profile-circle .profile-letter {
+  font-weight: bold;
+  font-size: 1.2rem;
+  position: absolute;
 }
 .profile ul li:hover {
   background-color: var(--primary-red);
