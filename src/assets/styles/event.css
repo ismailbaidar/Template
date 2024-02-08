@@ -73,7 +73,8 @@
   background: white;
   /* position: relative; */
   inset: 0;
-
+  right: 0;
+  left: 0;
   top: 25%;
   padding: 1rem;
   font-size: 1rem;
