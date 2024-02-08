@@ -188,8 +188,9 @@ function EventsAdminTable({ searchQuery }) {
   const [page, setPage] = React.useState(0)
   const [dense, setDense] = React.useState(false)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
-  const rows = useSelector((state) => state.EventReducer.events)
+  const events = useSelector((state) => state.EventReducer.events)
   // const [filteredRows, setFilteredRows] = useState(rows)
+  const rows = []
   const loading = useSelector((state) => state.EventReducer.loading)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -245,15 +246,13 @@ function EventsAdminTable({ searchQuery }) {
     setPage(0)
   }
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked)
-  }
-
   const isSelected = (id) => selected.indexOf(id) !== -1
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0
-
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows?.length) : 0
+  function handleDelete(id) {
+    dispatch(deleteEvent(id)).then(() => dispatch(getAllEvents()))
+  }
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -272,7 +271,7 @@ function EventsAdminTable({ searchQuery }) {
                 onRequestSort={handleRequestSort}
               />
               <TableBody>
-                {(rows.length ? [] : rows)?.map((row, index) => {
+                {events?.map((row, index) => {
                   const isItemSelected = isSelected(row.id)
                   const labelId = `enhanced-table-checkbox-${index}`
 
@@ -298,13 +297,7 @@ function EventsAdminTable({ searchQuery }) {
                             <EditIcon />
                           </Link>
                         </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            dispatch(deleteEvent(row.id)).then(() =>
-                              dispatch(getAllEvents())
-                            )
-                          }}
-                        >
+                        <IconButton onClick={() => handleDelete(row.id)}>
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>

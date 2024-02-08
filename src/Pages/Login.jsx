@@ -23,7 +23,7 @@ export default function Login() {
         email: email.current.value,
         password: password.current.value,
       })
-    ).then(() => dispatch(getIdByEmail(localStorage.getItem("email"))))
+    )
   }
   useEffect(() => {
     if (token != null) {
@@ -50,7 +50,7 @@ export default function Login() {
         email: response.profileObj.email,
         loginProvider: "Google",
       })
-    ).then(() => dispatch(getIdByEmail(localStorage.getItem("email"))))
+    )
   }
 
   return (

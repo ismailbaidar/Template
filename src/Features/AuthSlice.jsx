@@ -149,6 +149,8 @@ const AuthSlice = createSlice({
         state.token = payload.token
         state.role = localStorage.getItem("role")
         state.username = payload.userName
+        localStorage.setItem("id", payload.id)
+        state.id = payload.id
       }
       console.log(state.username)
     })
@@ -171,6 +173,10 @@ const AuthSlice = createSlice({
         state.token = payload.token
         state.role = localStorage.getItem("role")
         state.username = payload.userName
+        state.id = payload.id
+        localStorage.setItem("id", payload.id)
+
+        console.log(payload)
       }
     })
     builder.addCase(login.pending, (state, { payload }) => {
@@ -200,8 +206,9 @@ const AuthSlice = createSlice({
         state.token = payload.token
         state.role = localStorage.getItem("role")
         state.username = payload.userName
+        state.id = payload.id
+        localStorage.setItem("id", payload.id)
       }
-      console.log(state.username)
     })
     builder.addCase(loginByGoogle.pending, (state, { payload }) => {
       state.isLoading = true

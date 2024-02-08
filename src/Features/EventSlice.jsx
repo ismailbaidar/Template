@@ -101,7 +101,7 @@ const EventSlice = createSlice({
       state.loading = false
 
       state.events = payload
-      console.log(payload, "events")
+      console.log(payload, "eventxxxxs")
     })
     addCase(getThisMonthEventDates.fulfilled, (state, { payload }) => {
       const tempDays = []
