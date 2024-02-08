@@ -23,6 +23,8 @@
   /* padding: 1.5rem; */
   font-size: 3em;
   color: white;
+  /* background-color: red; */
+  width: 100%;
 }
 
 .event-container:before {
@@ -73,7 +75,7 @@
   background: white;
   /* position: relative; */
   inset: 0;
-  right: 0;
+  width: 100%;
   left: 0;
   top: 25%;
   padding: 1rem;
@@ -82,6 +84,7 @@
   grid-template-columns: 1fr 1fr;
   padding: 2rem;
   gap: 2rem;
+  /* height: 100%; */
   overflow-y: auto;
 
   /* height: max-content; */
