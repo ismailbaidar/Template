@@ -171,11 +171,7 @@ function EnhancedTableToolbar(props) {
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        <Tooltip title="Delete"></Tooltip>
       ) : (
         <Tooltip title="Filter list">
           <IconButton>{/* <FilterListIcon /> */}</IconButton>
@@ -193,7 +189,7 @@ function EventsAdminTable({ searchQuery }) {
   const [dense, setDense] = React.useState(false)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
   const rows = useSelector((state) => state.EventReducer.events)
-  const [filteredRows, setFilteredRows] = useState(rows)
+  // const [filteredRows, setFilteredRows] = useState(rows)
   const loading = useSelector((state) => state.EventReducer.loading)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -203,7 +199,7 @@ function EventsAdminTable({ searchQuery }) {
     const filtered = rows?.filter((row) =>
       row.name.toLowerCase().includes(searchQuery.toLowerCase())
     )
-    setFilteredRows(filtered)
+    // setFilteredRows(filtered)
     setPage(0)
   }, [searchQuery])
   const handleRequestSort = (event, property) => {
@@ -256,7 +252,7 @@ function EventsAdminTable({ searchQuery }) {
   const isSelected = (id) => selected.indexOf(id) !== -1
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredRows.length) : 0
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -276,7 +272,7 @@ function EventsAdminTable({ searchQuery }) {
                 onRequestSort={handleRequestSort}
               />
               <TableBody>
-                {rows?.map((row, index) => {
+                {(rows.length ? [] : rows)?.map((row, index) => {
                   const isItemSelected = isSelected(row.id)
                   const labelId = `enhanced-table-checkbox-${index}`
 

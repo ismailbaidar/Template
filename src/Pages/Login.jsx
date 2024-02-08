@@ -55,48 +55,46 @@ export default function Login() {
 
   return (
     <>
-      {isLoading && (
-        <div className="form-container">
-          <div className="background bg-gradient-to-r from-sky-500 to-indigo-500">
-            <SvgLogin />
-          </div>
-          <div className="form-elements">
-            <span>
-              <h1>Sign In</h1>
-              <h2>
-                Dont have an account ? <Link to="/register">Sign Up</Link>
-              </h2>
-            </span>
-            <TextField label="Email" type="outlined" inputRef={email} />
-            <TextField label="Password" type="password" inputRef={password} />
-            <div className="checkbox">
-              <Checkbox id="remember" />
-              {/* <input type="checkbox" name="" id="" /> */}
-              <label htmlFor="remember">Remember me ?</label>
-            </div>
-            <button
-              className="position-relative"
-              onClick={() => {
-                handleLogin()
-              }}
-            >
-              {isLoading ? <SimpleLoadingSpinner /> : "Login"}
-            </button>
-
-            <GoogleLogin
-              className="google-sign-up-button"
-              clientId="201912823014-alq12a2d01h9t0a3k9q7vtfir277m9mr.apps.googleusercontent.com"
-              buttonText="Sign Up with Google"
-              onSuccess={responseGoogle}
-              // onFailure={responseGoogle}
-            />
-
-            <Link to="/" className="redirect-home">
-              Back to home
-            </Link>
-          </div>
+      <div className="form-container">
+        <div className="background bg-gradient-to-r from-sky-500 to-indigo-500">
+          <SvgLogin />
         </div>
-      )}
+        <div className="form-elements">
+          <span>
+            <h1>Sign In</h1>
+            <h2>
+              Dont have an account ? <Link to="/register">Sign Up</Link>
+            </h2>
+          </span>
+          <TextField label="Email" type="outlined" inputRef={email} />
+          <TextField label="Password" type="password" inputRef={password} />
+          <div className="checkbox">
+            <Checkbox id="remember" />
+            {/* <input type="checkbox" name="" id="" /> */}
+            <label htmlFor="remember">Remember me ?</label>
+          </div>
+          <button
+            className="position-relative"
+            onClick={() => {
+              handleLogin()
+            }}
+          >
+            {isLoading ? <SimpleLoadingSpinner /> : "Login"}
+          </button>
+
+          <GoogleLogin
+            className="google-sign-up-button"
+            clientId="201912823014-alq12a2d01h9t0a3k9q7vtfir277m9mr.apps.googleusercontent.com"
+            buttonText="Sign Up with Google"
+            onSuccess={responseGoogle}
+            // onFailure={responseGoogle}
+          />
+
+          <Link to="/" className="redirect-home">
+            Back to home
+          </Link>
+        </div>
+      </div>
     </>
   )
 }

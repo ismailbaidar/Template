@@ -203,6 +203,13 @@ const AuthSlice = createSlice({
       }
       console.log(state.username)
     })
+    builder.addCase(loginByGoogle.pending, (state, { payload }) => {
+      state.isLoading = true
+    })
+
+    builder.addCase(loginByGoogle.rejected, (state, { payload }) => {
+      state.isLoading = false
+    })
   },
 })
 

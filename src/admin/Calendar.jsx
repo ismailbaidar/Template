@@ -7,6 +7,9 @@ import { PickersDay } from "@mui/x-date-pickers/PickersDay"
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar"
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton"
 import "../assets/styles/red-dot.css"
+import { useDispatch, useSelector } from "react-redux"
+import { getThisMonthEventDates } from "../Features/EventSlice"
+import { useEffect } from "react"
 
 const date = new Date()
 
@@ -14,7 +17,8 @@ function ServerDay(props) {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props
 
   const isSelected =
-    !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0
+    !props.outsideCurrentMonth &&
+    highlightedDays?.indexOf(props.day.date()) >= 0
 
   return (
     <Badge
@@ -38,18 +42,32 @@ export default function Calendar() {
 
   const requestAbortController = React.useRef(null)
   const [isLoading, setIsLoading] = React.useState(false)
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15])
+  const [days, setDays] = React.useState([])
 
-  React.useEffect(() => {
-    return () => requestAbortController.current?.abort()
+  const monthEventsDates = useSelector(
+    (state) => state.EventReducer.monthEventsDates
+  )
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getThisMonthEventDates(`${date["$y"]}-${date["$M"]}-1`)).then(
+      () => {
+        setDays(monthEventsDates)
+        console.log(monthEventsDates, "hellooooooooooooo")
+      }
+    )
   }, [])
 
-  const handleMonthChange = (date) => {
-    // if (requestAbortController.current) {
-    //   requestAbortController.current.abort()
-    // }
-
-    setHighlightedDays([1, 2, 4])
+  function handleMonthChange(date) {
+    console.log(`${date["$y"]}-${date["$M"] + 1}-1`)
+    console.log(date)
+    dispatch(getThisMonthEventDates(`${date["$y"]}-${date["$M"]}-1`)).then(
+      () => {
+        setDays(monthEventsDates)
+        console.log(monthEventsDates, "hellooooooooooooo")
+      }
+    )
   }
 
   return (
@@ -65,7 +83,7 @@ export default function Calendar() {
           }}
           slotProps={{
             day: {
-              highlightedDays,
+              highlightedDays: days,
             },
           }}
         />

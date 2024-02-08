@@ -4,6 +4,7 @@ import axios from "axios"
 const initialState = {
   events: [],
   event: {},
+  monthEventsDates: [],
   loading: false,
 }
 
@@ -77,31 +78,48 @@ export const getThisWeekEvents = createAsyncThunk(
   }
 )
 
+export const getThisMonthEventDates = createAsyncThunk(
+  "events/getThisWeekEvents",
+  async (data) => {
+    return axios
+      .get(
+        `https://mmc-event-session.azurewebsites.net/api/v1/Event/thismonth?sortBy=${data}`
+      )
+      .then((res) => res.data)
+      .catch((err) => console.log(err))
+  }
+)
+
 const EventSlice = createSlice({
   name: "event",
   initialState,
   extraReducers: ({ addCase }) => {
-    addCase(getAllEvents.fulfilled, (state, { payload }) => {
-      state.events = payload
-      state.loading = false
-    })
     addCase(getAllEvents.pending, (state, { payload }) => {
-      state.events = payload
       state.loading = true
+    })
+    addCase(getAllEvents.fulfilled, (state, { payload }) => {
+      state.loading = false
+
+      state.events = payload
       console.log(payload, "events")
     })
-    addCase(getAllEvents.rejected, (state, { payload }) => {
-      state.loading = false
+    addCase(getThisMonthEventDates.fulfilled, (state, { payload }) => {
+      const tempDays = []
+      payload?.map((event) => {
+        tempDays.push(parseInt(event.dateStart.split("-")[2].split("T")[0]))
+      })
+      state.monthEventsDates = tempDays
+
+      // state.loading = true
+      console.log(payload, "mpntzer", tempDays)
     })
+
     addCase(getEventById.fulfilled, (state, { payload }) => {
       state.event = payload
       console.log(payload)
       state.loading = false
     })
-    addCase(getThisWeekEvents.fulfilled, (state, { payload }) => {
-      state.events = payload
-      console.log(payload)
-    })
+
     addCase(deleteEvent.fulfilled, (state, { payload }) => {
       state.events = payload
       // state.loading = false

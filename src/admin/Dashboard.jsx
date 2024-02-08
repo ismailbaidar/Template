@@ -14,9 +14,11 @@ import DashboardEventEvent from "../components/DashboardEventTable"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setAdminCurrentPage, setPaths } from "../Features/AdminNavigationSlice"
-import { getAllEvents } from "../Features/EventSlice"
+import { getAllEvents, getThisMonthEventDates } from "../Features/EventSlice"
 export default function Dashboard() {
   const events = useSelector((state) => state.EventReducer.events)
+
+  const date = new Date()
   useEffect(() => {
     dispatch(getAllEvents())
   }, [])
